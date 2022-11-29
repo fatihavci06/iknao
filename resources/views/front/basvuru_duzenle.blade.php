@@ -851,7 +851,7 @@
 
         @media only screen and (min-width: 940px) {
             p {
-                font-size: 16px;
+                font-size: 1.6rem;
             }
         }
 
@@ -877,7 +877,7 @@
         @media only screen and (min-width: 940px) {
             ul,
             ol {
-                font-size: 16px;
+                font-size: 1.6rem;
             }
         }
 
@@ -1096,7 +1096,7 @@
             --button-text-color: hsl(var(--white));
             --button-text-decoration: none;
             --button-text-font-family: var(--font-family-sans-serif);
-            --button-text-font-size: 16px;
+            --button-text-font-size: 1.6rem;
             --button-text-font-weight: 600;
             --button-text-letter-spacing: 0.05em;
             --button-text-shadow: 0 1px hsla(0, 0%, 20%, 0.2);
@@ -1133,7 +1133,7 @@
             color 0.2s ease-in-out,
             text-shadow 0.2s ease-in-out;
             white-space: nowrap;
-            width: 100%;
+
         }
 
         button:active {
@@ -1183,7 +1183,7 @@
            Container
            ========================================================================== */
 
-        .container {
+        .test12 {
             max-width: 80rem; /* 800px */
             width: 100%;
         }
@@ -3182,7 +3182,7 @@
 
     <section class="py-0 overflow-hidden light" id="banner" style="height: 900px!important;">
 
-        <div class="bg-holder overlay" style="background-image:url({{asset('tema/public/')}}/assets/img/generic/bg-1.jpg);background-position: center bottom;">
+        <div class="bg-holder overlay" style="background-image:url({{asset('tema/public/')}}/assets/img/generic/kariyer.png);background-position: center bottom;">
         </div>
         <!--/.bg-holder-->
 

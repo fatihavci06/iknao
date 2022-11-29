@@ -3,13 +3,13 @@
     <!-- ============================================-->
     <!-- <section> begin ============================-->
 
-    <section class="py-0 overflow-hidden light" id="banner" style="height: 700px;">
+    <section class="py-0 overflow-hidden light" id="banner" style="height: 800px;">
 
-        <div class="bg-holder overlay" style="background-image:url({{asset('tema/public/')}}/assets/img/generic/bg-1.jpg);background-position: center bottom;">
+        <div class="bg-holder overlay" style="background-image:url({{asset('tema/public/')}}/assets/img/generic/kariyer.png);background-position: center bottom;">
         </div>
         <!--/.bg-holder-->
 
-        <div class="container">
+        <div class="container " style="margin-top:-30px;">
             <div class="row flex-center pt-8 pt-lg-10 pb-lg-9 pb-xl-0">
                 <div class="row justify-content-center g-0 mx-auto">
                     <div class="col-lg-6 col-xl-6 col-xxl-6">
@@ -32,13 +32,13 @@
                                     @csrf
                                     <div class="mb-3">
                                         <label class="form-label" for="split-login-email">Email</label>
-                                        <input class="form-control" id="split-login-email" name="email" type="email">
+                                        <input class="form-control" id="split-login-email" name="email" type="email" required>
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-flex justify-content-between">
                                             <label class="form-label" for="split-login-password">Password</label>
                                         </div>
-                                        <input class="form-control" id="split-login-password" name="password" type="password">
+                                        <input class="form-control" id="split-login-password" name="password" type="password" required>
                                     </div>
                                     <div class="row flex-between-center">
 
