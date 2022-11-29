@@ -2,7 +2,7 @@
 <!--    Main Content-->
 <!-- ===============================================-->
 <main class="main" id="top">
-    <nav class="navbar navbar-standard navbar-expand-lg fixed-top navbar-dark" data-navbar-darken-on-scroll="data-navbar-darken-on-scroll">
+    <nav class="navbar navbar-standard navbar-expand-lg fixed-top navbar-dark navbar-glass-shadow"  style="background-image: none; background-color: #000000!important; transition: none 0s ease 0s;">
         <div class="container">
             <a class="navbar-brand" href="{{asset('tema/public/')}}/index.html">
                 <span class="text-white dark__text-white">Falcon</span>
@@ -37,17 +37,18 @@
 
 
                     @else
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('front.yenibasvuru')}}"  >Yeni Başvuru</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{route('front.giris')}}"  >Giriş yap</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('front.yenibasvuru')}}"  >Yeni Başvuru</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{route('front.giris')}}"  >Giriş yap</a>
+                        </li>
                     @endauth
                 </ul>
             </div>
         </div>
     </nav>
+
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">

@@ -3,7 +3,7 @@
     <!-- ============================================-->
     <!-- <section> begin ============================-->
 
-    <section class="py-0 overflow-hidden light" id="banner">
+    <section class="py-0 overflow-hidden light" id="banner" style="margin-top: 55px;">
 
         <div class="bg-holder overlay" style="background-image:url({{asset('tema/public/')}}/assets/img/generic/bg-1.jpg);background-position: center bottom;">
         </div>

@@ -951,7 +951,7 @@
   --falcon-input-placeholder-color: #344050;
   --falcon-form-check-input-border-color: #4d5969;
   /* --------------------------------- Navbar --------------------------------- */
-  --falcon-bg-navbar-glass: rgba(11, 23, 39, 0.96);
+  --falcon-bg-navbar-glass: #fff;
   --falcon-navbar-dark-color: rgba(11, 23, 39, 0.55);
   --falcon-navbar-dark-hover-color: rgba(11, 23, 39, 0.75);
   --falcon-navbar-dark-active-color: #0b1727;
@@ -27526,7 +27526,7 @@ a[href].bg-200:hover, a[href].bg-200:focus {
   }
 }
 /*-----------------------------------------------
-|  Back to top button   
+|  Back to top button
 -----------------------------------------------*/
 .btn-back-to-top {
   background-color: var(--falcon-dark);
