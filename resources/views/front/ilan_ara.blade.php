@@ -50,8 +50,11 @@
 
 
                                 <div class="row mt-3 mb-3" >
-                                    <div class="col-lg-6 col-xs-6 col-sm-6 col-md-6" ><a href="{{route('front.ilan_detay',['id'=>$i->id])}}"> {{$i->ilan_name}} </a></div>
-                                    <div class="col-lg-6 col-xs-6 col-sm-6 col-md-6" >{{ \Carbon\Carbon::parse($i->created_at)->diffForHumans() }}</div>
+                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4 col-4" ><a href="{{route('front.ilan_detay',['id'=>$i->id])}}"> {{$i->ilan_name}} </a></div>
+                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4 col-4" >{{ $i->konum }}</div>
+                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4 col-4" >{{ \Carbon\Carbon::parse($i->created_at)->diffForHumans() }}</div>
+
+
 
                                 </div>
 

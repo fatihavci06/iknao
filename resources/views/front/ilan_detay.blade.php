@@ -45,7 +45,7 @@
 
             <div class="card" style="width: 100%">
                 <div class="card-header">
-                   <b> {{$ilandetay->ilan_name}}</b>
+                   <b> {{$ilandetay->ilan_name}} - {{$ilandetay->konum}} </b>
                 </div>
                 <hr/>
                 <ul class="list-group list-group-flush">

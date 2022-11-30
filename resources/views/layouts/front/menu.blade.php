@@ -32,7 +32,7 @@
                             <div class="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0" aria-labelledby="dashboards">
                                 <div class="bg-white dark__bg-1000 rounded-3 py-2">
                                     <a class="dropdown-item link-600 fw-medium" style="font-size:18px;color:#fff;" href="{{route('front.edit')}}">Profilim</a>
-                                    
+
                                     <a class="dropdown-item link-600 fw-medium" style="font-size:18px;color:#fff;" href="{{route('front.logout')}}">Çıkış</a>
 
                                 </div>

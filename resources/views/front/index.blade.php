@@ -89,7 +89,7 @@
                             <div class="swiper-slide">
 
                                 <div class="px-5 px-sm-6">
-                                    <p class="fs-sm-1 fs-md-2 fst-italic text-dark"><a href="{{route('front.ilan_detay',['id'=>$ilan->id])}}">{{$ilan->ilan_name}}</a></p>
+                                    <p class="fs-sm-1 fs-md-2 fst-italic text-dark"><a href="{{route('front.ilan_detay',['id'=>$ilan->id])}}">{{$ilan->ilan_name}} <br/> {{$ilan->konum}} </a></p>
                                     <p class="fs-0 text-600">{{ \Carbon\Carbon::parse($ilan->created_at)->diffForHumans() }}</p>
                                 </div>
                             </div>
