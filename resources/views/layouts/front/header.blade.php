@@ -25,6 +25,7 @@
     <meta name="theme-color" content="#ffffff">
     <script src="{{asset('tema/public/')}}/assets/js/config.js"></script>
     <script src="{{asset('tema/public/')}}/vendors/simplebar/simplebar.min.js"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1254" />
 
 
     <!-- ===============================================-->

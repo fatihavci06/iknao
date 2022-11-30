@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Ilan;
 use App\Models\User;
 use App\Models\Brans;
 use App\Models\Campus;
@@ -20,7 +21,8 @@ class IndexController extends Controller
     public function index()
     {
         //
-        return view('front.index');
+        $ilanlar=Ilan::where('endDate','>',now())->orderBy('id','desc')->get();
+        return view('front.index',['ilanlar'=>$ilanlar]);
 
     }
 
@@ -48,58 +50,119 @@ class IndexController extends Controller
     {
         //
 
-        $aday= new User();
-        $aday->tc=$request->tc;
-        if(!empty($request->file('avatar'))){
-            $aday->avatar=Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+        $varmi=User::where('tc',$request->tc)->count();
+        if($varmi>0){
 
+            $aday= User::where('tc',$request->tc)->first();
+
+            $silinecek=$aday->avatar;
+            if(!empty($request->file('avatar'))){
+                $aday->avatar=Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+
+
+            }
+            $aday->brans_id=$request->brans_id;
+            $aday->firstname=$request->firstname;
+            $aday->lastname=$request->lastname;
+            $aday->birtercih=$request->birtercih;
+            $aday->ikitercih=$request->ikitercih;
+            $aday->uctercih=$request->uctercih;
+            $aday->cepno=$request->cepno;
+            $aday->adres=$request->adres;
+            $aday->eposta=$request->eposta;
+            $aday->cinsiyet=$request->cinsiyet;
+            $aday->dtarihi=$request->dtarihi;
+            $aday->dyeri=$request->dyeri;
+            $aday->medenidurum=$request->medenidurum;
+            $aday->cocuk=$request->cocuk;
+            $aday->askerlikdurum=$request->askerlikdurum;
+            $aday->tecil=$request->tecil;
+            $aday->kangrubu=$request->kangrubu;
+            $aday->acilkisi=$request->acilkisi;
+            $aday->acilkisitel=$request->acilkisitel;
+            $aday->sonOkulderece=$request->sonOkulderece;
+            $aday->lisMezTar=$request->lisMezTar;
+            $aday->sonOkul=$request->sonOkul;
+            $aday->lFak=$request->lFak;
+            $aday->yLuni=$request->yLuni;
+            $aday->yLisfak=$request->yLisfak;
+            $aday->yDokUni=$request->yDokUni;
+            $aday->yDokBolum=$request->yDokBolum;
+            $aday->tecrube=$request->tecrube;
+            $aday->staj=$request->staj;
+            $aday->ingSev=$request->ingSev;
+            $aday->almSev=$request->almSev;
+            $aday->frSev=$request->frSev;
+            $aday->isSev=$request->isSev;
+            $aday->ofisArac=$request->ofisArac;
+            $aday->kurs=$request->kurs;
+            $aday->dernek=$request->dernek;
+            $aday->uzmanlik=$request->uzmanlik;
+            $aday->notlar=$request->notlar;
+            $aday->ref1=$request->ref1;
+            $aday->ref2=$request->ref2;
+            $aday->ref3=$request->ref3;
+            $aday->smsonay=$request->smsonay;
+            $random_sifre=rand(100000,999999);
+            $aday->password=bcrypt($random_sifre);
+            $aday->save();
+            return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
         }
-        $aday->brans_id=$request->brans_id;
-        $aday->firstname=$request->firstname;
-        $aday->lastname=$request->lastname;
-        $aday->birtercih=$request->birtercih;
-        $aday->ikitercih=$request->ikitercih;
-        $aday->uctercih=$request->uctercih;
-        $aday->cepno=$request->cepno;
-        $aday->adres=$request->adres;
-        $aday->eposta=$request->eposta;
-        $aday->cinsiyet=$request->cinsiyet;
-        $aday->dtarihi=$request->dtarihi;
-        $aday->dyeri=$request->dyeri;
-        $aday->medenidurum=$request->medenidurum;
-        $aday->cocuk=$request->cocuk;
-        $aday->askerlikdurum=$request->askerlikdurum;
-        $aday->tecil=$request->tecil;
-        $aday->kangrubu=$request->kangrubu;
-        $aday->acilkisi=$request->acilkisi;
-        $aday->acilkisitel=$request->acilkisitel;
-        $aday->sonOkulderece=$request->sonOkulderece;
-        $aday->lisMezTar=$request->lisMezTar;
-        $aday->sonOkul=$request->sonOkul;
-        $aday->lFak=$request->lFak;
-        $aday->yLuni=$request->yLuni;
-        $aday->yLisfak=$request->yLisfak;
-        $aday->yDokUni=$request->yDokUni;
-        $aday->yDokBolum=$request->yDokBolum;
-        $aday->tecrube=$request->tecrube;
-        $aday->staj=$request->staj;
-        $aday->ingSev=$request->ingSev;
-        $aday->almSev=$request->almSev;
-        $aday->frSev=$request->frSev;
-        $aday->isSev=$request->isSev;
-        $aday->ofisArac=$request->ofisArac;
-        $aday->kurs=$request->kurs;
-        $aday->dernek=$request->dernek;
-        $aday->uzmanlik=$request->uzmanlik;
-        $aday->notlar=$request->notlar;
-        $aday->ref1=$request->ref1;
-        $aday->ref2=$request->ref2;
-        $aday->ref3=$request->ref3;
-        $aday->smsonay=$request->smsonay;
-        $random_sifre=rand(100000,999999);
-        $aday->password=bcrypt($random_sifre);
-        $aday->save();
-        return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
+        else{
+            $aday= new User();
+            $aday->tc=$request->tc;
+            if(!empty($request->file('avatar'))){
+                $aday->avatar=Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+
+            }
+            $aday->brans_id=$request->brans_id;
+            $aday->firstname=$request->firstname;
+            $aday->lastname=$request->lastname;
+            $aday->birtercih=$request->birtercih;
+            $aday->ikitercih=$request->ikitercih;
+            $aday->uctercih=$request->uctercih;
+            $aday->cepno=$request->cepno;
+            $aday->adres=$request->adres;
+            $aday->eposta=$request->eposta;
+            $aday->cinsiyet=$request->cinsiyet;
+            $aday->dtarihi=$request->dtarihi;
+            $aday->dyeri=$request->dyeri;
+            $aday->medenidurum=$request->medenidurum;
+            $aday->cocuk=$request->cocuk;
+            $aday->askerlikdurum=$request->askerlikdurum;
+            $aday->tecil=$request->tecil;
+            $aday->kangrubu=$request->kangrubu;
+            $aday->acilkisi=$request->acilkisi;
+            $aday->acilkisitel=$request->acilkisitel;
+            $aday->sonOkulderece=$request->sonOkulderece;
+            $aday->lisMezTar=$request->lisMezTar;
+            $aday->sonOkul=$request->sonOkul;
+            $aday->lFak=$request->lFak;
+            $aday->yLuni=$request->yLuni;
+            $aday->yLisfak=$request->yLisfak;
+            $aday->yDokUni=$request->yDokUni;
+            $aday->yDokBolum=$request->yDokBolum;
+            $aday->tecrube=$request->tecrube;
+            $aday->staj=$request->staj;
+            $aday->ingSev=$request->ingSev;
+            $aday->almSev=$request->almSev;
+            $aday->frSev=$request->frSev;
+            $aday->isSev=$request->isSev;
+            $aday->ofisArac=$request->ofisArac;
+            $aday->kurs=$request->kurs;
+            $aday->dernek=$request->dernek;
+            $aday->uzmanlik=$request->uzmanlik;
+            $aday->notlar=$request->notlar;
+            $aday->ref1=$request->ref1;
+            $aday->ref2=$request->ref2;
+            $aday->ref3=$request->ref3;
+            $aday->smsonay=$request->smsonay;
+            $random_sifre=rand(100000,999999);
+            $aday->password=bcrypt($random_sifre);
+            $aday->save();
+            return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
+        }
+
     }
 
     /**
@@ -111,7 +174,7 @@ class IndexController extends Controller
     public function login(Request $req)
     {
         //
-        if (Auth::attempt(['eposta' => $req->email, 'password' => $req->password])) {
+        if (Auth::attempt(['tc' => $req->tc, 'password' => $req->password])) {
             // Authentication was successful...
             return redirect()->route('front.index');
         }
@@ -129,6 +192,27 @@ class IndexController extends Controller
         //
         Auth::logout();
         return redirect()->route('front.index');
+    }
+    public function sifremiunuttum()
+    {
+        //
+
+        return view('front.sifremi_unuttum');
+    }
+
+    public function sifremiunuttumpost(Request $request)
+    {
+        $varmi=User::where('tc',$request->tc)->count();
+        if($varmi>0){
+            $random_sifre=rand(100000,999999);
+            $aday=User::where('tc',$request->tc)->first();
+            $aday->password=bcrypt($random_sifre);
+            $aday->save();
+            return redirect()->back()->with(['success'=>'Şifreniz: '.$random_sifre]);
+        }
+        else{
+            return redirect()->back()->with(['danger'=>'sisteme kayıtlı kullanıcı bulunmamaktadır']);
+        }
     }
 
     /**
@@ -211,7 +295,7 @@ class IndexController extends Controller
         $aday->smsonay=$request->smsonay;
 
         $aday->save();
-        return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: ']);
+        return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.']);
     }
 
     /**
@@ -220,6 +304,18 @@ class IndexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function ilan()
+    {
+
+        $ilanlar=Ilan::where('endDate','>',now())->orderBy('id','desc')->paginate(5);
+        return view('front.ilan',['ilan'=>$ilanlar]);
+    }
+    public function ilan_detay($id)
+    {
+        //
+        $ilandetay=Ilan::findOrfail($id);
+        return view('front.ilan_detay',['ilandetay'=>$ilandetay]);
+    }
     public function destroy($id)
     {
         //

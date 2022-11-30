@@ -5,7 +5,7 @@
     <nav class="navbar navbar-standard navbar-expand-lg fixed-top navbar-dark navbar-glass-shadow"  style="background-image: none; background-color: #000f3d!important; transition: none 0s ease 0s;">
         <div class="container">
             <a class="navbar-brand" href="{{route('front.index')}}">
-                <img style="max-width:155px;"  src="{{asset('tema/public/')}}/beyaz-png.png">
+                <img style="max-width:255px;"  src="{{asset('tema/public/')}}/beyaz-png.png">
             </a>
             <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbarStandard" aria-controls="navbarStandard" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -15,7 +15,10 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" style="font-size:14px;" href="{{route('front.index')}}"  >Anasayfa</a>
+                        <a class="nav-link" style="font-size:18px;color:#fff;" href="{{route('front.index')}}"  >Anasayfa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" style="font-size:18px;color:#fff;" href="{{route('front.ilan')}}"  >İlanlar</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
@@ -27,9 +30,9 @@
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="dashboards">{{Auth::user()->firstname}}</a>
                             <div class="dropdown-menu dropdown-caret dropdown-menu-card border-0 mt-0" aria-labelledby="dashboards">
                                 <div class="bg-white dark__bg-1000 rounded-3 py-2">
-                                    <a class="dropdown-item link-600 fw-medium" style="font-size:14px;" href="{{route('front.edit')}}">Profilim</a>
-                                    <a class="dropdown-item link-600 fw-medium" style="font-size:14px;" href="#">Düzenle</a>
-                                    <a class="dropdown-item link-600 fw-medium" style="font-size:14px;" href="{{route('front.logout')}}">Çıkış</a>
+                                    <a class="dropdown-item link-600 fw-medium" style="font-size:18px;color:#fff;" href="{{route('front.edit')}}">Profilim</a>
+                                    <a class="dropdown-item link-600 fw-medium" style="font-size:18px;color:#fff;" href="#">Düzenle</a>
+                                    <a class="dropdown-item link-600 fw-medium" style="font-size:18px;color:#fff;" href="{{route('front.logout')}}">Çıkış</a>
 
                                 </div>
                             </div>
@@ -38,10 +41,10 @@
 
                     @else
                         <li class="nav-item">
-                            <a class="nav-link" style="font-size:14px;" href="{{route('front.yenibasvuru')}}"  >Yeni Başvuru</a>
+                            <a class="nav-link" style="font-size:18px;color:#fff;" href="{{route('front.yenibasvuru')}}"  >Yeni Başvuru</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" style="font-size:14px;" href="{{route('front.giris')}}"  >Giriş yap</a>
+                            <a class="nav-link" style="font-size:18px;color:#fff;" href="{{route('front.giris')}}"  >Giriş yap</a>
                         </li>
                     @endauth
                 </ul>

@@ -3204,7 +3204,7 @@
 
                                 </button>
                                 <button id="progress-form__tab-2" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-2" aria-selected="false" tabindex="-1" aria-disabled="true">
-                                    <span class="d-block step" aria-hidden="true">Kampüs Tercihleri <span class="sm:d-none">of 8</span></span>
+                                    <span class="d-block step" aria-hidden="true">Tercihler <span class="sm:d-none">of 8</span></span>
 
                                 </button>
                                 <button id="progress-form__tab-3" class="flex-1 px-0 pt-2 progress-form__tabs-item" type="button" role="tab" aria-controls="progress-form__panel-3" aria-selected="false" tabindex="-1" aria-disabled="true">
@@ -3257,7 +3257,7 @@
                                                 <select id="brans_id" name="brans_id" class="form-select" required>
                                                     <option value="">Seçiniz</option>
                                                     @foreach($brans as $b)
-                                                        <option value="{{$b->id}}">{{$b->brans_name}}</option>
+                                                        <option value="{{$b->id}}" @if(Request::segment(2)==$b->brans_name)  selected @endif >{{$b->brans_name}}</option>
                                                     @endforeach
 
                                                 </select>

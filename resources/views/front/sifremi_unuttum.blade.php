@@ -18,34 +18,34 @@
                             @if(session('success'))
                                 <div class="alert alert-success">{{session('success')}}</div>
                             @endif
-                            @if(session('false'))
-                                <div class="alert alert-danger">{{session('false')}}</div>
+                            @if(session('danger'))
+                                <div class="alert alert-danger">{{session('danger')}}</div>
                             @endif
                             <div class="card-body p-4">
                                 <div class="row flex-between-center">
                                     <div class="col-auto">
-                                        <h3>Giriş</h3>
+                                        <h3>Şifremi unuttum</h3>
                                     </div>
 
                                 </div>
-                                <form action="{{route('front.login')}}" method="post">
+                                <form action="{{route('front.sifremiunuttumpost')}}" method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label" for="split-login-email">tc</label>
+                                        <label class="form-label" for="split-login-email">Tc</label>
                                         <input class="form-control" id="split-login-email" name="tc" type="number" required>
                                     </div>
                                     <div class="mb-3">
                                         <div class="d-flex justify-content-between">
-                                            <label class="form-label" for="split-login-password">Şifre</label>
+                                            <label class="form-label" for="split-login-password">Telefon Numarası</label>
                                         </div>
-                                        <input class="form-control" id="split-login-password" name="password" type="password" required>
+                                        <input class="form-control" id="split-login-password" name="cepno" type="number" required>
                                     </div>
                                     <div class="row flex-between-center">
 
-                                        <div class="col-auto"><a class="fs--1" href="{{route('front.sifremiunuttum')}}">Şifremi unuttum</a></div>
+                                        <div class="col-auto"><a class="fs--1" href="{{route('front.giris')}}">Giriş yap</a></div>
                                     </div>
                                     <div class="mb-3">
-                                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Giriş</button>
+                                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Sıfırla</button>
                                     </div>
                                 </form>
 
