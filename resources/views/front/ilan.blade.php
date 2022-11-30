@@ -48,10 +48,10 @@
 
 
 
-                        <div class="row mt-3 mb-3" >
-                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Pozisyon</b></div>
-                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Kampüs</b></div>
-                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Yayınlanma Zamanı</b></div>
+                        <div class="row mt-3 mb-3 " >
+                            <div class="col-4 col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Pozisyon</b></div>
+                            <div class=" col-4 col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Kampüs</b></div>
+                            <div class="col-4 col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>#</b></div>
 
 
                         </div>
@@ -71,9 +71,9 @@
 
 
                                 <div class="row mt-3 mb-3" >
-                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><a href="{{route('front.ilan_detay',['id'=>$i->id])}}"> {{$i->ilan_name}} </a></div>
-                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" >{{ $i->konum }}</div>
-                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" >{{ \Carbon\Carbon::parse($i->created_at)->diffForHumans() }}</div>
+                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4 col-4" ><a href="{{route('front.ilan_detay',['id'=>$i->id])}}"> {{$i->ilan_name}} </a></div>
+                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4 col-4 " >{{ $i->konum }}</div>
+                                    <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4 col-4" >{{ \Carbon\Carbon::parse($i->created_at)->diffForHumans() }}</div>
 
 
                                 </div>

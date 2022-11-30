@@ -48,10 +48,10 @@
 
 
 
-                        <div class="row mt-3 mb-3" >
-                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Pozisyon</b></div>
-                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Kampüs</b></div>
-                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Yayınlanma Zamanı</b></div>
+                        <div class="row mt-3 mb-3 " >
+                            <div class="col-4 col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Pozisyon</b></div>
+                            <div class=" col-4 col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Kampüs</b></div>
+                            <div class="col-4 col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>#</b></div>
 
 
                         </div>
@@ -88,7 +88,7 @@
             </div>
             @endforeach
 
-                <div class=" col-xs-12 col lg-4 col-xl-4 col-sm-12 mt-5 mx-auto" > <span>{{ $ilan->links() }}</span></div>
+                <div class=" col-xs-12 col lg-4 col-xl-4 col-sm-12 mt-5 mx-auto " > <span>{{ $ilan->links() }}</span></div>
         </div>
         <!-- end of .container-->
 
