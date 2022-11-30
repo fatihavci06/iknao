@@ -39,17 +39,22 @@
 
     <!-- ============================================-->
     <!-- <section> begin ============================-->
+
+
     <section class="bg-200 text-center " style="margin-bottom: 144px;">
 
         <div class="container mt-6 mb-6 text-center mx-auto">
 
-            <div class="card" style="width: 100%">
+            <div class="card" style="margin-left:8%;width: 80%">
+
                 <div class="card-header">
                    <b> {{$ilandetay->ilan_name}} - {{$ilandetay->konum}} </b>
                 </div>
                 <hr/>
-                <div class="row">
-                    <div class="col-lg-12">{{$ilandetay->description}}</div>
+
+                <div class="container" style="width: 80%">
+
+                    <div class="col-lg-12" style="text-align: left">{!! $ilandetay->description  !!} </div>
 
                 </div>
                 <hr/>
