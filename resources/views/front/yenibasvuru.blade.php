@@ -3246,7 +3246,7 @@
 
                                                 <label for="avatar">Vesikalık</label>
 
-                                                <input type="file" accept="image/png, image/jpeg" style="line-height: 24px!important;" name="avatar" id="avatar" class="form-control" autocomplete="given-name" required >
+                                                <input type="file" accept="image/png, image/jpeg" style="line-height: 24px!important;font-size: 16px;" name="avatar" id="avatar" class="form-control" autocomplete="given-name" required >
                                             </div>
                                             <div class="container mt-4 form__field">
                                                 <label for="tc">Tc Kimlik Numarası</label>

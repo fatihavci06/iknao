@@ -14,11 +14,12 @@
                 <div class="col-md-11 col-lg-8 col-xl-8 pb-7 pb-xl-9 text-center text-xl-start">
                     <div class="card">
                         <div class="card-body">
-                            <form>
+                            <form action="{{route('front.ara')}}" >
+
                             <div class="row">
 
-                                <div class="col-lg-9 col-sm-9 col-xs-9 col-md-9"><input type="text" class="form-control" placeholder="Türkçe Öğretmeni"></div>
-                                <div class="col-lg-3 col-sm-3 col-xs-3 col-md-3"><button class="btn btn-primary form-control">İlan Ara</button></div>
+                                <div class="col-lg-9 col-7 col-sm-9 col-xs-9 col-md-9"><input type="text" class="form-control" name="kelime" placeholder="Türkçe Öğretmeni"></div>
+                                <div class="col-lg-3 col-5 col-sm-3 col-xs-3 col-md-3"><button class="btn btn-primary form-control" style="background: #000f3d!important;">İlan Ara</button></div>
 
                             </div>
                             </form>
@@ -75,7 +76,7 @@
     <!-- ============================================-->
     <!-- <section> begin ============================-->
     <section class="bg-200 text-center" >
-        <h2 style="margin-top: -60px;">Açık Pozisyonlar</h2>
+        <h2 style="margin-top: -60px;">Açık Pozisyonlar </h2>
         <div class="container mt-3">
 
             <div class="row justify-content-center">

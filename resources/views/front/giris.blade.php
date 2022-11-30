@@ -14,7 +14,7 @@
                 <div class="row justify-content-center g-0 mx-auto">
                     <div class="col-lg-6 col-xl-6 col-xxl-6">
                         <div class="card">
-                            <div class="card-header bg-circle-shape bg-shape text-center p-2"><a class="font-sans-serif fw-bolder fs-4 z-index-1 position-relative link-light light" href="#">Nesibe Aydın Okulları</a></div>
+
                             @if(session('success'))
                                 <div class="alert alert-success">{{session('success')}}</div>
                             @endif
@@ -31,7 +31,7 @@
                                 <form action="{{route('front.login')}}" method="post">
                                     @csrf
                                     <div class="mb-3">
-                                        <label class="form-label" for="split-login-email">tc</label>
+                                        <label class="form-label" for="split-login-email">Tc</label>
                                         <input class="form-control" id="split-login-email" name="tc" type="number" required>
                                     </div>
                                     <div class="mb-3">
@@ -45,7 +45,7 @@
                                         <div class="col-auto"><a class="fs--1" href="{{route('front.sifremiunuttum')}}">Şifremi unuttum</a></div>
                                     </div>
                                     <div class="mb-3">
-                                        <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Giriş</button>
+                                        <button class="btn btn-primary d-block w-100 mt-3" style="background: #000f3d!important;" type="submit" name="submit">Giriş</button>
                                     </div>
                                 </form>
 

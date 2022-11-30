@@ -14,10 +14,11 @@
         <div class="container py-3">
             <div class="row justify-content-between fs--1">
                 <div class="col-12 col-sm-auto text-center">
-                    <p class="mb-0 text-600 opacity-85">Thank you for creating with Falcon <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy; <a class="text-white opacity-85" href="https://themewagon.com">Themewagon</a></p>
+
+                    <p class="mb-0 text-600 opacity-85">(C) Nesibe Aydın Educational Institutions , All rights reserved  <span class="d-none d-sm-inline-block">| </span><br class="d-sm-none" /> 2022 &copy; </p>
                 </div>
                 <div class="col-12 col-sm-auto text-center">
-                    <p class="mb-0 text-600 opacity-85">v3.14.0</p>
+                    <p class="mb-0 text-600 opacity-85">+90 850 733 1984 &nbsp;  </p>
                 </div>
             </div>
         </div>

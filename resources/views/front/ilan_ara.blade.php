@@ -63,8 +63,7 @@
                 </div>
             </div>
             @endforeach
-
-                <div class="col-4 col-lg-12 mt-5 mx-auto text-center" > <span>{{ $ilan->links() }}</span></div>
+                <div class="col-sm-12 col-lg-12 mt-5 mx-auto text-center" > <span>{{ $ilan->links() }}</span></div>
         </div>
         <!-- end of .container-->
 

@@ -316,6 +316,13 @@ class IndexController extends Controller
         $ilandetay=Ilan::findOrfail($id);
         return view('front.ilan_detay',['ilandetay'=>$ilandetay]);
     }
+    public function ara(Request $request)
+    {
+        //
+        $ara=Ilan::where('ilan_name','like','%'.$request->kelime.'%')->paginate(5);
+        return view('front.ilan_ara',['ilan'=>$ara]);
+
+    }
     public function destroy($id)
     {
         //

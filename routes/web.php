@@ -25,4 +25,5 @@ Route::post('/sifremi-unuttum','App\Http\Controllers\front\IndexController@sifre
 Route::post('/flogin','App\Http\Controllers\front\IndexController@login')->name('front.login');
 Route::get('/flogout','App\Http\Controllers\front\IndexController@logout')->name('front.logout');
 Route::get('/ilan','App\Http\Controllers\front\IndexController@ilan')->name('front.ilan');
+Route::get('/ara','App\Http\Controllers\front\IndexController@ara')->name('front.ara');
 Route::get('/ilan-detay/{id}','App\Http\Controllers\front\IndexController@ilan_detay')->name('front.ilan_detay');
