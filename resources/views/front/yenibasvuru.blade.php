@@ -3182,13 +3182,12 @@
 
     <section class="py-0 overflow-hidden light" id="banner" style="height: 880px!important;">
 
-        <div class="bg-holder overlay" style="background-image:url({{asset('tema/public/')}}/assets/img/generic/kariyer.png);background-position: center bottom;">
-        </div>
+
         <!--/.bg-holder-->
 
         <div class="container" style="margin-top:-20px;">
             <div class="row flex-center pt-8 pt-lg-10 pb-lg-9 pb-xl-0">
-                <section class="py-3 bg-light shadow-sm ">
+                <section class="py-3  ">
 
                     <div class="container mt-5">
 

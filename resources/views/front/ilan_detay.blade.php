@@ -50,7 +50,7 @@
                 <hr/>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">{{$ilandetay->description}}</li>
-                    <li class="list-group-item"><a href="{{route('front.yenibasvuru',['brans'=>$ilandetay->ilan_name])}}" class="btn btn-success"> Başvur</a> </li>
+                    <li class="list-group-item"><a href="{{route('front.yenibasvuru',['brans'=>$ilandetay->ilan_name])}}" style="background-color: #000f3d!important;" class="btn btn-success"> Başvur</a> </li>
 
                 </ul>
             </div>
