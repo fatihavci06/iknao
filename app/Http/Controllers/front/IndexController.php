@@ -176,7 +176,7 @@ class IndexController extends Controller
         //
         if (Auth::attempt(['tc' => $req->tc, 'password' => $req->password])) {
             // Authentication was successful...
-            return redirect()->route('front.index');
+            return redirect()->route('front.edit');
         }
         else{
             return redirect()->back()->with(['false'=>'Giriş başarısız']);
@@ -202,7 +202,7 @@ class IndexController extends Controller
 
     public function sifremiunuttumpost(Request $request)
     {
-        $varmi=User::where('tc',$request->tc)->count();
+        $varmi=User::where('tc',$request->tc)->where('cepno',$request->cepno)->count();
         if($varmi>0){
             $random_sifre=rand(100000,999999);
             $aday=User::where('tc',$request->tc)->first();

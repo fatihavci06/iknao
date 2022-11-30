@@ -17,10 +17,17 @@
                     <li class="nav-item">
                         <a class="nav-link" style="font-size:18px;color:#fff;" href="{{route('front.index')}}"  >Anasayfa</a>
                     </li>
+
                     <li class="nav-item">
+
                         <a class="nav-link" style="font-size:18px;color:#fff;" href="{{route('front.ilan')}}"  >İlanlar</a>
                     </li>
                     @endguest
+                        <li class="nav-item">
+
+                            <a class="nav-link" style="font-size:18px;color:#fff;" href="https://nesibeaydin.k12.tr/web/iletisim/" target="_blank" >İletişim</a>
+                        </li>
+
                 </ul>
                 <ul class="navbar-nav ms-auto">
 

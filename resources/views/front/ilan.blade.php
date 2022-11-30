@@ -42,6 +42,27 @@
     <section class="bg-200 text-center">
 
         <div class="container mt-6">
+            <div class="row justify-content-center mt-3">
+                <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 col-xs-12" >
+                    <div class="card" style="width: 100%;" >
+
+
+
+                        <div class="row mt-3 mb-3" >
+                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Pozisyon</b></div>
+                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Kampüs</b></div>
+                            <div class="col-lg-4 col-xs-4 col-sm-4 col-md-4" ><b>Yayınlanma Zamanı</b></div>
+
+
+                        </div>
+
+
+
+
+
+                    </div>
+                </div>
+            </div>
             @foreach($ilan as $i)
             <div class="row justify-content-center mt-3">
                 <div class="col-lg-12 col-xl-12 col-md-12 col-sm-12 col-xs-12" >

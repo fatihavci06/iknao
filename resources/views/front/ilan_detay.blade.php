@@ -48,11 +48,18 @@
                    <b> {{$ilandetay->ilan_name}} - {{$ilandetay->konum}} </b>
                 </div>
                 <hr/>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">{{$ilandetay->description}}</li>
-                    <li class="list-group-item"><a href="{{route('front.yenibasvuru',['brans'=>$ilandetay->ilan_name])}}" style="background-color: #000f3d!important;" class="btn btn-success"> Başvur</a> </li>
+                <div class="row">
+                    <div class="col-lg-12">{{$ilandetay->description}}</div>
 
-                </ul>
+                </div>
+                <hr/>
+                <div class="row mb-5">
+                    <div class="col-lg-12">
+                    <a href="{{route('front.yenibasvuru',['brans'=>$ilandetay->ilan_name])}}" style="background-color: #000f3d!important;" class="btn btn-success"> Başvur</a>
+
+                    </div>
+                </div>
+
             </div>
         </div>
 

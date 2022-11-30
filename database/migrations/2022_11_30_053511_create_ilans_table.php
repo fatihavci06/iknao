@@ -17,6 +17,7 @@ class CreateIlansTable extends Migration
             $table->id();
             $table->string('ilan_name');
             $table->string('slug');
+            $table->string('konum');
             $table->text('description');
             $table->date('endDate')->nullable();
             $table->timestamps();
