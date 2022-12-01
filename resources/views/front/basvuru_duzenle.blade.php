@@ -3241,7 +3241,7 @@
                             <section id="progress-form__panel-1"  style="margin-top: -50px;" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0">
                                 <div class="">
                                     <div class="row">
-                                        <div class="col-lg-12 mx-auto text-center mb-3"> <img src="{{Storage::url($data->avatar)}}" width="100px" height="100px" profile></div>
+                                        <div class="col-lg-12 mx-auto text-center mb-3"> <img  src="{{Storage::url($data->avatar)}}" width="70px"  profile></div>
                                         <div class="col-lg-6">
                                             <div class="container form__field">
 

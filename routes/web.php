@@ -27,3 +27,21 @@ Route::get('/flogout','App\Http\Controllers\front\IndexController@logout')->name
 Route::get('/ilan','App\Http\Controllers\front\IndexController@ilan')->name('front.ilan');
 Route::get('/ara','App\Http\Controllers\front\IndexController@ara')->name('front.ara');
 Route::get('/ilan-detay/{id}','App\Http\Controllers\front\IndexController@ilan_detay')->name('front.ilan_detay');
+
+Route::group(['prefix' => 'yonetim'], function() {
+    Route::get('/giris','App\Http\Controllers\back\IndexController@login')->name('back.giris');
+    Route::post('/girispost','App\Http\Controllers\back\IndexController@loginpost')->name('back.girispost');
+    Route::get('/sifremi-unuttum','App\Http\Controllers\back\IndexController@sifremiunuttum')->name('back.sifremiunuttum');
+    Route::post('/sifremi-unuttum','App\Http\Controllers\back\IndexController@sifremiunuttumpost')->name('back.sifremiunuttumpost');
+    Route::group(['middleware' => 'buadminmi'], function() {
+    Route::get('/','App\Http\Controllers\back\IndexController@index')->name('back.index');
+
+    Route::get('/logout','App\Http\Controllers\back\IndexController@logout')->name('back.logout');
+        Route::group(['prefix' => 'ilan'], function() {
+            Route::get('/ekle','App\Http\Controllers\back\Ilan\IlanController@index')->name('ilan.ekle');
+            Route::post('/ekle','App\Http\Controllers\back\Ilan\IlanController@store')->name('ilan.eklepost');
+            Route::get('/liste','App\Http\Controllers\back\Ilan\IlanController@liste')->name('ilan.liste');
+        });
+
+    });
+});

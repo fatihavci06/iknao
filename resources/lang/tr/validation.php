@@ -158,6 +158,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'ilan_name'=>'İlan Başlığı',
+        'konum'=>'Konum',
+        'endDate'=>'Bitiş Tarihi',
+        'description'=>'Açıklama'
+    ],
 
 ];
