@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brans;
 use App\Models\Campus;
 use App\Models\Ilan;
+use App\Models\IlanUser;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -56,6 +57,7 @@ class IlanController extends Controller
         Ilan::create([
            'ilan_name'=>$request->ilan_name,
             'konum'=>$request->konum,
+            'durum'=>$request->durum,
             'endDate'=>$request->endDate,
             'description'=>$request->description
 
@@ -68,14 +70,28 @@ class IlanController extends Controller
     {
         //
         if ($request->ajax()) {
-            $data = Ilan::all();
+            $data = Ilan::orderByDesc('id')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
-                ->addColumn('action', function($data){ // harici bir column dönderdik
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">id'.$data->id.'</a>'; //idleri tek tek ekrana veriyoruz tabi bunu ek sütun olarak tabloya işliyoruz. sütun ismi actiın
+                ->addColumn('edit', function($data){
+
+                    $btn = '<a href="'.route('ilan.edit',$data->id).'" class="edit btn btn-primary btn-sm">Düzenle</a>';
+                    $btn.= '<a onclick="return confirmDel();" href="'.route('ilan.delete',$data->id).'" style="margin-left:5px;" class=" edit btn btn-danger btn-sm">Sil</a>';
                     return $btn;
                 })
-                ->rawColumns(['action'])//action sutunu viewe gönderdik,addcolumda kaç sutun eklersek buraya yazarız ve viewda karşılaşadığımız yerde işlem yaparız
+                ->addColumn('durum', function($data){
+
+
+                    if($data->durum==2){
+                        $btn ='Aktif';
+                    }
+                    else{
+                        $btn ='Pasif';
+                    }
+                    return $btn;
+                })
+                ->rawColumns(['edit','durum'])
+                //action sutunu viewe gönderdik,addcolumda kaç sutun eklersek buraya yazarız ve viewda karşılaşadığımız yerde işlem yaparız
                 ->make(true);
         }
         return view('back.ilan.ilan_liste');
@@ -87,9 +103,53 @@ class IlanController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function onbasvuruliste(Request $request)
     {
         //
+
+
+
+        if ($request->ajax()) {
+            $data = IlanUser::with('userInfo')->whereHas('userInfo', function ($query) {
+                return $query->where('rol', '=', 0);
+            })->orderByDesc('created_at')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('ad', function($data){
+
+                    $ad = $data->userInfo->firstname;
+                        return $ad;
+                })
+                ->addColumn('soyad', function($data){
+
+                    $ad = $data->userInfo->lastname;
+                    return $ad;
+
+                })
+                ->addColumn('tc', function($data){
+
+                    $ad = $data->userInfo->tc;
+                    return $ad;
+
+                })
+                ->addColumn('brans', function($data){
+
+                    $ad = $data->userInfo->bransInfo->brans_name;
+                    return $ad;
+
+                })
+                ->addColumn('gor', function($data){
+
+                    $btn = '<a href="'.route('back.adaydetay',$data->user_id).'" class="edit btn btn-primary btn-sm">Detaylı İncele</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['ad','soyad','tc','brans','gor'])
+                //action sutunu viewe gönderdik,addcolumda kaç sutun eklersek buraya yazarız ve viewda karşılaşadığımız yerde işlem yaparız
+                ->make(true);
+        }
+        return view('back.ilan.ilan_onbasvuru_liste');
+
     }
 
     /**
@@ -101,6 +161,9 @@ class IlanController extends Controller
     public function edit($id)
     {
         //
+        $ilan=Ilan::findOrFail($id);
+        $kampusler=Campus::all();
+        return view('back.ilan.edit',['kampusler'=>$kampusler,'ilan'=>$ilan]);
     }
 
     /**
@@ -113,6 +176,26 @@ class IlanController extends Controller
     public function update(Request $request, $id)
     {
         //
+
+        $request->validate([
+            'ilan_name'=>'required|min:5',
+            'konum'=>'required',
+            'endDate'=>'required',
+            'description'=>'required',
+        ]);
+        $varmi=Brans::where('brans_name',$request->ilan_name)->count();
+        if($varmi==0){
+            Brans::create(['brans_name'=>$request->ilan_name]);
+        }
+        $ilan=Ilan::findOrFail($id);
+        $ilan->ilan_name=$request->ilan_name;
+        $ilan->konum=$request->konum;
+        $ilan->durum=$request->durum;
+        $ilan->endDate=$request->endDate;
+        $ilan->description=$request->description;
+        $ilan->save();
+
+        return redirect()->back()->with(['success'=>'İlan Başarıyla yayınlanmıştır']);
     }
 
     /**
@@ -124,5 +207,8 @@ class IlanController extends Controller
     public function destroy($id)
     {
         //
+        $data=Ilan::findOrFail($id);
+        $data->delete();
+        return redirect()->back()->with(['success'=>'İlan başarıyla silindi']);
     }
 }

@@ -20,6 +20,7 @@ class CreateIlansTable extends Migration
             $table->string('konum');
             $table->text('description');
             $table->date('endDate')->nullable();
+            $table->integer('durum')->comment('1:pasif,2:aktif')->default(2);
             $table->timestamps();
         });
     }

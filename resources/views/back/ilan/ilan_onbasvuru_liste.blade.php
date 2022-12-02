@@ -7,12 +7,7 @@
 @section('content')
     <div class="container">
         @if(session('success'))
-
-            <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
-                <div class="bg-danger me-3 icon-item"><span class="fas fa-times-circle text-white fs-3"></span></div>
-                <p class="mb-0 flex-1">{{session('success')}}</p>
-                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            <div class="alert alert-danger">{{session('success')}}</div>
             @endif
     <div class="row g-3">
 
@@ -34,10 +29,10 @@
             <thead>
             <tr>
 
-                <th>İlan Başlığı</th>
-                <th>Kampüs</th>
-                <th>Bitiş Tarihi</th>
-                <th>Durum</th>
+                <th>Tc</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Branş</th>
                 <th width="30%">İşlem</th>
 
             </tr>
@@ -96,14 +91,14 @@
                 order: [[3, 'desc']],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('ilan.liste') }}",
+                ajax: "{{ route('ilan.onbasvuruliste') }}",
                 columns: [
                    //yukarıda routtan çektiğimiz dataları burada tabloya sıra sıra yazdırdık. ancak datatablede burada data kdar sutun olmalı
-                    { data: 'ilan_name', name: 'ilan_name' },
-                    { data: 'konum', name: 'konum' },
-                    { data: 'endDate', name: 'endDate' },
-                    { data: 'durum', name: 'durum' },
-                    {data: 'edit', name: 'edit', orderable: false, searchable: false}, //controllerdan dönen addcolumnuda burada belirtmek zorundayız.
+                    { data: 'tc', name: 'tc' },
+                    { data: 'ad', name: 'soyad' },
+                    { data: 'soyad', name: 'soyad' },
+                    { data: 'brans', name: 'brans' },
+                    {data: 'gor', name: 'gor', orderable: false, searchable: false}, //controllerdan dönen addcolumnuda burada belirtmek zorundayız.
                 ]
             });
         });

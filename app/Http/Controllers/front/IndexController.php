@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Ilan;
+use App\Models\IlanUser;
 use App\Models\User;
 use App\Models\Brans;
 use App\Models\Campus;
@@ -34,6 +35,7 @@ class IndexController extends Controller
     public function yenibasvuru()
     {
         //
+
         $brans=Brans::all();
         $campus=Campus::all();
         $university=university::all();
@@ -51,6 +53,7 @@ class IndexController extends Controller
         //
 
         $varmi=User::where('tc',$request->tc)->count();
+
         if($varmi>0){
 
             $aday= User::where('tc',$request->tc)->first();
@@ -106,6 +109,7 @@ class IndexController extends Controller
             $random_sifre=rand(100000,999999);
             $aday->password=bcrypt($random_sifre);
             $aday->save();
+
             return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
         }
         else{
@@ -160,6 +164,18 @@ class IndexController extends Controller
             $random_sifre=rand(100000,999999);
             $aday->password=bcrypt($random_sifre);
             $aday->save();
+            if(isset($request->ilanno)){
+                IlanUser::create([
+                    'ilan_id'=>$request->ilanno,
+                    'user_id'=>$aday->id
+                ]);
+            }
+            else{
+                IlanUser::create([
+                    'ilan_id'=>0,
+                    'user_id'=>$aday->id
+                ]);
+            }
             return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
         }
 
@@ -307,7 +323,7 @@ class IndexController extends Controller
     public function ilan()
     {
 
-        $ilanlar=Ilan::where('endDate','>',now())->orderBy('id','desc')->paginate(5);
+        $ilanlar=Ilan::where('endDate','>',now())->where('durum',2)->orderBy('id','desc')->paginate(5);
         return view('front.ilan',['ilan'=>$ilanlar]);
     }
     public function ilan_detay($id)

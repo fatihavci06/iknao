@@ -10,7 +10,7 @@
                 <div class="card-header bg-light py-2">
                     <div class="row flex-between-center">
                         <div class="col-auto">
-                            <h6 class="mb-0">İlan Ekle</h6>
+                            <h6 class="mb-0">İlan Düzenle</h6>
                         </div>
                         <div class="col-auto d-flex">
                             <div class="dropdown font-sans-serif btn-reveal-trigger">
@@ -31,9 +31,7 @@
                         </div>
                     @endif
                     @if($errors->any())
-                            <div class="alert alert-warning border-2 d-flex align-items-center" role="alert">
-
-
+                            <div class="alert alert-danger">
                                @foreach($errors->all() as $e)
 
                                     <li>{{$e}}</li>
@@ -41,14 +39,14 @@
                                  @endforeach
                             </div>
                     @endif
-                    <form action="{{route('ilan.eklepost')}}" method="post">
+                    <form action="{{route('ilan.update',['id'=>$ilan->id])}}" method="post">
                         @csrf
                     <div class="container">
                         <div class="row">
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="exampleFormControlInput1">İlan Başlığı</label>
-                                    <input class="form-control" required name="ilan_name" id="exampleFormControlInput1" type="text" placeholder="Türkçe Öğretmeni" value="{{old('ilan_name')}}" />
+                                    <input class="form-control" required name="ilan_name" id="exampleFormControlInput1" type="text" placeholder="Türkçe Öğretmeni" value="{{old('ilan_name',$ilan->ilan_name)}}" />
                                 </div>
                             </div>
                             <div class="col-6">
@@ -56,8 +54,8 @@
                                     <label class="form-label" for="durum">Durum</label>
                                     <select class="form-select" name="durum" id="durum"  required>
                                         <option value="" >Seçiniz</option>
-                                        <option value="2" @if(old('durum')==2) selected @endif >Aktif</option>
-                                        <option value="1" @if(old('durum')==1) selected @endif >Pasif</option>
+                                        <option value="2" @if(old('durum',$ilan->durum)==2) selected @endif >Aktif</option>
+                                        <option value="1" @if(old('durum',$ilan->durum)==1) selected @endif >Pasif</option>
 
                                     </select>
                                 </div>
@@ -71,7 +69,7 @@
                                 <select class="form-select" name="konum" aria-label="Default select example" required>
                                     <option value="" >Seçiniz</option>
                                     @foreach($kampusler as $k)
-                                    <option @if(old('konum')==$k->campus_name) selected @endif value="{{$k->campus_name}}">{{$k->campus_name}}</option>
+                                    <option @if(old('konum',$ilan->konum)==$k->campus_name) selected @endif value="{{$k->campus_name}}">{{$k->campus_name}}</option>
                                     @endforeach
 
                                 </select>
@@ -79,7 +77,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="exampleFormControlInput1">Bitiş Tarihi</label>
-                                    <input required class="form-control" name="endDate" id="exampleFormControlInput1" type="date" value="{{old('endDate')}}"  />
+                                    <input required class="form-control" name="endDate" id="exampleFormControlInput1" type="date" value="{{old('endDate',$ilan->endDate)}}"  />
                                 </div>
                             </div>
                         </div>
@@ -87,7 +85,7 @@
                             <div class="col-12">
                                 <label class="form-label" for="description">Açıklama</label>
                                 <div class="min-vh-30">
-                                    <textarea  class="tinymce d-none" id="description" name="description">{{old('description')}}</textarea>
+                                    <textarea  class="tinymce d-none" id="description" name="description">{{old('description',$ilan->description)}}</textarea>
                                 </div>
                             </div>
                         </div>

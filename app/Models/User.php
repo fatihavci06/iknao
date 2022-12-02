@@ -41,4 +41,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public function bransInfo(){
+        return  $this->hasOne(Brans::class, 'id', 'brans_id');
+    }
 }

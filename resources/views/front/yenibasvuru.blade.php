@@ -3242,8 +3242,10 @@
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <div class="container form__field">
-
-                                                <label for="avatar">Vesikalık</label>
+                                                @if(Request::segment(3)!='')
+                                                    <input type="hidden" name="ilanno" value="{{Request::segment(3)}}">
+                                                    @endif
+                                                <label for="avatar">Vesikalık </label>
 
                                                 <input type="file" accept="image/png, image/jpeg" style="line-height: 24px!important;font-size: 16px;" name="avatar" id="avatar" class="form-control" autocomplete="given-name" required >
                                             </div>
@@ -3260,6 +3262,7 @@
                                                     @endforeach
 
                                                 </select>
+
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -3983,6 +3986,7 @@
             const getValidationData = field => {
                 switch (field.type) {
                     case 'text':
+                    case 'hidden':
                     case 'file':
                     case 'number':
                     case 'date':

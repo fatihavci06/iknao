@@ -187,13 +187,6 @@
 <script src="{{asset('tema/public/')}}/assets/js/theme.js"></script>
 <script src="{{asset('tema/public/')}}/vendors/jquery/jquery.min.js"> </script>
 
-<script src="{{asset('tema/public/')}}/vendors/prism/prism.js"></script>
-<script src="{{asset('tema/public/')}}/vendors/select2/select2.min.js"> </script>
-<script src="{{asset('tema/public/')}}/vendors/select2/select2.full.min.js"> </script>
-<script src="{{asset('tema/public/')}}/vendors/datatables.net/jquery.dataTables.min.js"></script>
-<script src="{{asset('tema/public/')}}/vendors/datatables.net-bs5/dataTables.bootstrap5.min.js"> </script>
-<script src="{{asset('tema/public/')}}/vendors/datatables.net-fixedcolumns/dataTables.fixedColumns.min.js"> </script>
-<script src="{{asset('tema/public/')}}/vendors/prism/prism.js"></script>
 
 
 

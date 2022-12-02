@@ -28,11 +28,7 @@
     <script src="{{asset('tema/public/')}}/vendors/simplebar/simplebar.min.js"></script>
 
     <!--datatable-->
-    <link href="{{asset('tema/public/')}}/vendors/select2/select2.min.css" rel="stylesheet">
-    <link href="{{asset('tema/public/')}}/vendors/select2-bootstrap-5-theme/select2-bootstrap-5-theme.min.css" rel="stylesheet">
-    <link href="{{asset('tema/public/')}}/vendors/datatables.net-bs5/dataTables.bootstrap5.min.css" rel="stylesheet">
-    <link href="{{asset('tema/public/')}}/vendors/prism/prism-okaidia.css" rel="stylesheet">
-    <link href="{{asset('tema/public/')}}/vendors/prism/prism-okaidia.css" rel="stylesheet">
+
     <!-- ===============================================-->
 
 
@@ -47,6 +43,7 @@
     <link href="{{asset('tema/public/')}}/assets/css/theme.min.css" rel="stylesheet" id="style-default">
     <link href="{{asset('tema/public/')}}/assets/css/user-rtl.min.css" rel="stylesheet" id="user-style-rtl">
     <link href="{{asset('tema/public/')}}/assets/css/user.min.css" rel="stylesheet" id="user-style-default">
+    @yield('css')
     <script>
         var isRTL = JSON.parse(localStorage.getItem('isRTL'));
         if (isRTL) {
