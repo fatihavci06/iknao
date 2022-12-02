@@ -17,7 +17,7 @@
                 <div class="card-header">
                     <div class="row flex-between-end">
                         <div class="col-auto align-self-center">
-                            <h5 class="mb-0" data-anchor="data-anchor" id="jquery-datatables-default-example">İlanlar<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="#" href="#jquery-datatables-default-example" style="padding-left: 0.375em;"></a></h5>
+                            <h5 class="mb-0" data-anchor="data-anchor" id="jquery-datatables-default-example">Ön Başvurular<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="#" href="#jquery-datatables-default-example" style="padding-left: 0.375em;"></a></h5>
                         </div>
 
                     </div>
