@@ -45,6 +45,7 @@ Route::group(['prefix' => 'yonetim'], function() {
             Route::post('/update/{id}','App\Http\Controllers\back\Ilan\IlanController@update')->name('ilan.update');
             Route::get('/delete/{id}','App\Http\Controllers\back\Ilan\IlanController@destroy')->name('ilan.delete');
             Route::get('/onbasvuru-liste','App\Http\Controllers\back\Ilan\IlanController@onbasvuruliste')->name('ilan.onbasvuruliste');
+            Route::get('/ilan-basvurular/{ilanid}','App\Http\Controllers\back\Ilan\IlanController@basvurular')->name('ilan.basvurular');
         });
         Route::get('/aday-detay/{id}','App\Http\Controllers\back\AdayController@adaydetay')->name('back.adaydetay');
     });

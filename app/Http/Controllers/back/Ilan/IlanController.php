@@ -77,6 +77,7 @@ class IlanController extends Controller
 
                     $btn = '<a href="'.route('ilan.edit',$data->id).'" class="edit btn btn-primary btn-sm">Düzenle</a>';
                     $btn.= '<a onclick="return confirmDel();" href="'.route('ilan.delete',$data->id).'" style="margin-left:5px;" class=" edit btn btn-danger btn-sm">Sil</a>';
+                    $btn .= '<a href="'.route('ilan.basvurular',$data->id).'" style="margin-left:5px;" class="edit btn btn-success btn-sm">Başvurular</a>';
                     return $btn;
                 })
                 ->addColumn('durum', function($data){
@@ -112,7 +113,7 @@ class IlanController extends Controller
         if ($request->ajax()) {
             $data = IlanUser::with('userInfo')->whereHas('userInfo', function ($query) {
                 return $query->where('rol', '=', 0);
-            })->orderByDesc('created_at')->get();
+            })->where('ilan_id',0)->orderByDesc('created_at')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('ad', function($data){
@@ -150,6 +151,50 @@ class IlanController extends Controller
         }
         return view('back.ilan.ilan_onbasvuru_liste');
 
+    }
+    public function basvurular($id,Request $request)
+    {
+
+        if ($request->ajax()) {
+            $data = IlanUser::with('userInfo')->whereHas('userInfo', function ($query) {
+                return $query->where('rol', '=', 0);
+            })->where('ilan_id',$id)->orderByDesc('created_at')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('ad', function($data){
+
+                    $ad = $data->userInfo->firstname;
+                    return $ad;
+                })
+                ->addColumn('soyad', function($data){
+
+                    $ad = $data->userInfo->lastname;
+                    return $ad;
+
+                })
+                ->addColumn('tc', function($data){
+
+                    $ad = $data->userInfo->tc;
+                    return $ad;
+
+                })
+                ->addColumn('brans', function($data){
+
+                    $ad = $data->userInfo->bransInfo->brans_name;
+                    return $ad;
+
+                })
+                ->addColumn('gor', function($data){
+
+                    $btn = '<a href="'.route('back.adaydetay',$data->user_id).'" class="edit btn btn-primary btn-sm">Detaylı İncele</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['ad','soyad','tc','brans','gor'])
+                //action sutunu viewe gönderdik,addcolumda kaç sutun eklersek buraya yazarız ve viewda karşılaşadığımız yerde işlem yaparız
+                ->make(true);
+        }
+        return view('back.ilan.ilan_basvurular');
     }
 
     /**

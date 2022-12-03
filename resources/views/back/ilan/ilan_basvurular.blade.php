@@ -7,12 +7,7 @@
 @section('content')
     <div class="container">
         @if(session('success'))
-
-            <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
-                <div class="bg-danger me-3 icon-item"><span class="fas fa-times-circle text-white fs-3"></span></div>
-                <p class="mb-0 flex-1">{{session('success')}}</p>
-                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
+            <div class="alert alert-danger">{{session('success')}}</div>
             @endif
     <div class="row g-3">
 
@@ -22,7 +17,7 @@
                 <div class="card-header">
                     <div class="row flex-between-end">
                         <div class="col-auto align-self-center">
-                            <h5 class="mb-0" data-anchor="data-anchor" id="jquery-datatables-default-example">İlanlar<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="#" href="#jquery-datatables-default-example" style="padding-left: 0.375em;"></a></h5>
+                            <h5 class="mb-0" data-anchor="data-anchor" id="jquery-datatables-default-example">Ön Başvurular<a class="anchorjs-link " aria-label="Anchor" data-anchorjs-icon="#" href="#jquery-datatables-default-example" style="padding-left: 0.375em;"></a></h5>
                         </div>
 
                     </div>
@@ -34,11 +29,11 @@
             <thead>
             <tr>
 
-                <th>İlan Başlığı</th>
-                <th>Kampüs</th>
-                <th>Bitiş Tarihi</th>
-                <th>Durum</th>
-                <th width="40%">İşlem</th>
+                <th>Tc</th>
+                <th>Ad</th>
+                <th>Soyad</th>
+                <th>Branş</th>
+                <th width="30%">İşlem</th>
 
             </tr>
             </thead>
@@ -96,14 +91,14 @@
                 order: [[3, 'desc']],
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('ilan.liste') }}",
+                ajax: "{{ route('ilan.basvurular',['ilanid'=>Request::segment(4)]) }}",
                 columns: [
                    //yukarıda routtan çektiğimiz dataları burada tabloya sıra sıra yazdırdık. ancak datatablede burada data kdar sutun olmalı
-                    { data: 'ilan_name', name: 'ilan_name' },
-                    { data: 'konum', name: 'konum' },
-                    { data: 'endDate', name: 'endDate' },
-                    { data: 'durum', name: 'durum' },
-                    {data: 'edit', name: 'edit', orderable: false, searchable: false}, //controllerdan dönen addcolumnuda burada belirtmek zorundayız.
+                    { data: 'tc', name: 'tc' },
+                    { data: 'ad', name: 'soyad' },
+                    { data: 'soyad', name: 'soyad' },
+                    { data: 'brans', name: 'brans' },
+                    {data: 'gor', name: 'gor', orderable: false, searchable: false}, //controllerdan dönen addcolumnuda burada belirtmek zorundayız.
                 ]
             });
         });
