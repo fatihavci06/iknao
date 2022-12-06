@@ -15,4 +15,6 @@ class IlanUser extends Model
     public function userInfo(){
         return  $this->hasOne(User::class, 'id', 'user_id');
     }
+
+
 }

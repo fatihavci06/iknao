@@ -44,4 +44,5 @@ class User extends Authenticatable
     public function bransInfo(){
         return  $this->hasOne(Brans::class, 'id', 'brans_id');
     }
+
 }

@@ -47,13 +47,42 @@
 
             <div class="card" style="margin-left:8%;width: 80%">
 
+
+
                 <div class="card-header">
-                   <b> {{$ilandetay->ilan_name}} - {{$ilandetay->konum}} </b>
+                    <table class="table">
+
+                        <tbody>
+                        <tr>
+                            <th scope="row">Başlık</th>
+                            <td>{{$ilandetay->ilan_name}}</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">İş Türü</th>
+                            <td>{{$ilandetay->istur}}</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Konum</th>
+                            <td>{{$ilandetay->konum}}</td>
+
+                        </tr>
+                        <tr>
+                            <th scope="row">Kampüs</th>
+                            <td>{{$ilandetay->kampus}}</td>
+
+                        </tr>
+
+
+
+                        </tbody>
+                    </table>
                 </div>
-                <hr/>
+
 
                 <div class="container" style="width: 80%">
-
+                    <h4 style="margin-bottom: 18px;">GENEL NİTELİKLER VE İŞ TANIMI</h4>
                     <div class="col-lg-12" style="text-align: left">{!! $ilandetay->description  !!} </div>
 
                 </div>

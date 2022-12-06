@@ -73,7 +73,14 @@
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('ilan.onbasvuruliste')}}">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Ön Başvurular</span>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">İlansız Başvurular</span>
+                                        </div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('ilan.tumbasvuruliste')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Tüm Başvurular</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->

@@ -3247,21 +3247,27 @@
                                                     @endif
                                                 <label for="avatar">Vesikalık </label>
 
-                                                <input type="file" accept="image/png, image/jpeg" style="line-height: 24px!important;font-size: 16px;" name="avatar" id="avatar" class="form-control" autocomplete="given-name" required >
+                                                <input type="file" accept="image/png, image/jpeg" style="line-height: 24px!important;font-size: 16px;" name="avatar" id="avatar" class="form-control" autocomplete="given-name" @guest required @endguest >
                                             </div>
                                             <div class="container mt-4 form__field">
                                                 <label for="tc">Tc Kimlik Numarası</label>
-                                                <input type="number" name="tc" id="tc" class="form-control" autocomplete="given-name" min="1" max="9"  required>
+                                                <input type="number" name="tc" id="tc" class="form-control" autocomplete="given-name" min="1" max="9"  @auth value="{{Auth::user()->tc}}" @endauth required>
                                             </div>
                                             <div class="container mt-4 form__field">
+                                                @if(Request::segment(3)!='')
                                                 <label for="brans">Branş</label>
+                                                <input type="text" readonly  value="{{Request::segment(2)}}">
+                                                    <input type="hidden"  name="brans_id" value="{{ \App\Http\Controllers\front\IndexController::getBransId(Request::segment(2)) }}">
+                                                @else
+                                                    <label for="brans">Branş</label>
                                                 <select id="brans_id" name="brans_id" class="form-select" required>
                                                     <option value="">Seçiniz</option>
                                                     @foreach($brans as $b)
-                                                        <option value="{{$b->id}}" @if(Request::segment(2)==$b->brans_name)  selected @endif >{{$b->brans_name}}</option>
+                                                        <option value="{{$b->id}}"  >{{$b->brans_name}}</option>
                                                     @endforeach
 
                                                 </select>
+                                                @endif
 
                                             </div>
                                         </div>
@@ -3270,11 +3276,11 @@
 
                                             <div class="container form__field">
                                                 <label for="firstname">Adınız</label>
-                                                <input type="text" id="firstname" name="firstname" class="form-control" required>
+                                                <input type="text" id="firstname" name="firstname" class="form-control" @auth value="{{Auth::user()->firstname}}" @endauth required>
                                             </div>
                                             <div class="container mt-4 form__field">
                                                 <label for="lastname">Soyadınız</label>
-                                                <input type="text" id="lastname" name="lastname" class="form-control" required>
+                                                <input type="text" id="lastname" name="lastname" class="form-control" @auth value="{{Auth::user()->lastname}}" @endauth required>
                                             </div>
 
                                         </div>
@@ -3299,7 +3305,7 @@
                                         <select id="birtercih" name="birtercih" class="form-select" required>
                                             <option value="">Seçiniz</option>
                                             @foreach($campus as $c)
-                                                <option value="{{$c->id}}">{{$c->campus_name}}</option>
+                                                <option value="{{$c->id}}"  @auth @if(Auth::user()->birtercih==$c->id) selected  @endif @endauth >{{$c->campus_name}}</option>
                                             @endforeach
                                         </select>
 
@@ -3313,7 +3319,7 @@
                                         <select id="ikitercih" name="ikitercih" class="form-select" required>
                                             <option value="">Seçiniz</option>
                                             @foreach($campus as $c)
-                                                <option value="{{$c->id}}">{{$c->campus_name}}</option>
+                                                <option value="{{$c->id}}" @auth @if(Auth::user()->ikitercih==$c->id) selected  @endif @endauth>{{$c->campus_name}}</option>
                                             @endforeach
                                         </select>
 
@@ -3327,7 +3333,7 @@
                                         <select id="uctercih" name="uctercih" class="form-select" required>
                                             <option value="">Seçiniz</option>
                                             @foreach($campus as $c)
-                                                <option value="{{$c->id}}">{{$c->campus_name}}</option>
+                                                <option value="{{$c->id}}" @auth @if(Auth::user()->uctercih==$c->id) selected  @endif @endauth>{{$c->campus_name}}</option>
                                             @endforeach
 
                                         </select>
@@ -3352,15 +3358,15 @@
 
                                         <div class="container form__field">
                                             <label for="cepno">Cep Telefonu <span style="color:red;">( Başında 0 olmadan 10 haneli olarak yazınız. )</span></label>
-                                            <input type="number" id="cepno" name="cepno" class="form-control" required>
+                                            <input type="number" id="cepno" name="cepno" class="form-control" required @auth value="{{Auth::user()->cepno}}" @endauth>
                                         </div>
                                         <div class="container mt-1 form__field">
                                             <label for="adres">Adres</label>
-                                            <textarea id="adres" name="adres" class="form-control" required></textarea>
+                                            <textarea id="adres" name="adres" class="form-control" required >@auth {{Auth::user()->adres}} @endauth</textarea>
                                         </div>
                                         <div class="container mt-1 form__field">
                                             <label for="eposta">Eposta</label>
-                                            <input type="text"  name="eposta" class="form-control" required>
+                                            <input type="text"  name="eposta" @auth value="{{Auth::user()->eposta}}" @endauth class="form-control" required>
                                         </div>
 
                                     </div>
@@ -3385,29 +3391,29 @@
                                                 <label for="cinsiyet">Cinsiyet</label>
                                                 <select name="cinsiyet" id="cinsiyet" class="form-control " required>
                                                     <option value="">Seçiniz</option>
-                                                    <option value="Erkek">Erkek</option>
-                                                    <option value="Kadın">Kadın</option>
+                                                    <option value="Erkek" @auth @if(Auth::user()->cinsiyet=='Erkek') selected @endif @endauth >Erkek</option>
+                                                    <option value="Kadın" @auth @if(Auth::user()->cinsiyet=='Kadın') selected @endif @endauth >Kadın</option>
                                                 </select>
                                             </div>
                                             <div class="form__field">
                                                 <label for="dtarihi" class="mt-4">Doğum Tarihi</label>
-                                                <input type="date"  id="dtarihi"   name="dtarihi" class="form-control" required>
+                                                <input type="date"  id="dtarihi" @auth value="{{Auth::user()->dtarihi}}" @endauth  name="dtarihi" class="form-control" required>
                                             </div>
                                             <div class="form__field">
                                                 <label for="dyeri" class="mt-4">Doğum Yeri</label>
-                                                <input type="text"  id="dyeri" name="dyeri"  class="form-control" required>
+                                                <input type="text"  id="dyeri" name="dyeri" @auth value="{{Auth::user()->dyeri}}" @endauth class="form-control" required>
                                             </div>
                                             <div class="form__field">
                                                 <label for="medenidurum" class="mt-4">Medeni Durumu</label>
                                                 <select name="medenidurum" id="medenidurum" class="form-control" required>
                                                     <option value="">Seçiniz</option>
-                                                    <option value="2">Evli</option>
-                                                    <option value="1">Bekar</option>
+                                                    <option value="2" @auth @if(Auth::user()->medenidurum==2) selected @endif @endauth>Evli</option>
+                                                    <option value="1"  @auth @if(Auth::user()->medenidurum==1) selected @endif @endauth >Bekar</option>
                                                 </select>
                                             </div>
 
                                             <label for="cocuk" class="mt-4">(Varsa) Çocuklarınızın Yaşları</label>
-                                            <input type="text" id="cocuk" name="cocuk" class="form-control">
+                                            <input type="text" id="cocuk" name="cocuk" class="form-control" @auth value="{{Auth::user()->cocuk}}" @endauth>
 
 
                                         </div>
@@ -3420,16 +3426,16 @@
                                                 <label for="askerlikdurum" class="">Askerlik Durumu</label>
                                                 <select name="askerlikdurum" id="askerlikdurum" class="form-control"  required>
                                                     <option value="">Seçiniz</option>
-                                                    <option value="1">Yapıldı</option>
-                                                    <option value="2">Bayan muaf</option>
-                                                    <option value="3">Tecilli</option>
-                                                    <option value="4">Yapılmadı</option>
-                                                    <option value="5">Sağlık Sebiyle Muaf</option>
+                                                    <option value="1" @auth @if(Auth::user()->askerlikdurum==1) selected @endif @endauth>Yapıldı</option>
+                                                    <option value="2" @auth @if(Auth::user()->askerlikdurum==2) selected @endif @endauth >Bayan muaf</option>
+                                                    <option value="3" @auth @if(Auth::user()->askerlikdurum==3) selected @endif @endauth>Tecilli</option>
+                                                    <option value="4" @auth @if(Auth::user()->askerlikdurum==4) selected @endif @endauth>Yapılmadı</option>
+                                                    <option value="5" @auth @if(Auth::user()->askerlikdurum==5) selected @endif @endauth>Sağlık Sebiyle Muaf</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-6 ">
                                                 <label for="tecil" class="">Tecil Tarihi</label>
-                                                <input type="date" class="form-control" id="tecil" name="tecil" >
+                                                <input type="date" class="form-control" id="tecil" name="tecil" @auth value="{{Auth::user()->tecil}}" @endauth >
                                             </div>
                                         </div>
                                         <div class="row">
@@ -3437,20 +3443,20 @@
                                                 <label for="kangrubu" class="mt-4">Kan Grubu</label>
                                                 <select name="kangrubu" id="kangrubu" class="form-control">
                                                     <option value="">Seçiniz</option>
-                                                    <option value="0RH+">0 RH +</option>
-                                                    <option value="0RH-">0 RH -</option>
-                                                    <option value="ARH+">A RH +</option>
-                                                    <option value="ARH-">A RH -</option>
-                                                    <option value="BRH+">B RH +</option>
-                                                    <option value="BRH-">B RH -</option>
-                                                    <option value="ABRH+">AB RH +</option>
-                                                    <option value="ABRH-">AB RH -</option>
+                                                    <option value="0RH+" @auth @if(Auth::user()->kangrubu=="0RH+") selected @endif @endauth>0 RH +</option>
+                                                    <option value="0RH-" @auth @if(Auth::user()->kangrubu=="0RH-") selected @endif @endauth>0 RH -</option>
+                                                    <option value="ARH+" @auth @if(Auth::user()->kangrubu=="ARH+") selected @endif @endauth>A RH +</option>
+                                                    <option value="ARH-" @auth @if(Auth::user()->kangrubu=="ARH-") selected @endif @endauth>A RH -</option>
+                                                    <option value="BRH+" @auth @if(Auth::user()->kangrubu=="BRH+") selected @endif @endauth>B RH +</option>
+                                                    <option value="BRH-" @auth @if(Auth::user()->kangrubu=="BRH-") selected @endif @endauth>B RH -</option>
+                                                    <option value="ABRH+" @auth @if(Auth::user()->kangrubu=="ABRH+") selected @endif @endauth>AB RH +</option>
+                                                    <option value="ABRH-" @auth @if(Auth::user()->kangrubu=="ABRH-") selected @endif @endauth>AB RH -</option>
 
                                                 </select>
                                                 <label for="acilkisi" class="mt-4">Acil Durumlarda Ulaşılacak Kişi</label>
-                                                <input type="text" class="form-control" name="acilkisi" id="acilkisi">
+                                                <input type="text" class="form-control" name="acilkisi" id="acilkisi" @auth value="{{Auth::user()->acilkisi}}" @endauth>
                                                 <label for="acilkisitel" class="mt-4">Acil Durumlarda Aranacak Kişinin Telefonu</label>
-                                                <input type="text" class="form-control" name="acilkisitel" id="acilkisitel">
+                                                <input type="text" class="form-control" name="acilkisitel" id="acilkisitel" @auth value="{{Auth::user()->acilkisitel}}" @endauth>
                                             </div>
                                         </div>
 
@@ -3475,76 +3481,76 @@
                                             <label for="sonOkulderece" >En son mezun olduğunuz okul derecesi</label>
                                             <select name="sonOkulderece" id="sonOkulderece" class="form-control" required>
                                                 <option value="">Seçiniz</option>
-                                                <option value="İlköğretim">Ortaokul Mezunu</option>
-                                                <option value="Lise">Lise Mezunu</option>
-                                                <option value="Yüksek Okul">2 Yıllık Yüksek Okul</option>
-                                                <option value="Lisans">Lisans</option>
-                                                <option value="Yüksek Lisans">Yüksek Lisans</option>
-                                                <option value="Doktora">Doktora</option>
-                                                <option value="Doktora Sonrası">Doktora Sonrası</option>
+                                                <option value="İlköğretim" @auth @if(Auth::user()->sonOkulderece=="İlköğretim") selected @endif @endauth>Ortaokul Mezunu</option>
+                                                <option value="Lise" @auth @if(Auth::user()->sonOkulderece=="Lise") selected @endif @endauth>Lise Mezunu</option>
+                                                <option value="Yüksek Okul" @auth @if(Auth::user()->sonOkulderece=="Yüksek Okul") selected @endif @endauth>2 Yıllık Yüksek Okul</option>
+                                                <option value="Lisans" @auth @if(Auth::user()->sonOkulderece=="Lisans") selected @endif @endauth>Lisans</option>
+                                                <option value="Yüksek Lisans" @auth @if(Auth::user()->sonOkulderece=="Yüksek Lisans") selected @endif @endauth>Yüksek Lisans</option>
+                                                <option value="Doktora" @auth @if(Auth::user()->sonOkulderece=="Doktora") selected @endif @endauth>Doktora</option>
+                                                <option value="Doktora Sonrası" @auth @if(Auth::user()->sonOkulderece=="Doktora Sonrası") selected @endif @endauth>Doktora Sonrası</option>
 
 
                                             </select>
                                         </div>
                                         <div class="form__field">
                                             <label for="lisMezTar" class="mt-4">Lisans Üniversite Mezuniyet Tarihi</label>
-                                            <select name="lisMezTar" id="sonOkulderece" class="form-control">
+                                            <select name="lisMezTar" id="lisMezTar" class="form-control">
                                                 <option value="" name="lisMezTar" selected="">Yıl Seçiniz</option>
-                                                <option value="1972">1972</option>
-                                                <option value="1973">1973</option>
-                                                <option value="1974">1974</option>
-                                                <option value="1975">1975</option>
-                                                <option value="1976">1976</option>
-                                                <option value="1977">1977</option>
-                                                <option value="1978">1978</option>
-                                                <option value="1979">1979</option>
-                                                <option value="1980">1980</option>
-                                                <option value="1981">1981</option>
-                                                <option value="1982">1982</option>
-                                                <option value="1983">1983</option>
-                                                <option value="1984">1984</option>
-                                                <option value="1985">1985</option>
-                                                <option value="1986">1986</option>
-                                                <option value="1987">1987</option>
-                                                <option value="1988">1988</option>
-                                                <option value="1989">1989</option>
-                                                <option value="1990">1990</option>
-                                                <option value="1991">1991</option>
-                                                <option value="1992">1992</option>
-                                                <option value="1993">1993</option>
-                                                <option value="1994">1994</option>
-                                                <option value="1995">1995</option>
-                                                <option value="1996">1996</option>
-                                                <option value="1997">1997</option>
-                                                <option value="1998">1998</option>
-                                                <option value="1999">1999</option>
-                                                <option value="2000">2000</option>
-                                                <option value="2001">2001</option>
-                                                <option value="2002">2002</option>
-                                                <option value="2003">2003</option>
-                                                <option value="2004">2004</option>
-                                                <option value="2005">2005</option>
-                                                <option value="2006">2006</option>
-                                                <option value="2007">2007</option>
-                                                <option value="2008">2008</option>
-                                                <option value="2009">2009</option>
-                                                <option value="2010">2010</option>
-                                                <option value="2011">2011</option>
-                                                <option value="2012">2012</option>
-                                                <option value="2013">2013</option>
-                                                <option value="2014">2014</option>
-                                                <option value="2015">2015</option>
-                                                <option value="2016">2016</option>
-                                                <option value="2017">2017</option>
-                                                <option value="2018">2018</option>
-                                                <option value="2019">2019</option>
-                                                <option value="2020">2020</option>
-                                                <option value="2021">2021</option>
-                                                <option value="2022">2022</option>
-                                                <option value="2023">2023</option>
-                                                <option value="2024">2024</option>
-                                                <option value="2025">2025</option>
-                                                <option value="2026">2026</option>
+                                                <option value="1972" @auth @if(Auth::user()->lisMezTar==1972) selected @endif @endauth >1972</option>
+                                                <option value="1973" @auth @if(Auth::user()->lisMezTar==1973) selected @endif @endauth >1973</option>
+                                                <option value="1974" @auth @if(Auth::user()->lisMezTar==1974) selected @endif @endauth>1974</option>
+                                                <option value="1975" @auth @if(Auth::user()->lisMezTar==1975) selected @endif @endauth>1975</option>
+                                                <option value="1976" @auth @if(Auth::user()->lisMezTar==1976) selected @endif @endauth>1976</option>
+                                                <option value="1977" @auth @if(Auth::user()->lisMezTar==1977) selected @endif @endauth>1977</option>
+                                                <option value="1978" @auth @if(Auth::user()->lisMezTar==1978) selected @endif @endauth>1978</option>
+                                                <option value="1979" @auth @if(Auth::user()->lisMezTar==1979) selected @endif @endauth>1979</option>
+                                                <option value="1980" @auth @if(Auth::user()->lisMezTar==1980) selected @endif @endauth>1980</option>
+                                                <option value="1981" @auth @if(Auth::user()->lisMezTar==1981) selected @endif @endauth>1981</option>
+                                                <option value="1982" @auth @if(Auth::user()->lisMezTar==1982) selected @endif @endauth>1982</option>
+                                                <option value="1983" @auth @if(Auth::user()->lisMezTar==1983) selected @endif @endauth>1983</option>
+                                                <option value="1984" @auth @if(Auth::user()->lisMezTar==1984) selected @endif @endauth>1984</option>
+                                                <option value="1985" @auth @if(Auth::user()->lisMezTar==1985) selected @endif @endauth>1985</option>
+                                                <option value="1986" @auth @if(Auth::user()->lisMezTar==1986) selected @endif @endauth>1986</option>
+                                                <option value="1987" @auth @if(Auth::user()->lisMezTar==1987) selected @endif @endauth>1987</option>
+                                                <option value="1988" @auth @if(Auth::user()->lisMezTar==1988) selected @endif @endauth>1988</option>
+                                                <option value="1989" @auth @if(Auth::user()->lisMezTar==1989) selected @endif @endauth>1989</option>
+                                                <option value="1990" @auth @if(Auth::user()->lisMezTar==1990) selected @endif @endauth>1990</option>
+                                                <option value="1991" @auth @if(Auth::user()->lisMezTar==1991) selected @endif @endauth>1991</option>
+                                                <option value="1992" @auth @if(Auth::user()->lisMezTar==1992) selected @endif @endauth>1992</option>
+                                                <option value="1993" @auth @if(Auth::user()->lisMezTar==1993) selected @endif @endauth>1993</option>
+                                                <option value="1994" @auth @if(Auth::user()->lisMezTar==1994) selected @endif @endauth>1994</option>
+                                                <option value="1995" @auth @if(Auth::user()->lisMezTar==1995) selected @endif @endauth>1995</option>
+                                                <option value="1996" @auth @if(Auth::user()->lisMezTar==1996) selected @endif @endauth>1996</option>
+                                                <option value="1997" @auth @if(Auth::user()->lisMezTar==1997) selected @endif @endauth>1997</option>
+                                                <option value="1998" @auth @if(Auth::user()->lisMezTar==1998) selected @endif @endauth>1998</option>
+                                                <option value="1999" @auth @if(Auth::user()->lisMezTar==1999) selected @endif @endauth>1999</option>
+                                                <option value="2000" @auth @if(Auth::user()->lisMezTar==2000) selected @endif @endauth>2000</option>
+                                                <option value="2001" @auth @if(Auth::user()->lisMezTar==2001) selected @endif @endauth>2001</option>
+                                                <option value="2002" @auth @if(Auth::user()->lisMezTar==2002) selected @endif @endauth>2002</option>
+                                                <option value="2003" @auth @if(Auth::user()->lisMezTar==2003) selected @endif @endauth>2003</option>
+                                                <option value="2004" @auth @if(Auth::user()->lisMezTar==2004) selected @endif @endauth>2004</option>
+                                                <option value="2005" @auth @if(Auth::user()->lisMezTar==2005) selected @endif @endauth>2005</option>
+                                                <option value="2006" @auth @if(Auth::user()->lisMezTar==2006) selected @endif @endauth>2006</option>
+                                                <option value="2007" @auth @if(Auth::user()->lisMezTar==2007) selected @endif @endauth>2007</option>
+                                                <option value="2008" @auth @if(Auth::user()->lisMezTar==2008) selected @endif @endauth>2008</option>
+                                                <option value="2009" @auth @if(Auth::user()->lisMezTar==2009) selected @endif @endauth>2009</option>
+                                                <option value="2010" @auth @if(Auth::user()->lisMezTar==2010) selected @endif @endauth>2010</option>
+                                                <option value="2011" @auth @if(Auth::user()->lisMezTar==2011) selected @endif @endauth>2011</option>
+                                                <option value="2012" @auth @if(Auth::user()->lisMezTar==2012) selected @endif @endauth>2012</option>
+                                                <option value="2013" @auth @if(Auth::user()->lisMezTar==2013) selected @endif @endauth>2013</option>
+                                                <option value="2014" @auth @if(Auth::user()->lisMezTar==2014) selected @endif @endauth>2014</option>
+                                                <option value="2015" @auth @if(Auth::user()->lisMezTar==2015) selected @endif @endauth>2015</option>
+                                                <option value="2016" @auth @if(Auth::user()->lisMezTar==2016) selected @endif @endauth>2016</option>
+                                                <option value="2017" @auth @if(Auth::user()->lisMezTar==2017) selected @endif @endauth>2017</option>
+                                                <option value="2018" @auth @if(Auth::user()->lisMezTar==2018) selected @endif @endauth>2018</option>
+                                                <option value="2019" @auth @if(Auth::user()->lisMezTar==2019) selected @endif @endauth>2019</option>
+                                                <option value="2020" @auth @if(Auth::user()->lisMezTar==2020) selected @endif @endauth>2020</option>
+                                                <option value="2021" @auth @if(Auth::user()->lisMezTar==2021) selected @endif @endauth>2021</option>
+                                                <option value="2022" @auth @if(Auth::user()->lisMezTar==2022) selected @endif @endauth>2022</option>
+                                                <option value="2023" @auth @if(Auth::user()->lisMezTar==2023) selected @endif @endauth>2023</option>
+                                                <option value="2024" @auth @if(Auth::user()->lisMezTar==2024) selected @endif @endauth>2024</option>
+                                                <option value="2025" @auth @if(Auth::user()->lisMezTar==2025) selected @endif @endauth>2025</option>
+                                                <option value="2026" @auth @if(Auth::user()->lisMezTar==2026) selected @endif @endauth>2026</option>
 
                                             </select>
                                         </div>
@@ -3553,25 +3559,25 @@
                                             <select name="sonOkul" id="sonOkul" name="lisUni" class="form-control">
                                                 <option value="">Seçiniz</option>
                                                 @foreach($university as $u)
-                                                    <option value="{{$u->id}}">{{$u->university_name}}</option>
+                                                    <option value="{{$u->id}}" @auth @if(Auth::user()->sonOkul==$u->id) selected @endif @endauth>{{$u->university_name}}</option>
                                                 @endforeach
 
                                             </select>
                                         </div>
                                         <div class="form__field">
                                             <label for="lFak" class="mt-4">Lisans Fakülte/Bölüm</label>
-                                            <input type="text" class="form-control" name="lFak" id="lFak">
+                                            <input type="text" class="form-control" name="lFak" id="lFak" @auth value="{{Auth::user()->lFak}}" @endauth>
                                         </div>
                                     </div>
                                     <div class="col lg-6">
                                         <label for="yLuni" class="">Yüksek Lisans Üniversite</label>
-                                        <input type="text" class="form-control" name="yLuni" id="yLuni">
+                                        <input type="text" class="form-control" name="yLuni" id="yLuni" @auth value="{{Auth::user()->yLuni}}" @endauth>
                                         <label for="yLisfak" class="mt-4">Yüksek Lisans Fakülte/Bölüm</label>
-                                        <input type="text" class="form-control" name="yLisfak" id="yLisfak">
+                                        <input type="text" class="form-control" name="yLisfak" id="yLisfak" @auth value="{{Auth::user()->yLisfak}}" @endauth>
                                         <label for="yDokUni" class="mt-4">Doktora Üniversite</label>
-                                        <input type="text" name="yDokUni" class="form-control" id="yDokUni">
+                                        <input type="text" name="yDokUni" class="form-control" id="yDokUni" @auth value="{{Auth::user()->yDokUni}}" @endauth>
                                         <label for="yDokBolum" class="mt-4">Doktora Bölüm</label>
-                                        <input type="text" id="yDokBolum" name="yDokBolum" class="form-control" >
+                                        <input type="text" id="yDokBolum" name="yDokBolum" class="form-control" @auth value="{{Auth::user()->yDokBolum}}" @endauth >
 
 
                                     </div>
@@ -3591,9 +3597,9 @@
                                 <div class="mt-4">
                                     <div class="col lg-6">
                                         <label for="tecrube" >Tecrübe</label>
-                                        <textarea class="form-control" id="tecrube" name="tecrube"></textarea>
+                                        <textarea class="form-control" id="tecrube" name="tecrube">@auth {{Auth::user()->tecrube}} @endauth</textarea>
                                         <label for="staj" class="mt-4">Stajlar</label>
-                                        <textarea class="form-control" id="staj" name="staj"></textarea>
+                                        <textarea class="form-control" id="staj" name="staj">@auth {{Auth::user()->staj}} @endauth</textarea>
                                     </div>
                                 </div>
 
@@ -3613,73 +3619,73 @@
                                     <div class="col-lg-6">
                                         <label for="ingSev">İngilizce Seviyesi</label>
                                         <select name="ingSev" id="ingSev" class="form-control">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="0" selected="">BELİRLENMEDİ</option>
+                                            <option value="1" @auth @if(Auth::user()->ingSev==1) selected @endif @endauth>1</option>
+                                            <option value="2" @auth @if(Auth::user()->ingSev==2) selected @endif @endauth>2</option>
+                                            <option value="3" @auth @if(Auth::user()->ingSev==3) selected @endif @endauth>3</option>
+                                            <option value="4" @auth @if(Auth::user()->ingSev==4) selected @endif @endauth>4</option>
+                                            <option value="5" @auth @if(Auth::user()->ingSev==5) selected @endif @endauth>5</option>
+                                            <option value="6" @auth @if(Auth::user()->ingSev==6) selected @endif @endauth>6</option>
+                                            <option value="7" @auth @if(Auth::user()->ingSev==7) selected @endif @endauth>7</option>
+                                            <option value="8" @auth @if(Auth::user()->ingSev==8) selected @endif @endauth>8</option>
+                                            <option value="9" @auth @if(Auth::user()->ingSev==9) selected @endif @endauth>9</option>
+                                            <option value="10" @auth @if(Auth::user()->ingSev==10) selected @endif @endauth>10</option>
+                                            <option value="0" >BELİRLENMEDİ</option>
                                         </select>
                                         <label for="almSev" class="mt-4">Almanca Seviyesi</label>
                                         <select name="almSev" id="almSev" class="form-control">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="0" selected="">BELİRLENMEDİ</option>
+                                            <option value="1" @auth @if(Auth::user()->almSev==1) selected @endif @endauth>1</option>
+                                            <option value="2" @auth @if(Auth::user()->almSev==2) selected @endif @endauth >2</option>
+                                            <option value="3" @auth @if(Auth::user()->almSev==3) selected @endif @endauth>3</option>
+                                            <option value="4" @auth @if(Auth::user()->almSev==4) selected @endif @endauth>4</option>
+                                            <option value="5" @auth @if(Auth::user()->almSev==5) selected @endif @endauth>5</option>
+                                            <option value="6" @auth @if(Auth::user()->almSev==6) selected @endif @endauth>6</option>
+                                            <option value="7" @auth @if(Auth::user()->almSev==7) selected @endif @endauth>7</option>
+                                            <option value="8" @auth @if(Auth::user()->almSev==8) selected @endif @endauth>8</option>
+                                            <option value="9" @auth @if(Auth::user()->almSev==9) selected @endif @endauth>9</option>
+                                            <option value="10" @auth @if(Auth::user()->almSev==10) selected @endif @endauth>10</option>
+                                            <option value="0" >BELİRLENMEDİ</option>
                                         </select>
                                         <label for="frSev" class="mt-4">Fransızca Seviyesi</label>
                                         <select name="frSev" id="frSev" class="form-control">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="0" selected="">BELİRLENMEDİ</option>
+                                            <option value="1"  @auth @if(Auth::user()->frSev==1) selected @endif @endauth>1</option>
+                                            <option value="2" @auth @if(Auth::user()->frSev==2) selected @endif @endauth>2</option>
+                                            <option value="3" @auth @if(Auth::user()->frSev==3) selected @endif @endauth>3</option>
+                                            <option value="4" @auth @if(Auth::user()->frSev==4) selected @endif @endauth>4</option>
+                                            <option value="5" @auth @if(Auth::user()->frSev==5) selected @endif @endauth>5</option>
+                                            <option value="6" @auth @if(Auth::user()->frSev==6) selected @endif @endauth>6</option>
+                                            <option value="7" @auth @if(Auth::user()->frSev==7) selected @endif @endauth>7</option>
+                                            <option value="8" @auth @if(Auth::user()->frSev==8) selected @endif @endauth>8</option>
+                                            <option value="9" @auth @if(Auth::user()->frSev==9) selected @endif @endauth>9</option>
+                                            <option value="10" @auth @if(Auth::user()->frSev==10) selected @endif @endauth>10</option>
+                                            <option value="0" >BELİRLENMEDİ</option>
                                         </select>
                                         <label for="isSev" class="mt-4">İspanyolca Seviyesi</label>
                                         <select name="isSev" id="isSev" class="form-control">
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                            <option value="6">6</option>
-                                            <option value="7">7</option>
-                                            <option value="8">8</option>
-                                            <option value="9">9</option>
-                                            <option value="10">10</option>
-                                            <option value="0" selected="">BELİRLENMEDİ</option>
+                                            <option value="1" @auth @if(Auth::user()->isSev==1) selected @endif @endauth>1</option>
+                                            <option value="2" @auth @if(Auth::user()->isSev==2) selected @endif @endauth>2</option>
+                                            <option value="3" @auth @if(Auth::user()->isSev==3) selected @endif @endauth>3</option>
+                                            <option value="4" @auth @if(Auth::user()->isSev==4) selected @endif @endauth>4</option>
+                                            <option value="5" @auth @if(Auth::user()->isSev==5) selected @endif @endauth>5</option>
+                                            <option value="6" @auth @if(Auth::user()->isSev==6) selected @endif @endauth>6</option>
+                                            <option value="7" @auth @if(Auth::user()->isSev==7) selected @endif @endauth>7</option>
+                                            <option value="8" @auth @if(Auth::user()->isSev==8) selected @endif @endauth>8</option>
+                                            <option value="9" @auth @if(Auth::user()->isSev==9) selected @endif @endauth>9</option>
+                                            <option value="10" @auth @if(Auth::user()->isSev==10) selected @endif @endauth>10</option>
+                                            <option value="0" >BELİRLENMEDİ</option>
                                         </select>
                                         <label for="ofisArac" class="mt-4">Ofis Araçları/Yazılımlar</label>
-                                        <textarea class="form-control" id="ofisArac" name="ofisArac"></textarea>
+                                        <textarea class="form-control" id="ofisArac" name="ofisArac">@auth {{Auth::user()->ofisArac}} @endauth</textarea>
 
                                     </div>
                                     <div class="col-lg-6 mt-3">
                                         <label for="kurs" >Katıldığınız Kurs/Seminer</label>
-                                        <textarea class="form-control" id="kurs" name="kurs"></textarea>
+                                        <textarea class="form-control" id="kurs" name="kurs">@auth {{Auth::user()->kurs}} @endauth</textarea>
                                         <label for="dernek"  class="mt-4">Üyesi bulunduğunuz Dernek / Kulüp / Oda adları</label>
-                                        <textarea class="form-control" id="dernek" name="dernek"></textarea>
+                                        <textarea class="form-control" id="dernek" name="dernek">@auth {{Auth::user()->dernek}} @endauth</textarea>
                                         <label for="uzmanlik"  class="mt-4">Uzmanlık alanlarınız</label>
-                                        <textarea class="form-control" id="uzmanlik" name="uzmanlik"></textarea>
+                                        <textarea class="form-control" id="uzmanlik" name="uzmanlik">@auth {{Auth::user()->uzmanlik}} @endauth</textarea>
                                         <label for="notlar"  class="mt-4">Eklemek İstediğiniz Notlarınız (varsa) yazınız</label>
-                                        <textarea class="form-control" id="notlar" name="notlar"></textarea>
+                                        <textarea class="form-control" id="notlar" name="notlar">@auth {{Auth::user()->notlar}} @endauth</textarea>
                                     </div>
                                 </div>
 
@@ -3699,11 +3705,11 @@
                             <section id="progress-form__panel-8" style="margin-top: -50px;" role="tabpanel" aria-labelledby="progress-form__tab-8" tabindex="0" hidden>
                                 <div class="mt-4">
                                     <label for="ref1"  class="">1.Referans <span style="color:red;">( Adı,Soyadı,Görevi,Telefonu )</span></label>
-                                    <textarea class="form-control" id="ref1" name="ref1"></textarea>
+                                    <textarea class="form-control" id="ref1" name="ref1">@auth {{Auth::user()->ref1}} @endauth</textarea>
                                     <label for="ref2"  class="mt-4">2.Referans <span style="color:red;">( Adı,Soyadı,Görevi,Telefonu )</span></label>
-                                    <textarea class="form-control" id="ref2" name="ref2"></textarea>
+                                    <textarea class="form-control" id="ref2" name="ref2">@auth {{Auth::user()->ref2}} @endauth</textarea>
                                     <label for="ref3"  class="mt-4">3.Referans <span style="color:red;">( Adı,Soyadı,Görevi,Telefonu )</span></label>
-                                    <textarea class="form-control" id="ref3" name="ref3"></textarea>
+                                    <textarea class="form-control" id="ref3" name="ref3">@auth {{Auth::user()->ref3}} @endauth</textarea>
                                     <label  class="mt-4"><b>Yasal Hatırlatma</b><p>Eğitim Kurumlarımızda kayıtlı olan ticari iletişim araçlarınıza, ürün ve faaliyetlerimiz ile sınırlı olmak kaydıyla, tanıtım amaçlı ilan ve reklam yanında ticari elektronik ileti gönderilecek olup, elektronik ticari ileti almak istemediğiniz takdirde, aşağıdaki seçenekte seçiminizi yapınız.</p></label>
                                     <div class="row">
                                         <div class="col-lg-12"> <input type="radio" name="smsonay" value="1" checked="" id="sms1"><span style="font-size: 14px;">SMS ve E-POSTA ALMAK İSTİYORUM</span></div>
@@ -3711,7 +3717,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-12"> <input type="radio" name="smsonay" value="0" id="sms2" ><span style="font-size: 14px;">SMS ve E-POSTA ALMAK İSTEMİYORUM</span></div>
-
+                                        @auth <input type="hidden" name="authmu" value="1"> @endauth
                                     </div>
 
 

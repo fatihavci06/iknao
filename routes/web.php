@@ -18,6 +18,7 @@ Route::get('/','App\Http\Controllers\front\IndexController@index')->name('front.
 Route::get('/yeni-basvuru/{brans?}/{id?}','App\Http\Controllers\front\IndexController@yenibasvuru')->name('front.yenibasvuru');
 Route::post('/yeni-basvuru','App\Http\Controllers\front\IndexController@store')->name('front.basvurukayit');
 Route::get('/profil-duzenle','App\Http\Controllers\front\IndexController@edit')->middleware('girisyapabilirmi')->name('front.edit');
+Route::get('/basvurularim','App\Http\Controllers\front\IndexController@basvurularim')->middleware('girisyapabilirmi')->name('front.basvurularim');
 Route::post('/profil-duzenle','App\Http\Controllers\front\IndexController@update')->name('front.update');
 Route::get('/giris','App\Http\Controllers\front\IndexController@giris')->name('front.giris');
 Route::get('/sifremi-unuttum','App\Http\Controllers\front\IndexController@sifremiunuttum')->name('front.sifremiunuttum');
@@ -45,6 +46,7 @@ Route::group(['prefix' => 'yonetim'], function() {
             Route::post('/update/{id}','App\Http\Controllers\back\Ilan\IlanController@update')->name('ilan.update');
             Route::get('/delete/{id}','App\Http\Controllers\back\Ilan\IlanController@destroy')->name('ilan.delete');
             Route::get('/onbasvuru-liste','App\Http\Controllers\back\Ilan\IlanController@onbasvuruliste')->name('ilan.onbasvuruliste');
+            Route::get('/tum-basvurular','App\Http\Controllers\back\Ilan\IlanController@tumbasvuruliste')->name('ilan.tumbasvuruliste');
             Route::get('/ilan-basvurular/{ilanid}','App\Http\Controllers\back\Ilan\IlanController@basvurular')->name('ilan.basvurular');
         });
         Route::get('/aday-detay/{id}','App\Http\Controllers\back\AdayController@adaydetay')->name('back.adaydetay');

@@ -47,6 +47,8 @@ class IlanController extends Controller
         $request->validate([
             'ilan_name'=>'required|min:5',
             'konum'=>'required',
+            'kampus'=>'required',
+            'istur'=>'required',
             'endDate'=>'required',
             'description'=>'required',
         ]);
@@ -56,8 +58,10 @@ class IlanController extends Controller
         }
         Ilan::create([
            'ilan_name'=>$request->ilan_name,
-            'konum'=>$request->konum,
+            'kampus'=>$request->kampus,
             'durum'=>$request->durum,
+            'istur'=>$request->istur,
+            'konum'=>$request->konum,
             'endDate'=>$request->endDate,
             'description'=>$request->description
 
@@ -152,6 +156,56 @@ class IlanController extends Controller
         return view('back.ilan.ilan_onbasvuru_liste');
 
     }
+    public function tumbasvuruliste(Request $request)
+    {
+        //
+
+
+
+
+
+        if ($request->ajax()) {
+            $data = IlanUser::with('userInfo')->whereHas('userInfo', function ($query) {
+                return $query->where('rol', '=', 0);
+            })->orderByDesc('created_at')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('ad', function($data){
+
+                    $ad = $data->userInfo->firstname;
+                    return $ad;
+                })
+                ->addColumn('soyad', function($data){
+
+                    $ad = $data->userInfo->lastname;
+                    return $ad;
+
+                })
+                ->addColumn('tc', function($data){
+
+                    $ad = $data->userInfo->tc;
+                    return $ad;
+
+                })
+                ->addColumn('brans', function($data){
+
+                    $ad = $data->userInfo->bransInfo->brans_name;
+                    return $ad;
+
+                })
+                ->addColumn('gor', function($data){
+
+                    $btn = '<a href="'.route('back.adaydetay',$data->user_id).'" class="edit btn btn-primary btn-sm">Detaylı İncele</a>';
+
+                    return $btn;
+                })
+                ->rawColumns(['ad','soyad','tc','brans','gor'])
+                //action sutunu viewe gönderdik,addcolumda kaç sutun eklersek buraya yazarız ve viewda karşılaşadığımız yerde işlem yaparız
+                ->make(true);
+        }
+        return view('back.ilan.ilan_tumbasvuru_liste');
+
+    }
     public function basvurular($id,Request $request)
     {
 
@@ -224,6 +278,8 @@ class IlanController extends Controller
 
         $request->validate([
             'ilan_name'=>'required|min:5',
+            'kampus'=>'required',
+            'istur'=>'required',
             'konum'=>'required',
             'endDate'=>'required',
             'description'=>'required',
@@ -235,6 +291,8 @@ class IlanController extends Controller
         $ilan=Ilan::findOrFail($id);
         $ilan->ilan_name=$request->ilan_name;
         $ilan->konum=$request->konum;
+        $ilan->kampus=$request->kampus;
+        $ilan->istur=$request->istur;
         $ilan->durum=$request->durum;
         $ilan->endDate=$request->endDate;
         $ilan->description=$request->description;

@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 class IndexController extends Controller
 {
+
+    public static function getBransId($brans_name){ //dışarıdan fonksiyonun çağrılabilmesi için mutlaka public static olmalı
+
+        $brans=Brans::where('brans_name',$brans_name)->first();
+
+
+
+        return $brans->id;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +32,9 @@ class IndexController extends Controller
     public function index()
     {
         //
+        $kampusler=Campus::all();
         $ilanlar=Ilan::where('endDate','>',now())->orderBy('id','desc')->get();
-        return view('front.index',['ilanlar'=>$ilanlar]);
+        return view('front.index',['ilanlar'=>$ilanlar,'kampus'=>$kampusler]);
 
     }
 
@@ -106,11 +117,37 @@ class IndexController extends Controller
             $aday->ref2=$request->ref2;
             $aday->ref3=$request->ref3;
             $aday->smsonay=$request->smsonay;
-            $random_sifre=rand(100000,999999);
-            $aday->password=bcrypt($random_sifre);
-            $aday->save();
+            $authdurum=1;
+            if(!isset($request->authmu) || $request->authmu!=1){
+                $random_sifre=rand(100000,999999);
+                $aday->password=bcrypt($random_sifre);
+                $authdurum=0;
+            }
 
-            return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
+            $aday->save();
+            if(isset($request->ilanno)){
+
+
+                IlanUser::updateOrCreate(
+                    ['ilan_id'=>$request->ilanno,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
+
+                    ['ilan_id'=>$request->ilanno,'user_id'=>$aday->id]
+                );
+            }
+            else{
+                IlanUser::updateOrCreate(
+                    ['ilan_id'=>0,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
+
+                    ['ilan_id'=>0,'user_id'=>$aday->id]
+                );
+            }
+            if($authdurum==0) {
+                return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
+            }
+            else{
+                return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır']);
+            }
+
         }
         else{
             $aday= new User();
@@ -161,22 +198,35 @@ class IndexController extends Controller
             $aday->ref2=$request->ref2;
             $aday->ref3=$request->ref3;
             $aday->smsonay=$request->smsonay;
-            $random_sifre=rand(100000,999999);
-            $aday->password=bcrypt($random_sifre);
+            $authdurum=1;
+            if(!isset($request->authmu) || $request->authmu!=1){
+                $random_sifre=rand(100000,999999);
+                $aday->password=bcrypt($random_sifre);
+                $authdurum=0;
+            }
             $aday->save();
             if(isset($request->ilanno)){
-                IlanUser::create([
-                    'ilan_id'=>$request->ilanno,
-                    'user_id'=>$aday->id
-                ]);
+
+
+                IlanUser::updateOrCreate(
+                    ['ilan_id'=>$request->ilanno,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
+
+                    ['ilan_id'=>$request->ilanno,'user_id'=>$aday->id]
+                );
             }
             else{
-                IlanUser::create([
-                    'ilan_id'=>0,
-                    'user_id'=>$aday->id
-                ]);
+                IlanUser::updateOrCreate(
+                    ['ilan_id'=>0,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
+
+                    ['ilan_id'=>0,'user_id'=>$aday->id]
+                );
             }
-            return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
+            if($authdurum==0) {
+                return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
+            }
+            else{
+                return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır']);
+            }
         }
 
     }
@@ -187,6 +237,15 @@ class IndexController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    public function basvurularim()
+    {
+        $id=Auth::id();
+
+         $ilan=IlanUser::join('ilans','ilans.id','ilan_users.ilan_id')->where('ilan_users.user_id',$id)->paginate(5);
+
+        return view('front.basvurularim',['ilan'=>$ilan]);
+        //
+    }
     public function login(Request $req)
     {
         //
@@ -335,8 +394,43 @@ class IndexController extends Controller
     public function ara(Request $request)
     {
         //
-        $ara=Ilan::where('ilan_name','like','%'.$request->kelime.'%')->paginate(5);
-        return view('front.ilan_ara',['ilan'=>$ara]);
+
+        $istur=$request->istur;
+        $konum=$request->konum;
+        $kampus=$request->kampus;
+        $kelime=$request->kelime;
+        if(empty($kelime)&& empty($konum)&& empty($kampus)&& empty($istur)){
+            return redirect()->back()->with(['false'=>'Lütfen bir seçim yapınız']);
+        }
+        $ara=Ilan::when($istur, function ($q) use ($istur) {
+            return $q->where('istur', 'like', '%'.$istur.'%');
+        })
+            ->when($konum, function ($q) use ($konum) {
+                return $q->where('konum', 'like', '%'.$konum.'%');
+            })
+            ->when($kampus, function ($q) use ($kampus) {
+                return $q->where('kampus', 'like', '%'.$kampus.'%');
+            })
+            ->when($kelime, function ($q) use ($kelime) {
+                return $q->where('ilan_name', 'like', '%'.$kelime.'%');
+            })
+            ->paginate(5);
+        $kacadet=Ilan::when($istur, function ($q) use ($istur) {
+            return $q->where('istur', 'like', '%'.$istur.'%');
+        })
+            ->when($konum, function ($q) use ($konum) {
+                return $q->where('konum', 'like', '%'.$konum.'%');
+            })
+            ->when($kampus, function ($q) use ($kampus) {
+                return $q->where('kampus', 'like', '%'.$kampus.'%');
+            })
+            ->when($kelime, function ($q) use ($kelime) {
+                return $q->where('ilan_name', 'like', '%'.$kelime.'%');
+            })->count();
+
+
+
+        return view('front.ilan_ara',['ilan'=>$ara,'kacadet'=>$kacadet]);
 
     }
     public function destroy($id)

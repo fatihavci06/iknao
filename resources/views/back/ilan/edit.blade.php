@@ -43,13 +43,24 @@
                         @csrf
                     <div class="container">
                         <div class="row">
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="mb-3">
                                     <label class="form-label" for="exampleFormControlInput1">İlan Başlığı</label>
                                     <input class="form-control" required name="ilan_name" id="exampleFormControlInput1" type="text" placeholder="Türkçe Öğretmeni" value="{{old('ilan_name',$ilan->ilan_name)}}" />
                                 </div>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
+                                <div class="mb-3">
+                                    <label class="form-label" for="istur">İş Türü </label>
+                                    <select class="form-select" name="istur" id="istur"  required>
+                                        <option value="" >Seçiniz</option>
+                                        <option value="Yarı Zamanlı"  @if(old('istur',$ilan->istur)=='Yarı Zamanlı') selected @endif >Yarı Zamanlı</option>
+                                        <option value="Tam Zamanlı"  @if(old('istur',$ilan->istur)=='Tam Zamanlı') selected @endif >Tam Zamanlı</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-4">
                                 <div class="mb-3">
                                     <label class="form-label" for="durum">Durum</label>
                                     <select class="form-select" name="durum" id="durum"  required>
@@ -63,18 +74,21 @@
 
                         </div>
                         <div class="row">
-
-                            <div class="col-6">
+                            <div class="col-4">
                                 <label class="form-label" for="konum">Konum</label>
-                                <select class="form-select" name="konum" aria-label="Default select example" required>
+                                <input class="form-control" type="text" id="konum" name="konum" value="{{$ilan->konum}}" required>
+                            </div>
+                            <div class="col-4">
+                                <label class="form-label" for="konum">Kampus</label>
+                                <select class="form-select" name="kampus" aria-label="Default select example" required>
                                     <option value="" >Seçiniz</option>
                                     @foreach($kampusler as $k)
-                                    <option @if(old('konum',$ilan->konum)==$k->campus_name) selected @endif value="{{$k->campus_name}}">{{$k->campus_name}}</option>
+                                    <option @if(old('konum',$ilan->kampus)==$k->campus_name) selected @endif value="{{$k->campus_name}}">{{$k->campus_name}}</option>
                                     @endforeach
 
                                 </select>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <div class="mb-3">
                                     <label class="form-label" for="exampleFormControlInput1">Bitiş Tarihi</label>
                                     <input required class="form-control" name="endDate" id="exampleFormControlInput1" type="date" value="{{old('endDate',$ilan->endDate)}}"  />

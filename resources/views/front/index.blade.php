@@ -15,13 +15,42 @@
                     <div class="card">
                         <div class="card-body">
                             <form action="{{route('front.ara')}}" >
-
+                                @if(session('false'))
+                            <div class="row">
+                                <div class="col-12 alert alert-danger">{{session('false')}}</div>
+                            </div>
+                                @endif
                             <div class="row">
 
-                                <div class="col-lg-9 col-7 col-sm-9 col-xs-9 col-md-9"><input type="text" class="form-control" name="kelime" placeholder="Türkçe Öğretmeni"></div>
-                                <div class="col-lg-3 col-5 col-sm-3 col-xs-3 col-md-3"><button class="btn btn-primary form-control" style="background: #000f3d!important;">İlan Ara</button></div>
+                                <div class="col-6"><label>Branş </label><input type="text" class="form-control" name="kelime" placeholder="Türkçe Öğretmeni"></div>
+                                <div class="col-6"><label>Şehir</label><input type="text" class="form-control" name="konum" placeholder="Ankara"></div>
 
                             </div>
+                                <div class="row mt-3">
+
+                                    <div class="col-6">
+                                        <label>Kampüs Seçimi</label>
+                                        <select class="form-control" name="kampus">
+                                            <option value="">Seçiniz</option>
+                                            @foreach($kampus as $k)
+                                                <option value="{{$k->campus_name}}">{{$k->campus_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-6">
+                                        <label>İş Türü</label>
+                                        <select class="form-control" name="istur" >
+                                            <option value="">Seçiniz</option>
+                                            <option value="Tam Zamanlı">Tam Zamanlı</option>
+                                            <option value="Yarı Zamanlı">Yarı Zamanlı</option>
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                                <div class="row mt-3 mx-auto">
+                                    <button class="btn btn-primary " style="background: #000f3d!important;">İlan Ara</button>
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -89,7 +118,7 @@
                             <div class="swiper-slide">
 
                                 <div class="px-5 px-sm-6">
-                                    <p class="fs-sm-1 fs-md-2 fst-italic text-dark"><a href="{{route('front.ilan_detay',['id'=>$ilan->id])}}">{{$ilan->ilan_name}} <br/> {{$ilan->konum}} </a></p>
+                                    <p class="fs-sm-1 fs-md-2 fst-italic text-dark"><a href="{{route('front.ilan_detay',['id'=>$ilan->id])}}">{{$ilan->ilan_name}} <br/> {{$ilan->konum}} - {{$ilan->kampus}} </a></p>
                                     <p class="fs-0 text-600">{{ \Carbon\Carbon::parse($ilan->created_at)->diffForHumans() }}</p>
                                 </div>
                             </div>

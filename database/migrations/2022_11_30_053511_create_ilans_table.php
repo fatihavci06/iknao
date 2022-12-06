@@ -17,7 +17,9 @@ class CreateIlansTable extends Migration
             $table->id();
             $table->string('ilan_name');
             $table->string('slug')->nullable();
+            $table->string('istur');
             $table->string('konum');
+            $table->string('kampus');
             $table->text('description');
             $table->date('endDate')->nullable();
             $table->integer('durum')->comment('1:pasif,2:aktif')->default(2);
