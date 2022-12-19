@@ -10,7 +10,7 @@
                 <div class="card-header bg-light py-2">
                     <div class="row flex-between-center">
                         <div class="col-auto">
-                            <h6 class="mb-0">İlan Ekle</h6>
+                            <h6 class="mb-0">İzin Talep Detay</h6>
                         </div>
                         <div class="col-auto d-flex">
                             <div class="dropdown font-sans-serif btn-reveal-trigger">
@@ -30,6 +30,13 @@
                             <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
                     @endif
+                        @if(session('danger'))
+                            <div class="alert alert-danger border-2 d-flex align-items-center" role="alert">
+                                <div class="bg-success me-3 icon-item"><span class="fas fa-check-circle text-white fs-3"></span></div>
+                                <p class="mb-0 flex-1">{{session('danger')}}</p>
+                                <button class="btn-close" type="button" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
                     @if($errors->any())
                             <div class="alert alert-warning border-2 d-flex align-items-center" role="alert">
 
@@ -42,76 +49,85 @@
                                 </ul>
                             </div>
                     @endif
-                    <form action="{{route('ilan.eklepost')}}" method="post">
-                        @csrf
+
                     <div class="container">
                         <div class="row">
-                            <div class="col-4">
+
+                            <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="exampleFormControlInput1">İlan Başlığı</label>
-                                    <input class="form-control" required name="ilan_name" id="exampleFormControlInput1" type="text" placeholder="Türkçe Öğretmeni" value="{{old('ilan_name')}}" />
+                                    <label class="form-label" for="user_id"><b>Personel</b>  </label>
+                                        <p>{{$data->userinfo->firstname}} {{$data->userinfo->lastname}} </p>
                                 </div>
                             </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="istur">İş Türü </label>
-                                    <select class="form-select" name="istur" id="istur"  required>
-                                        <option value="" >Seçiniz</option>
-                                        <option value="Yarı Zamanlı"  >Yarı Zamanlı</option>
-                                        <option value="Tam Zamanlı"  >Tam Zamanlı</option>
-
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="mb-3">
-                                    <label class="form-label" for="durum">Durum</label>
-                                    <select class="form-select" name="durum" id="durum"  required>
-                                        <option value="" >Seçiniz</option>
-                                        <option value="2" @if(old('durum')==2) selected @endif >Aktif</option>
-                                        <option value="1" @if(old('durum')==1) selected @endif >Pasif</option>
-
-                                    </select>
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="row">
-
-                            <div class="col-4">
-                                <label class="form-label" for="konum">Konum</label>
-                               <input class="form-control" type="text" id="konum" name="konum" required>
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label" for="kampus">Kampüs</label>
-                                <select class="form-select" name="kampus" aria-label="Default select example" required>
-                                    <option value="" >Seçiniz</option>
-                                    @foreach($kampusler as $k)
-                                        <option @if(old('konum')==$k->campus_name) selected @endif value="{{$k->campus_name}}">{{$k->campus_name}}</option>
-                                    @endforeach
-
-                                </select>
-                            </div>
-                            <div class="col-4">
-                                <div class="mb-3">
-                                    <label class="form-label" for="exampleFormControlInput1">Bitiş Tarihi</label>
-                                    <input required class="form-control" name="endDate" id="exampleFormControlInput1" type="date" value="{{old('endDate')}}"  />
+                                    <label class="form-label" for="user_id"><b>Tc Kimlik Nu.</b>  </label>
+                                    <p>{{$data->userinfo->firstname}} {{$data->userinfo->tc}} </p>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <label class="form-label" for="description">Açıklama</label>
+
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="izin_tur"><b>İzin Türü</b> </label>
+                                    <p>{{$data->izininfo->izin_tur}}  </p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <label class="form-label" for="belge"><b>Belge</b></label>
                                 <div class="min-vh-30">
-                                    <textarea  class="tinymce d-none" id="description" name="description">{{old('description')}}</textarea>
+                                    @if($data->belge!='')
+                                    <a href="{{route('izin.amirbelgeindir',$data->id)}}" class="btn btn-download-cv btn-info rounded-pill"> Belgeyi İndir </a>
+                                    @else
+                                        <p>Belge bulunmamaktadır.</p>
+                                    @endif
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+
+
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="baslangic_tarih"><b>Başlangıç Tarihi</b></label>
+                                    <p>{{$data->baslangic_tarih}}</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="bitis_tarih"><b>Bitiş Tarihi</b></label>
+                                    <p>{{$data->bitis_tarih}}</p>
                                 </div>
                             </div>
                         </div>
-                        <div class="row mt-2">
+                        <div class="row">
                             <div class="col-12">
-                                <button class="btn btn-primary form-control">Kaydet</button>
+                                <label class="form-label" for="description"><b>Açıklama</b></label>
+                                <div class="min-vh-30">
+                                    <p>{{$data->aciklama}}</p>
+                                </div>
                             </div>
                         </div>
+                        <form action="{{route('izin.amironay',$data->id)}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="row mt-4">
+
+                                    <div class="col-6">
+                                    <select name="durum" class="form-control">
+                                        <option value="0" @if($data->durum==0) selected @endif>Beklemede</option>
+                                        <option value="1" @if($data->durum==1) selected @endif>Onayla</option>
+                                        <option value="2" @if($data->durum==2) selected @endif>Reddet</option>
+                                    </select>
+                                    </div>
+                                <div class="col-6">
+
+                                    <button class="btn btn-primary form-control">Kaydet</button>
+                                </div>
+                            </div>
+
                     </div>
                     </form>
                 </div>

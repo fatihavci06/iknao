@@ -162,7 +162,11 @@ return [
         'ilan_name'=>'İlan Başlığı',
         'konum'=>'Konum',
         'endDate'=>'Bitiş Tarihi',
-        'description'=>'Açıklama'
+        'description'=>'Açıklama',
+        'baslangic_tarih'=>'Başlangıç Tarihi',
+        'bitis_tarih'=>'Bitiş Tarihi',
+        'user_id'=>'Personel',
+        'izin_tur'=>'İzin Türü',
     ],
 
 ];

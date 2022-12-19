@@ -32,11 +32,13 @@
                     @endif
                     @if($errors->any())
                             <div class="alert alert-danger">
+                                <ul>
                                @foreach($errors->all() as $e)
 
                                     <li>{{$e}}</li>
 
                                  @endforeach
+                                </ul>
                             </div>
                     @endif
                     <form action="{{route('ilan.update',['id'=>$ilan->id])}}" method="post">

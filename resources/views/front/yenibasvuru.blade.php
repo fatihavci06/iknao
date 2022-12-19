@@ -3619,6 +3619,7 @@
                                     <div class="col-lg-6">
                                         <label for="ingSev">İngilizce Seviyesi</label>
                                         <select name="ingSev" id="ingSev" class="form-control">
+                                            <option value="0" >BELİRLENMEDİ</option>
                                             <option value="1" @auth @if(Auth::user()->ingSev==1) selected @endif @endauth>1</option>
                                             <option value="2" @auth @if(Auth::user()->ingSev==2) selected @endif @endauth>2</option>
                                             <option value="3" @auth @if(Auth::user()->ingSev==3) selected @endif @endauth>3</option>
@@ -3629,10 +3630,11 @@
                                             <option value="8" @auth @if(Auth::user()->ingSev==8) selected @endif @endauth>8</option>
                                             <option value="9" @auth @if(Auth::user()->ingSev==9) selected @endif @endauth>9</option>
                                             <option value="10" @auth @if(Auth::user()->ingSev==10) selected @endif @endauth>10</option>
-                                            <option value="0" >BELİRLENMEDİ</option>
+
                                         </select>
                                         <label for="almSev" class="mt-4">Almanca Seviyesi</label>
                                         <select name="almSev" id="almSev" class="form-control">
+                                            <option value="0" >BELİRLENMEDİ</option>
                                             <option value="1" @auth @if(Auth::user()->almSev==1) selected @endif @endauth>1</option>
                                             <option value="2" @auth @if(Auth::user()->almSev==2) selected @endif @endauth >2</option>
                                             <option value="3" @auth @if(Auth::user()->almSev==3) selected @endif @endauth>3</option>
@@ -3647,6 +3649,7 @@
                                         </select>
                                         <label for="frSev" class="mt-4">Fransızca Seviyesi</label>
                                         <select name="frSev" id="frSev" class="form-control">
+                                            <option value="0" >BELİRLENMEDİ</option>
                                             <option value="1"  @auth @if(Auth::user()->frSev==1) selected @endif @endauth>1</option>
                                             <option value="2" @auth @if(Auth::user()->frSev==2) selected @endif @endauth>2</option>
                                             <option value="3" @auth @if(Auth::user()->frSev==3) selected @endif @endauth>3</option>
@@ -3661,6 +3664,7 @@
                                         </select>
                                         <label for="isSev" class="mt-4">İspanyolca Seviyesi</label>
                                         <select name="isSev" id="isSev" class="form-control">
+                                            <option value="0" >BELİRLENMEDİ</option>
                                             <option value="1" @auth @if(Auth::user()->isSev==1) selected @endif @endauth>1</option>
                                             <option value="2" @auth @if(Auth::user()->isSev==2) selected @endif @endauth>2</option>
                                             <option value="3" @auth @if(Auth::user()->isSev==3) selected @endif @endauth>3</option>

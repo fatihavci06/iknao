@@ -10,7 +10,7 @@
                 <div class="card-header bg-light py-2">
                     <div class="row flex-between-center">
                         <div class="col-auto">
-                            <h6 class="mb-0">İlan Ekle</h6>
+                            <h6 class="mb-0">İzin Talebi Düzenleme</h6>
                         </div>
                         <div class="col-auto d-flex">
                             <div class="dropdown font-sans-serif btn-reveal-trigger">
@@ -42,60 +42,64 @@
                                 </ul>
                             </div>
                     @endif
-                    <form action="{{route('ilan.eklepost')}}" method="post">
+                    <form action="{{route('izin.talepupdate',$data->id)}}" method="post" enctype="multipart/form-data">
                         @csrf
                     <div class="container">
                         <div class="row">
-                            <div class="col-4">
+
+                            <div class="col-12">
                                 <div class="mb-3">
-                                    <label class="form-label" for="exampleFormControlInput1">İlan Başlığı</label>
-                                    <input class="form-control" required name="ilan_name" id="exampleFormControlInput1" type="text" placeholder="Türkçe Öğretmeni" value="{{old('ilan_name')}}" />
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="mb-3">
-                                    <label class="form-label" for="istur">İş Türü </label>
-                                    <select class="form-select" name="istur" id="istur"  required>
+                                    <label class="form-label" for="user_id">Personel </label>
+                                    <select class="form-select" name="user_id" id="user_id"  required>
                                         <option value="" >Seçiniz</option>
-                                        <option value="Yarı Zamanlı"  >Yarı Zamanlı</option>
-                                        <option value="Tam Zamanlı"  >Tam Zamanlı</option>
+                                        @foreach($personel as $p)
+                                            <option value="{{$p->id}}"  @if(old('user_id',$data->user_id)==$p->id)) selected @endif >{{$p->firstname}} {{$p->lastname}} </option>
+
+                                        @endforeach
+
 
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-4">
+                        </div>
+                        <div class="row">
+
+                            <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="durum">Durum</label>
-                                    <select class="form-select" name="durum" id="durum"  required>
+                                    <label class="form-label" for="izin_tur">İzin Türü </label>
+                                    <select class="form-select" name="izin_tur" id="izin_tur"  required>
                                         <option value="" >Seçiniz</option>
-                                        <option value="2" @if(old('durum')==2) selected @endif >Aktif</option>
-                                        <option value="1" @if(old('durum')==1) selected @endif >Pasif</option>
+                                        @foreach($izin_turler as $i)
+                                        <option value="{{$i->id}}" @if(old('izin_tur',$data->izin_tur)==$i->id)) selected @endif >{{$i->izin_tur}}</option>
+
+                                        @endforeach
+
 
                                     </select>
                                 </div>
                             </div>
+                            <div class="col-6">
+                                <label class="form-label" for="belge">Varsa Belge Giriniz</label>
+                                <div class="min-vh-30">
+                                    <input type="file" name="belge" id="belge" class="form-control">
+                                </div>
+                            </div>
+
 
                         </div>
                         <div class="row">
 
-                            <div class="col-4">
-                                <label class="form-label" for="konum">Konum</label>
-                               <input class="form-control" type="text" id="konum" name="konum" required>
-                            </div>
-                            <div class="col-4">
-                                <label class="form-label" for="kampus">Kampüs</label>
-                                <select class="form-select" name="kampus" aria-label="Default select example" required>
-                                    <option value="" >Seçiniz</option>
-                                    @foreach($kampusler as $k)
-                                        <option @if(old('konum')==$k->campus_name) selected @endif value="{{$k->campus_name}}">{{$k->campus_name}}</option>
-                                    @endforeach
 
-                                </select>
-                            </div>
-                            <div class="col-4">
+                            <div class="col-6">
                                 <div class="mb-3">
-                                    <label class="form-label" for="exampleFormControlInput1">Bitiş Tarihi</label>
-                                    <input required class="form-control" name="endDate" id="exampleFormControlInput1" type="date" value="{{old('endDate')}}"  />
+                                    <label class="form-label" for="baslangic_tarih">Başlangıç Tarihi</label>
+                                    <input type="datetime-local" class="form-control" id="baslangic_tarih" value="{{old('baslangic_tarih',$data->baslangic_tarih)}}" name="baslangic_tarih">
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label class="form-label" for="bitis_tarih">Bitiş Tarihi</label>
+                                    <input type="datetime-local" id="bitis_tarih" class="form-control" name="bitis_tarih" value="{{old('bitis_tarih',$data->bitis_tarih)}}">
                                 </div>
                             </div>
                         </div>
@@ -103,10 +107,11 @@
                             <div class="col-12">
                                 <label class="form-label" for="description">Açıklama</label>
                                 <div class="min-vh-30">
-                                    <textarea  class="tinymce d-none" id="description" name="description">{{old('description')}}</textarea>
+                                    <textarea  class="tinymce d-none" id="aciklama" name="aciklama">{{old('aciklama',$data->aciklama)}}</textarea>
                                 </div>
                             </div>
                         </div>
+
                         <div class="row mt-2">
                             <div class="col-12">
                                 <button class="btn btn-primary form-control">Kaydet</button>

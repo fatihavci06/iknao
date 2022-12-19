@@ -87,6 +87,82 @@
                                 </li>
 
                             </ul>
+                            <a class="nav-link dropdown-indicator" href="#aday" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Adaylar</span>
+                                </div>
+                            </a>
+                            <ul class="nav collapse" id="aday">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('aday.liste')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Aday Listesi</span>
+                                        </div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+
+
+                            </ul>
+                            <a class="nav-link dropdown-indicator" href="#calisan" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Çalışanlar</span>
+                                </div>
+                            </a>
+                            <ul class="nav collapse" id="calisan">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('calisan.liste')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Aday Listesi</span>
+                                        </div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+
+
+                            </ul>
+                            <a class="nav-link dropdown-indicator" href="#izin" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">İzinler</span>
+                                </div>
+                            </a>
+                            <ul class="nav collapse" id="izin">
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('izin.talep')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">İzin Talep Et</span>
+                                        </div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('izin.taleplerim')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">İzin Taleplerim</span>
+                                        </div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('izin.amirbekleyenizinler')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bekleyen Talepler</span>
+                                        </div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('izin.amironaylananizinler')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Onayladığım  Talepler</span>
+                                        </div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{route('izin.amirreddedilenizinler')}}">
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reddedittiğim Talepler</span>
+                                        </div>
+                                    </a>
+                                    <!-- more inner pages-->
+                                </li>
+
+
+                            </ul>
 
 
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\back;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdayController extends Controller
 {
@@ -16,6 +17,7 @@ class AdayController extends Controller
     public function adaydetay($id)
     {
         //
+
         $data=User::with('bransInfo')->where('id',$id)->first();
         return view('back.aday.detay',['data'=>$data]);
 

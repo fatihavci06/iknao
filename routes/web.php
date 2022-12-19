@@ -34,7 +34,7 @@ Route::group(['prefix' => 'yonetim'], function() {
     Route::post('/girispost','App\Http\Controllers\back\IndexController@loginpost')->name('back.girispost');
     Route::get('/sifremi-unuttum','App\Http\Controllers\back\IndexController@sifremiunuttum')->name('back.sifremiunuttum');
     Route::post('/sifremi-unuttum','App\Http\Controllers\back\IndexController@sifremiunuttumpost')->name('back.sifremiunuttumpost');
-    Route::group(['middleware' => 'buadminmi'], function() {
+    Route::middleware(['buadminmi'])->group(function () {
     Route::get('/','App\Http\Controllers\back\IndexController@index')->name('back.index');
 
     Route::get('/logout','App\Http\Controllers\back\IndexController@logout')->name('back.logout');
@@ -48,6 +48,29 @@ Route::group(['prefix' => 'yonetim'], function() {
             Route::get('/onbasvuru-liste','App\Http\Controllers\back\Ilan\IlanController@onbasvuruliste')->name('ilan.onbasvuruliste');
             Route::get('/tum-basvurular','App\Http\Controllers\back\Ilan\IlanController@tumbasvuruliste')->name('ilan.tumbasvuruliste');
             Route::get('/ilan-basvurular/{ilanid}','App\Http\Controllers\back\Ilan\IlanController@basvurular')->name('ilan.basvurular');
+        });
+        Route::group(['prefix' => 'aday'], function() {
+
+            Route::get('/liste/','App\Http\Controllers\back\UserController@index')->name('aday.liste');
+        });
+        Route::group(['prefix' => 'calisan'], function() {
+
+            Route::get('/liste/','App\Http\Controllers\back\UserController@calisan')->name('calisan.liste');
+        });
+        Route::group(['prefix' => 'izin'], function() {
+
+            Route::get('/talep-gonder/','App\Http\Controllers\back\IzinController@talep')->name('izin.talep');
+            Route::post('/talep-gonder/','App\Http\Controllers\back\IzinController@talepkayit')->name('izin.taleppost');
+            Route::get('/taleplerim/','App\Http\Controllers\back\IzinController@taleplerim')->name('izin.taleplerim');
+            Route::get('/talep-detay/{id}','App\Http\Controllers\back\IzinController@talepdetay')->name('izin.talepdetay');
+            Route::post('/talep-guncelle/{id}','App\Http\Controllers\back\IzinController@talepupdate')->name('izin.talepupdate');
+            Route::get('/talep-sil/{id}','App\Http\Controllers\back\IzinController@destroy')->name('izin.talepsil');
+            Route::get('/bekleyen-izin-talepleri','App\Http\Controllers\back\IzinController@amirbekleyenizinler')->name('izin.amirbekleyenizinler');
+            Route::get('/reddedilen-izin-talepleri','App\Http\Controllers\back\IzinController@amirreddedilenizinler')->name('izin.amirreddedilenizinler');
+            Route::get('/onaylanan-izin-talepleri','App\Http\Controllers\back\IzinController@amironaylananizinler')->name('izin.amironaylananizinler');
+            Route::get('/izin-detay/{id}','App\Http\Controllers\back\IzinController@amirdetaygor')->name('izin.amirdetaygor');
+            Route::get('/izin-belge-indir/{id}','App\Http\Controllers\back\IzinController@amirbelgeindir')->name('izin.amirbelgeindir');
+            Route::post('/izin-amir-onay/{id}','App\Http\Controllers\back\IzinController@amironay')->name('izin.amironay');
         });
         Route::get('/aday-detay/{id}','App\Http\Controllers\back\AdayController@adaydetay')->name('back.adaydetay');
     });
