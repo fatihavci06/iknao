@@ -23,7 +23,7 @@ class buadminmi
 
         }
         else{
-            return redirect()->route('back.giris');
+            return redirect()->route('back.giris')->with(['false'=>'Hatalı']);
         }
     }
 }

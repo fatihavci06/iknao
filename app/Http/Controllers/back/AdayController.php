@@ -3,12 +3,19 @@
 namespace App\Http\Controllers\back;
 
 use App\Http\Controllers\Controller;
+use App\Models\adayprofil;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AdayController extends Controller
 {
+
+    public static function avatarcek(){ //dışarıdan fonksiyonun çağrılabilmesi için mutlaka public static olmalı
+
+        $user=adayprofil::select(['id','avatar'])->where('user_id',Auth::guard('yonetim')->id())->first();
+        return $user->avatar;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -18,7 +25,7 @@ class AdayController extends Controller
     {
         //
 
-        $data=User::with('bransInfo')->where('id',$id)->first();
+        $data=User::join('adayprofils','adayprofils.user_id','users.id')->join('brans','adayprofils.brans_id','brans.id')->where('users.id',$id)->first();
         return view('back.aday.detay',['data'=>$data]);
 
     }

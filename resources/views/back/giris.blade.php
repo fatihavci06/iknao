@@ -86,7 +86,7 @@
                         <form action="{{route('back.girispost')}}" method="POST">
                             @csrf
                             <div class="mb-3">
-                                <input class="form-control" type="number" name="tc" placeholder="Tc Kimlik Numarası" />
+                                <input class="form-control" type="text" name="tc" placeholder="Tc Kimlik Numarası" />
                             </div>
                             <div class="mb-3">
                                 <input class="form-control" type="password" name="password" placeholder="Şifre" />
@@ -99,7 +99,14 @@
                                 <button class="btn btn-primary d-block w-100 mt-3" type="submit" name="submit">Giriş </button>
                             </div>
                         </form>
+                        <div class="position-relative mt-4">
+                            <hr />
+                            <div class="divider-content-center">or log in with</div>
+                        </div>
+                        <div class="row g-2 mt-2 ml-2">
+                            <div class="col-sm-12 text-center"><a class="btn btn-outline-google-plus btn-sm d-block w-100" href="{{route('redirectgoogle')}}"><span class="fab fa-google-plus-g me-2" data-fa-transform="grow-8"></span> google</a></div>
 
+                        </div>
                     </div>
                 </div>
             </div>

@@ -29,7 +29,10 @@ Route::get('/ilan','App\Http\Controllers\front\IndexController@ilan')->name('fro
 Route::get('/ara','App\Http\Controllers\front\IndexController@ara')->name('front.ara');
 Route::get('/ilan-detay/{id}','App\Http\Controllers\front\IndexController@ilan_detay')->name('front.ilan_detay');
 
+Route::get('/redirect', 'App\Http\Controllers\back\SocialAuthController@redirectToProvider')->name('redirectgoogle');
+Route::get('/callback', 'App\Http\Controllers\back\SocialAuthController@handleProviderCallback');
 Route::group(['prefix' => 'yonetim'], function() {
+
     Route::get('/giris','App\Http\Controllers\back\IndexController@login')->name('back.giris');
     Route::post('/girispost','App\Http\Controllers\back\IndexController@loginpost')->name('back.girispost');
     Route::get('/sifremi-unuttum','App\Http\Controllers\back\IndexController@sifremiunuttum')->name('back.sifremiunuttum');
@@ -52,6 +55,8 @@ Route::group(['prefix' => 'yonetim'], function() {
         Route::group(['prefix' => 'aday'], function() {
 
             Route::get('/liste/','App\Http\Controllers\back\UserController@index')->name('aday.liste');
+            Route::get('/mulakatgir/{id}','App\Http\Controllers\back\UserController@mulakat')->name('aday.mulakatgir');
+            Route::post('/mulakatgonder/{id}','App\Http\Controllers\back\UserController@mulakatpost')->name('mulakat.raporgonder');
         });
         Route::group(['prefix' => 'calisan'], function() {
 

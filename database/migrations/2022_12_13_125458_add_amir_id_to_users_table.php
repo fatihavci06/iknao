@@ -15,7 +15,7 @@ class AddAmirIdToUsersTable extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->integer('amir_id');
+            $table->integer('amir_id')->nullable();
         });
     }
 

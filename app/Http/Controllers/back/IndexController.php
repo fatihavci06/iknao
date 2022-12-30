@@ -40,6 +40,10 @@ class IndexController extends Controller
             // Authentication was successful...
             return redirect()->route('back.index');
         }
+        if (Auth::guard('yonetim')->attempt(['email_kurum' => $req->tc, 'password' => $req->password,'rol'=>!0])) {
+            // Authentication was successful...
+            return redirect()->route('back.index');
+        }
         else{
             return redirect()->route('back.giris')->with(['false'=>'Hata!']);
         }
@@ -61,7 +65,7 @@ class IndexController extends Controller
         $varmi=User::where('tc',$request->tc)->where('cepno',$request->cepno)->count();
         $personel=User::where('tc',$request->tc)->first();
         if($varmi>0 && $personel->rol!=0){
-            $random_sifre=rand(100000,999999);
+            $random_sifre=123456;
 
             $personel->password=bcrypt($random_sifre);
             $personel->save();

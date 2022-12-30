@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Ilan;
 use App\Models\IlanUser;
 use App\Models\User;
+use App\Models\adayprofil;
 use App\Models\Brans;
 use App\Models\Campus;
 use App\Models\university;
@@ -65,167 +66,172 @@ class IndexController extends Controller
 
         $varmi=User::where('tc',$request->tc)->count();
 
-        if($varmi>0){
+        if($varmi>0) {
+            $user= User::where('tc',$request->tc)->first();
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->email = $request->eposta;
 
-            $aday= User::where('tc',$request->tc)->first();
+            $user->rol = 0;
+            $user->tc = $request->tc;
+            $user->cepno = $request->cepno;
+            $user->password = bcrypt(123456);
 
-            $silinecek=$aday->avatar;
-            if(!empty($request->file('avatar'))){
-                $aday->avatar=Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+            $data = $user->save();
+            if ($data) {
+                $aday = adayprofil::where('user_id',$user->id)->first();
+
+                if (!empty($request->file('avatar'))) {
+                   $aday->avatar = Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+
+                }
+                $aday->user_id = $user->id;
+                $user_id=$user->id;
+                $aday->brans_id=$request->brans_id;
+
+                $aday->birtercih=$request->birtercih;
+                $aday->ikitercih=$request->ikitercih;
+                $aday->uctercih=$request->uctercih;
+
+                $aday->adres=$request->adres;
+
+                $aday->cinsiyet=$request->cinsiyet;
+                $aday->dtarihi=$request->dtarihi;
+                $aday->dyeri=$request->dyeri;
+                $aday->medenidurum=$request->medenidurum;
+                $aday->cocuk=$request->cocuk;
+                $aday->askerlik_durumu=$request->askerlik_durumu;
+                $aday->tecil=$request->tecil;
+                $aday->kangrubu=$request->kangrubu;
+                $aday->acilkisi=$request->acilkisi;
+                $aday->acilkisitel=$request->acilkisitel;
+                $aday->sonOkulderece=$request->sonOkulderece;
+                $aday->lisUni=$request->lisUni;
+                $aday->lisMezTar=$request->lisMezTar;
+                $aday->sonOkul_id=$request->sonOkul;
+                $aday->lFak=$request->lFak;
+                $aday->yLuni=$request->yLuni;
+                $aday->yLisfak=$request->yLisfak;
+                $aday->yDokUni=$request->yDokUni;
+                $aday->yDokBolum=$request->yDokBolum;
+                $aday->tecrube=$request->tecrube;
+                $aday->staj=$request->staj;
+                $aday->ingSev=$request->ingSev;
+                $aday->almSev=$request->almSev;
+                $aday->frSev=$request->frSev;
+                $aday->isSev=$request->isSev;
+                $aday->ofisArac=$request->ofisArac;
+                $aday->kurs=$request->kurs;
+                $aday->dernek=$request->dernek;
+                $aday->uzmanlik=$request->uzmanlik;
+                $aday->notlar=$request->notlar;
+                $aday->ref1=$request->ref1;
+                $aday->ref2=$request->ref2;
+                $aday->ref3=$request->ref3;
+                $aday->smsonay=$request->smsonay;
+                $aday->save();
+                if(isset($request->ilanno)){
 
 
+                    IlanUser::updateOrCreate(
+                        ['ilan_id'=>$request->ilanno,'user_id'=>$user_id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
+
+                        ['ilan_id'=>$request->ilanno,'user_id'=>$user_id]
+                    );
+                }
+                else{
+                    IlanUser::updateOrCreate(
+                        ['ilan_id'=>0,'user_id'=>$user_id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
+
+                        ['ilan_id'=>0,'user_id'=>$user_id]
+                    );
+                }
+                return redirect()->back()->with(['success' => 'Ön başvurunuz alındı']);
+            } else {
+                return redirect()->back()->with(['danger' => 'Hata var']);
             }
-            $aday->brans_id=$request->brans_id;
-            $aday->firstname=$request->firstname;
-            $aday->lastname=$request->lastname;
-            $aday->birtercih=$request->birtercih;
-            $aday->ikitercih=$request->ikitercih;
-            $aday->uctercih=$request->uctercih;
-            $aday->cepno=$request->cepno;
-            $aday->adres=$request->adres;
-            $aday->eposta=$request->eposta;
-            $aday->cinsiyet=$request->cinsiyet;
-            $aday->dtarihi=$request->dtarihi;
-            $aday->dyeri=$request->dyeri;
-            $aday->medenidurum=$request->medenidurum;
-            $aday->cocuk=$request->cocuk;
-            $aday->askerlikdurum=$request->askerlikdurum;
-            $aday->tecil=$request->tecil;
-            $aday->kangrubu=$request->kangrubu;
-            $aday->acilkisi=$request->acilkisi;
-            $aday->acilkisitel=$request->acilkisitel;
-            $aday->sonOkulderece=$request->sonOkulderece;
-            $aday->lisMezTar=$request->lisMezTar;
-            $aday->sonOkul=$request->sonOkul;
-            $aday->lFak=$request->lFak;
-            $aday->yLuni=$request->yLuni;
-            $aday->yLisfak=$request->yLisfak;
-            $aday->yDokUni=$request->yDokUni;
-            $aday->yDokBolum=$request->yDokBolum;
-            $aday->tecrube=$request->tecrube;
-            $aday->staj=$request->staj;
-            $aday->ingSev=$request->ingSev;
-            $aday->almSev=$request->almSev;
-            $aday->frSev=$request->frSev;
-            $aday->isSev=$request->isSev;
-            $aday->ofisArac=$request->ofisArac;
-            $aday->kurs=$request->kurs;
-            $aday->dernek=$request->dernek;
-            $aday->uzmanlik=$request->uzmanlik;
-            $aday->notlar=$request->notlar;
-            $aday->ref1=$request->ref1;
-            $aday->ref2=$request->ref2;
-            $aday->ref3=$request->ref3;
-            $aday->smsonay=$request->smsonay;
-            $authdurum=1;
-            if(!isset($request->authmu) || $request->authmu!=1){
-                $random_sifre=rand(100000,999999);
-                $aday->password=bcrypt($random_sifre);
-                $authdurum=0;
-            }
-
-            $aday->save();
-            if(isset($request->ilanno)){
-
-
-                IlanUser::updateOrCreate(
-                    ['ilan_id'=>$request->ilanno,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
-
-                    ['ilan_id'=>$request->ilanno,'user_id'=>$aday->id]
-                );
-            }
-            else{
-                IlanUser::updateOrCreate(
-                    ['ilan_id'=>0,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
-
-                    ['ilan_id'=>0,'user_id'=>$aday->id]
-                );
-            }
-            if($authdurum==0) {
-                return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
-            }
-            else{
-                return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır']);
-            }
-
         }
         else{
-            $aday= new User();
-            $aday->tc=$request->tc;
-            if(!empty($request->file('avatar'))){
-                $aday->avatar=Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+            $user= new User;
+            $user->firstname = $request->firstname;
+            $user->lastname = $request->lastname;
+            $user->email = $request->eposta;
 
-            }
-            $aday->brans_id=$request->brans_id;
-            $aday->firstname=$request->firstname;
-            $aday->lastname=$request->lastname;
-            $aday->birtercih=$request->birtercih;
-            $aday->ikitercih=$request->ikitercih;
-            $aday->uctercih=$request->uctercih;
-            $aday->cepno=$request->cepno;
-            $aday->adres=$request->adres;
-            $aday->eposta=$request->eposta;
-            $aday->cinsiyet=$request->cinsiyet;
-            $aday->dtarihi=$request->dtarihi;
-            $aday->dyeri=$request->dyeri;
-            $aday->medenidurum=$request->medenidurum;
-            $aday->cocuk=$request->cocuk;
-            $aday->askerlikdurum=$request->askerlikdurum;
-            $aday->tecil=$request->tecil;
-            $aday->kangrubu=$request->kangrubu;
-            $aday->acilkisi=$request->acilkisi;
-            $aday->acilkisitel=$request->acilkisitel;
-            $aday->sonOkulderece=$request->sonOkulderece;
-            $aday->lisMezTar=$request->lisMezTar;
-            $aday->sonOkul=$request->sonOkul;
-            $aday->lFak=$request->lFak;
-            $aday->yLuni=$request->yLuni;
-            $aday->yLisfak=$request->yLisfak;
-            $aday->yDokUni=$request->yDokUni;
-            $aday->yDokBolum=$request->yDokBolum;
-            $aday->tecrube=$request->tecrube;
-            $aday->staj=$request->staj;
-            $aday->ingSev=$request->ingSev;
-            $aday->almSev=$request->almSev;
-            $aday->frSev=$request->frSev;
-            $aday->isSev=$request->isSev;
-            $aday->ofisArac=$request->ofisArac;
-            $aday->kurs=$request->kurs;
-            $aday->dernek=$request->dernek;
-            $aday->uzmanlik=$request->uzmanlik;
-            $aday->notlar=$request->notlar;
-            $aday->ref1=$request->ref1;
-            $aday->ref2=$request->ref2;
-            $aday->ref3=$request->ref3;
-            $aday->smsonay=$request->smsonay;
-            $authdurum=1;
-            if(!isset($request->authmu) || $request->authmu!=1){
-                $random_sifre=rand(100000,999999);
-                $aday->password=bcrypt($random_sifre);
-                $authdurum=0;
-            }
-            $aday->save();
-            if(isset($request->ilanno)){
+            $user->rol = 0;
+            $user->tc = $request->tc;
+            $user->cepno = $request->cepno;
+            $user->password = bcrypt(123456);
+
+            $data = $user->save();
+            if ($data) {
+                $aday = new adayprofil;
+                if (!empty($request->file('avatar'))) {
+                    $aday->avatar = Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+
+                }
+                $aday->user_id = $user->id;
+                $aday->brans_id=$request->brans_id;
+
+                $aday->birtercih=$request->birtercih;
+                $aday->ikitercih=$request->ikitercih;
+                $aday->uctercih=$request->uctercih;
+
+                $aday->adres=$request->adres;
+
+                $aday->cinsiyet=$request->cinsiyet;
+                $aday->dtarihi=$request->dtarihi;
+                $aday->dyeri=$request->dyeri;
+                $aday->medenidurum=$request->medenidurum;
+                $aday->cocuk=$request->cocuk;
+                $aday->askerlik_durumu=$request->askerlikdurum;
+                $aday->tecil=$request->tecil;
+                $aday->kangrubu=$request->kangrubu;
+                $aday->acilkisi=$request->acilkisi;
+                $aday->acilkisitel=$request->acilkisitel;
+                $aday->sonOkulderece=$request->sonOkulderece;
+                $aday->lisMezTar=$request->lisMezTar;
+                $aday->lisUni=$request->lisUni;
+                $aday->sonOkul_id=$request->sonOkul;
+                $aday->lFak=$request->lFak;
+                $aday->yLuni=$request->yLuni;
+                $aday->yLisfak=$request->yLisfak;
+                $aday->yDokUni=$request->yDokUni;
+                $aday->yDokBolum=$request->yDokBolum;
+                $aday->tecrube=$request->tecrube;
+                $aday->staj=$request->staj;
+                $aday->ingSev=$request->ingSev;
+                $aday->almSev=$request->almSev;
+                $aday->frSev=$request->frSev;
+                $aday->isSev=$request->isSev;
+                $aday->ofisArac=$request->ofisArac;
+                $aday->kurs=$request->kurs;
+                $aday->dernek=$request->dernek;
+                $aday->uzmanlik=$request->uzmanlik;
+                $aday->notlar=$request->notlar;
+                $aday->ref1=$request->ref1;
+                $aday->ref2=$request->ref2;
+                $aday->ref3=$request->ref3;
+                $aday->smsonay=$request->smsonay;
+                $aday->save();
+                if(isset($request->ilanno)){
 
 
-                IlanUser::updateOrCreate(
-                    ['ilan_id'=>$request->ilanno,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
+                    IlanUser::updateOrCreate(
+                        ['ilan_id'=>$request->ilanno,'user_id'=>$user->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
 
-                    ['ilan_id'=>$request->ilanno,'user_id'=>$aday->id]
-                );
-            }
-            else{
-                IlanUser::updateOrCreate(
-                    ['ilan_id'=>0,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
+                        ['ilan_id'=>$request->ilanno,'user_id'=>$user->id]
+                    );
+                }
+                else{
+                    IlanUser::updateOrCreate(
+                        ['ilan_id'=>0,'user_id'=>$aday->id],//Eğer  sepetUrun tablosunda sepetid ve urun_id varsa güncelleme işlemi yapar.Eğer yoksa sepet_id urun_id,adet,tutar,durum sutunlarına bu verileri ekler
 
-                    ['ilan_id'=>0,'user_id'=>$aday->id]
-                );
-            }
-            if($authdurum==0) {
-                return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.Şifreniz: '.$random_sifre]);
-            }
-            else{
-                return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır']);
+                        ['ilan_id'=>0,'user_id'=>$aday->id]
+                    );
+                }
+                return redirect()->back()->with(['success' => 'Ön başvurunuz alındı']);
+            } else {
+                return redirect()->back()->with(['danger' => 'Hata var']);
             }
         }
 
@@ -281,7 +287,7 @@ class IndexController extends Controller
         if($varmi>0){
             $random_sifre=rand(100000,999999);
             $aday=User::where('tc',$request->tc)->first();
-            $aday->password=bcrypt($random_sifre);
+            $aday->password=bcrypt(123456);
             $aday->save();
             return redirect()->back()->with(['success'=>'Şifreniz: '.$random_sifre]);
         }
@@ -300,7 +306,7 @@ class IndexController extends Controller
     {
         //
         $id=Auth::id();
-        $data=User::find($id);
+         $data=User::with('adayinfo')->find($id);
 
         $brans=Brans::all();
         $campus=Campus::all();
@@ -318,59 +324,74 @@ class IndexController extends Controller
     public function update(Request $request)
     {
         $id=Auth::id();
-        $aday= User::find($id);
-        $aday->tc=$request->tc;
-        $silinecek=$aday->avatar;
-        if(!empty($request->file('avatar'))){
-            $aday->avatar=Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+        $user= User::find($id);
+
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->email_kurum = $request->eposta;
+        $user->email = $request->email;
+        $user->rol = 0;
+        $user->tc = $request->tc;
+        $user->cepno = $request->cepno;
 
 
+        $data = $user->save();
+        if ($data) {
+            $aday = adayprofil::where('user_id',$id)->first();
+            $silinecek=$aday->avatar;
+
+            if (!empty($request->file('avatar'))) {
+                $aday->avatar = Storage::putFile('avatar', $request->file('avatar'));  //storage burda
+                Storage::delete($silinecek);
+            }
+            $aday->user_id = $user->id;
+            $aday->brans_id=$request->brans_id;
+
+            $aday->birtercih=$request->birtercih;
+            $aday->ikitercih=$request->ikitercih;
+            $aday->uctercih=$request->uctercih;
+
+            $aday->adres=$request->adres;
+
+            $aday->cinsiyet=$request->cinsiyet;
+            $aday->dtarihi=$request->dtarihi;
+            $aday->dyeri=$request->dyeri;
+            $aday->medenidurum=$request->medenidurum;
+            $aday->cocuk=$request->cocuk;
+            $aday->askerlik_durumu=$request->askerlikdurum;
+            $aday->tecil=$request->tecil;
+            $aday->kangrubu=$request->kangrubu;
+            $aday->acilkisi=$request->acilkisi;
+            $aday->acilkisitel=$request->acilkisitel;
+            $aday->sonOkulderece=$request->sonOkulderece;
+            $aday->lisMezTar=$request->lisMezTar;
+            $aday->lisUni=$request->lisUni;
+            $aday->sonOkul_id=$request->sonOkul;
+            $aday->lFak=$request->lFak;
+            $aday->yLuni=$request->yLuni;
+            $aday->yLisfak=$request->yLisfak;
+            $aday->yDokUni=$request->yDokUni;
+            $aday->yDokBolum=$request->yDokBolum;
+            $aday->tecrube=$request->tecrube;
+            $aday->staj=$request->staj;
+            $aday->ingSev=$request->ingSev;
+            $aday->almSev=$request->almSev;
+            $aday->frSev=$request->frSev;
+            $aday->isSev=$request->isSev;
+            $aday->ofisArac=$request->ofisArac;
+            $aday->kurs=$request->kurs;
+            $aday->dernek=$request->dernek;
+            $aday->uzmanlik=$request->uzmanlik;
+            $aday->notlar=$request->notlar;
+            $aday->ref1=$request->ref1;
+            $aday->ref2=$request->ref2;
+            $aday->ref3=$request->ref3;
+            $aday->smsonay=$request->smsonay;
+            $aday->save();
+            return redirect()->back()->with(['success' => 'Profiliniz başarıyla güncellendi']);
+        } else {
+            return redirect()->back()->with(['danger' => 'Hata var']);
         }
-        $aday->brans_id=$request->brans_id;
-        $aday->firstname=$request->firstname;
-        $aday->lastname=$request->lastname;
-        $aday->birtercih=$request->birtercih;
-        $aday->ikitercih=$request->ikitercih;
-        $aday->uctercih=$request->uctercih;
-        $aday->cepno=$request->cepno;
-        $aday->adres=$request->adres;
-        $aday->eposta=$request->eposta;
-        $aday->cinsiyet=$request->cinsiyet;
-        $aday->dtarihi=$request->dtarihi;
-        $aday->dyeri=$request->dyeri;
-        $aday->medenidurum=$request->medenidurum;
-        $aday->cocuk=$request->cocuk;
-        $aday->askerlikdurum=$request->askerlikdurum;
-        $aday->tecil=$request->tecil;
-        $aday->kangrubu=$request->kangrubu;
-        $aday->acilkisi=$request->acilkisi;
-        $aday->acilkisitel=$request->acilkisitel;
-        $aday->sonOkulderece=$request->sonOkulderece;
-        $aday->lisMezTar=$request->lisMezTar;
-        $aday->sonOkul=$request->sonOkul;
-        $aday->lFak=$request->lFak;
-        $aday->yLuni=$request->yLuni;
-        $aday->yLisfak=$request->yLisfak;
-        $aday->yDokUni=$request->yDokUni;
-        $aday->yDokBolum=$request->yDokBolum;
-        $aday->tecrube=$request->tecrube;
-        $aday->staj=$request->staj;
-        $aday->ingSev=$request->ingSev;
-        $aday->almSev=$request->almSev;
-        $aday->frSev=$request->frSev;
-        $aday->isSev=$request->isSev;
-        $aday->ofisArac=$request->ofisArac;
-        $aday->kurs=$request->kurs;
-        $aday->dernek=$request->dernek;
-        $aday->uzmanlik=$request->uzmanlik;
-        $aday->notlar=$request->notlar;
-        $aday->ref1=$request->ref1;
-        $aday->ref2=$request->ref2;
-        $aday->ref3=$request->ref3;
-        $aday->smsonay=$request->smsonay;
-
-        $aday->save();
-        return redirect()->back()->with(['success'=>'Ön Kaydınız Alınmıştır.']);
     }
 
     /**
@@ -402,7 +423,7 @@ class IndexController extends Controller
         if(empty($kelime)&& empty($konum)&& empty($kampus)&& empty($istur)){
             return redirect()->back()->with(['false'=>'Lütfen bir seçim yapınız']);
         }
-        $ara=Ilan::when($istur, function ($q) use ($istur) {
+        $ara=Ilan::where('endDate','>',now())->when($istur, function ($q) use ($istur) {
             return $q->where('istur', 'like', '%'.$istur.'%');
         })
             ->when($konum, function ($q) use ($konum) {

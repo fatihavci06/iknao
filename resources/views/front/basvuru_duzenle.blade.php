@@ -3241,7 +3241,7 @@
                             <section id="progress-form__panel-1"  style="margin-top: -50px;" role="tabpanel" aria-labelledby="progress-form__tab-1" tabindex="0">
                                 <div class="">
                                     <div class="row">
-                                        <div class="col-lg-12 mx-auto text-center mb-3"> <img  src="{{Storage::url($data->avatar)}}" width="70px"  profile></div>
+                                        <div class="col-lg-12 mx-auto text-center mb-3"> <img  src="{{Storage::url($data->adayinfo->avatar)}}" width="70px"  profile></div>
                                         <div class="col-lg-6">
                                             <div class="container form__field">
 
@@ -3258,7 +3258,7 @@
                                                 <select id="brans" name="brans_id" class="form-select" required>
                                                     <option value="">Seçiniz</option>
                                                     @foreach($brans as $b)
-                                                        <option value="{{$b->id}}" @if($data->brans_id==$b->id) selected @endif>{{$b->brans_name}}</option>
+                                                        <option value="{{$b->id}}" @if($data->adayinfo->brans_id==$b->id) selected @endif>{{$b->brans_name}}</option>
                                                     @endforeach
 
                                                 </select>
@@ -3298,7 +3298,7 @@
                                         <select id="birtercih" name="birtercih" class="form-select" required>
                                             <option value="">Seçiniz</option>
                                             @foreach($campus as $c)
-                                                <option value="{{$c->id}}" @if($data->birtercih==$c->id) selected  @endif>{{$c->campus_name}}</option>
+                                                <option value="{{$c->id}}" @if($data->adayinfo->birtercih==$c->id) selected  @endif>{{$c->campus_name}}</option>
                                             @endforeach
                                         </select>
 
@@ -3312,7 +3312,7 @@
                                         <select id="ikitercih" name="ikitercih" class="form-select" required>
                                             <option value="">Seçiniz</option>
                                             @foreach($campus as $c)
-                                                <option value="{{$c->id}}" @if($data->ikitercih==$c->id) selected  @endif>{{$c->campus_name}}</option>
+                                                <option value="{{$c->id}}" @if($data->adayinfo->ikitercih==$c->id) selected  @endif>{{$c->campus_name}}</option>
                                             @endforeach
                                         </select>
 
@@ -3326,7 +3326,7 @@
                                         <select id="uctercih" name="uctercih" class="form-select" required>
                                             <option value="">Seçiniz</option>
                                             @foreach($campus as $c)
-                                                <option value="{{$c->id}}" @if($data->ikitercih==$c->id) selected  @endif>{{$c->campus_name}}</option>
+                                                <option value="{{$c->id}}" @if($data->adayinfo->ikitercih==$c->id) selected  @endif>{{$c->campus_name}}</option>
                                             @endforeach
 
                                         </select>
@@ -3355,11 +3355,11 @@
                                         </div>
                                         <div class="container mt-1 form__field">
                                             <label for="adres">Adres</label>
-                                            <textarea id="adres" name="adres" class="form-control" required > {{$data->adres}}</textarea>
+                                            <textarea id="adres" name="adres" class="form-control" required > {{$data->adayinfo->adres}}</textarea>
                                         </div>
                                         <div class="container mt-1 form__field">
                                             <label for="eposta">Eposta</label>
-                                            <input type="text"  name="eposta" class="form-control" value="{{$data->eposta}}" required>
+                                            <input type="text"  name="eposta" class="form-control" value="{{$data->email_kurum}}" required>
                                         </div>
 
                                     </div>
@@ -3384,29 +3384,29 @@
                                                 <label for="cinsiyet">Cinsiyet</label>
                                                 <select name="cinsiyet" id="cinsiyet" class="form-control " required>
                                                     <option value="">Seçiniz</option>
-                                                    <option value="Erkek" @if($data->cinsiyet=='Erkek') selected @endif>Erkek</option>
-                                                    <option value="Kadın" @if($data->cinsiyet=='Kadın') selected @endif>Kadın</option>
+                                                    <option value="Erkek" @if($data->adayinfo->cinsiyet=='Erkek') selected @endif>Erkek</option>
+                                                    <option value="Kadın" @if($data->adayinfo->cinsiyet=='Kadın') selected @endif>Kadın</option>
                                                 </select>
                                             </div>
                                             <div class="form__field">
                                                 <label for="dtarihi" class="mt-4">Doğum Tarihi</label>
-                                                <input type="date"  id="dtarihi"   name="dtarihi" class="form-control" value="{{$data->dtarihi}}" required>
+                                                <input type="date"  id="dtarihi"   name="dtarihi" class="form-control" value="{{$data->adayinfo->dtarihi}}" required>
                                             </div>
                                             <div class="form__field">
                                                 <label for="dyeri" class="mt-4">Doğum Yeri</label>
-                                                <input type="text"  id="dyeri" name="dyeri"  class="form-control"  value="{{$data->dyeri}}" required>
+                                                <input type="text"  id="dyeri" name="dyeri"  class="form-control"  value="{{$data->adayinfo->dyeri}}" required>
                                             </div>
                                             <div class="form__field">
                                                 <label for="medenidurum" class="mt-4">Medeni Durumu</label>
                                                 <select name="medenidurum" id="medenidurum" class="form-control" required>
                                                     <option value="">Seçiniz</option>
-                                                    <option value="2" @if($data->medenidurum==2) selected @endif >Evli</option>
-                                                    <option value="1" @if($data->medenidurum==1) selected @endif>Bekar</option>
+                                                    <option value="2" @if($data->adayinfo->medenidurum==2) selected @endif >Evli</option>
+                                                    <option value="1" @if($data->adayinfo->medenidurum==1) selected @endif>Bekar</option>
                                                 </select>
                                             </div>
 
                                             <label for="cocuk" class="mt-4">(Varsa) Çocuklarınızın Yaşları</label>
-                                            <input type="text" id="cocuk" name="cocuk" class="form-control" value="{{$data->cocuk}}">
+                                            <input type="text" id="cocuk" name="cocuk" class="form-control" value="{{$data->adayinfo->cocuk}}">
 
 
                                         </div>
@@ -3419,16 +3419,16 @@
                                                 <label for="askerlikdurum" class="">Askerlik Durumu</label>
                                                 <select name="askerlikdurum" id="askerlikdurum" class="form-control"  required>
                                                     <option value="">Seçiniz</option>
-                                                    <option value="1" @if($data->askerlikdurum==1) selected @endif >Yapıldı</option>
-                                                    <option value="2"  @if($data->askerlikdurum==2) selected @endif >Bayan muaf</option>
-                                                    <option value="3" @if($data->askerlikdurum==3) selected @endif >Tecilli</option>
-                                                    <option value="4" @if($data->askerlikdurum==4) selected @endif >Yapılmadı</option>
-                                                    <option value="5" @if($data->askerlikdurum==5) selected @endif >Sağlık Sebiyle Muaf</option>
+                                                    <option value="1" @if($data->adayinfo->askerlik_durumu==1) selected @endif >Yapıldı</option>
+                                                    <option value="2"  @if($data->adayinfo->askerlik_durumu==2) selected @endif >Bayan muaf</option>
+                                                    <option value="3" @if($data->adayinfo->askerlik_durumu==3) selected @endif >Tecilli</option>
+                                                    <option value="4" @if($data->adayinfo->askerlik_durumu==4) selected @endif >Yapılmadı</option>
+                                                    <option value="5" @if($data->adayinfo->askerlik_durumu==5) selected @endif >Sağlık Sebiyle Muaf</option>
                                                 </select>
                                             </div>
                                             <div class="col-lg-6 ">
                                                 <label for="tecil" class="">Tecil Tarihi</label>
-                                                <input type="date" class="form-control" id="tecil" name="tecil" value="{{$data->tecil}}" >
+                                                <input type="date" class="form-control" id="tecil" name="tecil" value="{{$data->adayinfo->tecil}}" >
                                             </div>
                                         </div>
                                         <div class="row">
@@ -3436,20 +3436,20 @@
                                                 <label for="kangrubu" class="mt-4">Kan Grubu</label>
                                                 <select name="kangrubu" id="kangrubu" class="form-control">
                                                     <option value="">Seçiniz</option>
-                                                    <option value="0RH+" @if($data->kangrubu=="0RH+") selected @endif >0 RH +</option>
-                                                    <option value="0RH-" @if($data->kangrubu=="0RH-") selected @endif>0 RH -</option>
-                                                    <option value="ARH+" @if($data->kangrubu=="ARH+") selected @endif >A RH +</option>
-                                                    <option value="ARH-" @if($data->kangrubu=="ARH-") selected @endif>A RH -</option>
-                                                    <option value="BRH+" @if($data->kangrubu=="BRH+") selected @endif>B RH +</option>
-                                                    <option value="BRH-" @if($data->kangrubu=="BRH-") selected @endif>B RH -</option>
-                                                    <option value="ABRH+" @if($data->kangrubu=="ABRH+") selected @endif>AB RH +</option>
-                                                    <option value="ABRH-" @if($data->kangrubu=="ABRH-") selected @endif>AB RH -</option>
+                                                    <option value="0RH+" @if($data->adayinfo->kangrubu=="0RH+") selected @endif >0 RH +</option>
+                                                    <option value="0RH-" @if($data->adayinfo->kangrubu=="0RH-") selected @endif>0 RH -</option>
+                                                    <option value="ARH+" @if($data->adayinfo->kangrubu=="ARH+") selected @endif >A RH +</option>
+                                                    <option value="ARH-" @if($data->adayinfo->kangrubu=="ARH-") selected @endif>A RH -</option>
+                                                    <option value="BRH+" @if($data->adayinfo->kangrubu=="BRH+") selected @endif>B RH +</option>
+                                                    <option value="BRH-" @if($data->adayinfo->kangrubu=="BRH-") selected @endif>B RH -</option>
+                                                    <option value="ABRH+" @if($data->adayinfo->kangrubu=="ABRH+") selected @endif>AB RH +</option>
+                                                    <option value="ABRH-" @if($data->adayinfo->kangrubu=="ABRH-") selected @endif>AB RH -</option>
 
                                                 </select>
                                                 <label for="acilkisi" class="mt-4">Acil Durumlarda Ulaşılacak Kişi</label>
-                                                <input type="text" class="form-control" name="acilkisi" id="acilkisi" value="{{$data->acilkisi}}">
+                                                <input type="text" class="form-control" name="acilkisi" id="acilkisi" value="{{$data->adayinfo->acilkisi}}">
                                                 <label for="acilkisitel" class="mt-4">Acil Durumlarda Aranacak Kişinin Telefonu</label>
-                                                <input type="text" class="form-control" name="acilkisitel" id="acilkisitel" value="{{$data->acilkisitel}}">
+                                                <input type="text" class="form-control" name="acilkisitel" id="acilkisitel" value="{{$data->adayinfo->acilkisitel}}">
                                             </div>
                                         </div>
 
@@ -3474,14 +3474,13 @@
                                             <label for="sonOkulderece" >En son mezun olduğunuz okul derecesi</label>
                                             <select name="sonOkulderece" id="sonOkulderece" class="form-control" required>
                                                 <option value="">Seçiniz</option>
-                                                <option value="Ortaokul" @if($data->sonOkulderece=='Ortaokul') selected @endif>Ortaokul Mezunu</option>
-                                                <option value="Lise" @if($data->sonOkulderece=='Lise') selected @endif>Lise Mezunu</option>
-                                                <option value="Yüksek Okul" @if($data->sonOkulderece=='Yüksek Okul') selected @endif>2 Yıllık Yüksek Okul</option>
-                                                <option value="Lisans" @if($data->sonOkulderece=='Lisans') selected @endif>Lisans</option>
-                                                <option value="Yüksek Lisans" @if($data->sonOkulderece=='Yüksek Lisans') selected @endif>Yüksek Lisans</option>
-                                                <option value="Doktora" @if($data->sonOkulderece=='Doktora') selected @endif>Doktora</option>
-                                                <option value="Doktora Sonrası" @if($data->sonOkulderece=='Doktora Sonrası') selected @endif>Doktora Sonrası</option>
-
+                                                <option value="Ortaokul" @if($data->adayinfo->sonOkulderece=='Ortaokul') selected @endif>Ortaokul Mezunu</option>
+                                                <option value="Lise" @if($data->adayinfo->sonOkulderece=='Lise') selected @endif>Lise Mezunu</option>
+                                                <option value="Yüksek Okul" @if($data->adayinfo->sonOkulderece=='Yüksek Okul') selected @endif>2 Yıllık Yüksek Okul</option>
+                                                <option value="Lisans" @if($data->adayinfo->sonOkulderece=='Lisans') selected @endif>Lisans</option>
+                                                <option value="Yüksek Lisans" @if($data->adayinfo->sonOkulderece=='Yüksek Lisans') selected @endif>Yüksek Lisans</option>
+                                                <option value="Doktora" @if($data->adayinfo->sonOkulderece=='Doktora') selected @endif>Doktora</option>
+                                                <option value="Doktora Sonrası" @if($data->adayinfo->sonOkulderece=='Doktora Sonrası') selected @endif>Doktora Sonrası</option>
 
                                             </select>
                                         </div>
@@ -3489,88 +3488,88 @@
                                             <label for="lisMezTar" class="mt-4">Lisans Üniversite Mezuniyet Tarihi</label>
                                             <select name="lisMezTar" id="sonOkulderece" class="form-control">
                                                 <option value="" name="lisMezTar" selected="">Yıl Seçiniz</option>
-                                                <option value="1972" @if($data->lisMezTar==1972) selected @endif>1972</option>
-                                                <option value="1973" @if($data->lisMezTar==1973) selected @endif>1973</option>
-                                                <option value="1974" @if($data->lisMezTar==1974) selected @endif>1974</option>
-                                                <option value="1975" @if($data->lisMezTar==1975) selected @endif>1975</option>
-                                                <option value="1976" @if($data->lisMezTar==1976) selected @endif>1976</option>
-                                                <option value="1977" @if($data->lisMezTar==1977) selected @endif>1977</option>
-                                                <option value="1978" @if($data->lisMezTar==1978) selected @endif>1978</option>
-                                                <option value="1979" @if($data->lisMezTar==1979) selected @endif>1979</option>
-                                                <option value="1980" @if($data->lisMezTar==1980) selected @endif>1980</option>
-                                                <option value="1981" @if($data->lisMezTar==1981) selected @endif>1981</option>
-                                                <option value="1982" @if($data->lisMezTar==1982) selected @endif>1982</option>
-                                                <option value="1983" @if($data->lisMezTar==1983) selected @endif>1983</option>
-                                                <option value="1984" @if($data->lisMezTar==1984) selected @endif>1984</option>
-                                                <option value="1985" @if($data->lisMezTar==1985) selected @endif>1985</option>
-                                                <option value="1986" @if($data->lisMezTar==1986) selected @endif>1986</option>
-                                                <option value="1987" @if($data->lisMezTar==1987) selected @endif>1987</option>
-                                                <option value="1988" @if($data->lisMezTar==1988) selected @endif>1988</option>
-                                                <option value="1989" @if($data->lisMezTar==1989) selected @endif>1989</option>
-                                                <option value="1990" @if($data->lisMezTar==1990) selected @endif>1990</option>
-                                                <option value="1991" @if($data->lisMezTar==1991) selected @endif>1991</option>
-                                                <option value="1992" @if($data->lisMezTar==1992) selected @endif>1992</option>
-                                                <option value="1993" @if($data->lisMezTar==1993) selected @endif>1993</option>
-                                                <option value="1994" @if($data->lisMezTar==1994) selected @endif>1994</option>
-                                                <option value="1995" @if($data->lisMezTar==1995) selected @endif>1995</option>
-                                                <option value="1996" @if($data->lisMezTar==1996) selected @endif>1996</option>
-                                                <option value="1997" @if($data->lisMezTar==1997) selected @endif>1997</option>
-                                                <option value="1998" @if($data->lisMezTar==1998) selected @endif>1998</option>
-                                                <option value="1999" @if($data->lisMezTar==1999) selected @endif> 1999</option>
-                                                <option value="2000" @if($data->lisMezTar==2000) selected @endif>2000</option>
-                                                <option value="2001" @if($data->lisMezTar==2001) selected @endif>2001</option>
-                                                <option value="2002" @if($data->lisMezTar==2002) selected @endif>2002</option>
-                                                <option value="2003" @if($data->lisMezTar==2003) selected @endif>2003</option>
-                                                <option value="2004" @if($data->lisMezTar==2004) selected @endif>2004</option>
-                                                <option value="2005" @if($data->lisMezTar==2005) selected @endif>2005</option>
-                                                <option value="2006" @if($data->lisMezTar==2006) selected @endif>2006</option>
-                                                <option value="2007" @if($data->lisMezTar==2007) selected @endif>2007</option>
-                                                <option value="2008" @if($data->lisMezTar==2008) selected @endif>2008</option>
-                                                <option value="2009" @if($data->lisMezTar==2009) selected @endif>2009</option>
-                                                <option value="2010" @if($data->lisMezTar==2010) selected @endif>2010</option>
-                                                <option value="2011" @if($data->lisMezTar==2011) selected @endif>2011</option>
-                                                <option value="2012" @if($data->lisMezTar==2012) selected @endif>2012</option>
-                                                <option value="2013" @if($data->lisMezTar==2013) selected @endif>2013</option>
-                                                <option value="2014" @if($data->lisMezTar==2014) selected @endif>2014</option>
-                                                <option value="2015" @if($data->lisMezTar==2015) selected @endif>2015</option>
-                                                <option value="2016" @if($data->lisMezTar==2016) selected @endif>2016</option>
-                                                <option value="2017" @if($data->lisMezTar==2017) selected @endif>2017</option>
-                                                <option value="2018" @if($data->lisMezTar==2018) selected @endif>2018</option>
-                                                <option value="2019" @if($data->lisMezTar==2019) selected @endif>2019</option>
-                                                <option value="2020" @if($data->lisMezTar==2020) selected @endif>2020</option>
-                                                <option value="2021" @if($data->lisMezTar==2021) selected @endif>2021</option>
-                                                <option value="2022" @if($data->lisMezTar==2022) selected @endif>2022</option>
-                                                <option value="2023" @if($data->lisMezTar==2023) selected @endif>2023</option>
-                                                <option value="2024" @if($data->lisMezTar==2024) selected @endif>2024</option>
-                                                <option value="2025" @if($data->lisMezTar==2025) selected @endif>2025</option>
-                                                <option value="2026" @if($data->lisMezTar==2026) selected @endif>2026</option>
+                                                <option value="1972" @if($data->adayinfo->lisMezTar==1972) selected @endif>1972</option>
+                                                <option value="1973" @if($data->adayinfo->lisMezTar==1973) selected @endif>1973</option>
+                                                <option value="1974" @if($data->adayinfo->lisMezTar==1974) selected @endif>1974</option>
+                                                <option value="1975" @if($data->adayinfo->lisMezTar==1975) selected @endif>1975</option>
+                                                <option value="1976" @if($data->adayinfo->lisMezTar==1976) selected @endif>1976</option>
+                                                <option value="1977" @if($data->adayinfo->lisMezTar==1977) selected @endif>1977</option>
+                                                <option value="1978" @if($data->adayinfo->lisMezTar==1978) selected @endif>1978</option>
+                                                <option value="1979" @if($data->adayinfo->lisMezTar==1979) selected @endif>1979</option>
+                                                <option value="1980" @if($data->adayinfo->lisMezTar==1980) selected @endif>1980</option>
+                                                <option value="1981" @if($data->adayinfo->lisMezTar==1981) selected @endif>1981</option>
+                                                <option value="1982" @if($data->adayinfo->lisMezTar==1982) selected @endif>1982</option>
+                                                <option value="1983" @if($data->adayinfo->lisMezTar==1983) selected @endif>1983</option>
+                                                <option value="1984" @if($data->adayinfo->lisMezTar==1984) selected @endif>1984</option>
+                                                <option value="1985" @if($data->adayinfo->lisMezTar==1985) selected @endif>1985</option>
+                                                <option value="1986" @if($data->adayinfo->lisMezTar==1986) selected @endif>1986</option>
+                                                <option value="1987" @if($data->adayinfo->lisMezTar==1987) selected @endif>1987</option>
+                                                <option value="1988" @if($data->adayinfo->lisMezTar==1988) selected @endif>1988</option>
+                                                <option value="1989" @if($data->adayinfo->lisMezTar==1989) selected @endif>1989</option>
+                                                <option value="1990" @if($data->adayinfo->lisMezTar==1990) selected @endif>1990</option>
+                                                <option value="1991" @if($data->adayinfo->lisMezTar==1991) selected @endif>1991</option>
+                                                <option value="1992" @if($data->adayinfo->lisMezTar==1992) selected @endif>1992</option>
+                                                <option value="1993" @if($data->adayinfo->lisMezTar==1993) selected @endif>1993</option>
+                                                <option value="1994" @if($data->adayinfo->lisMezTar==1994) selected @endif>1994</option>
+                                                <option value="1995" @if($data->adayinfo->lisMezTar==1995) selected @endif>1995</option>
+                                                <option value="1996" @if($data->adayinfo->lisMezTar==1996) selected @endif>1996</option>
+                                                <option value="1997" @if($data->adayinfo->lisMezTar==1997) selected @endif>1997</option>
+                                                <option value="1998" @if($data->adayinfo->lisMezTar==1998) selected @endif>1998</option>
+                                                <option value="1999" @if($data->adayinfo->lisMezTar==1999) selected @endif> 1999</option>
+                                                <option value="2000" @if($data->adayinfo->lisMezTar==2000) selected @endif>2000</option>
+                                                <option value="2001" @if($data->adayinfo->lisMezTar==2001) selected @endif>2001</option>
+                                                <option value="2002" @if($data->adayinfo->lisMezTar==2002) selected @endif>2002</option>
+                                                <option value="2003" @if($data->adayinfo->lisMezTar==2003) selected @endif>2003</option>
+                                                <option value="2004" @if($data->adayinfo->lisMezTar==2004) selected @endif>2004</option>
+                                                <option value="2005" @if($data->adayinfo->lisMezTar==2005) selected @endif>2005</option>
+                                                <option value="2006" @if($data->adayinfo->lisMezTar==2006) selected @endif>2006</option>
+                                                <option value="2007" @if($data->adayinfo->lisMezTar==2007) selected @endif>2007</option>
+                                                <option value="2008" @if($data->adayinfo->lisMezTar==2008) selected @endif>2008</option>
+                                                <option value="2009" @if($data->adayinfo->lisMezTar==2009) selected @endif>2009</option>
+                                                <option value="2010" @if($data->adayinfo->lisMezTar==2010) selected @endif>2010</option>
+                                                <option value="2011" @if($data->adayinfo->lisMezTar==2011) selected @endif>2011</option>
+                                                <option value="2012" @if($data->adayinfo->lisMezTar==2012) selected @endif>2012</option>
+                                                <option value="2013" @if($data->adayinfo->lisMezTar==2013) selected @endif>2013</option>
+                                                <option value="2014" @if($data->adayinfo->lisMezTar==2014) selected @endif>2014</option>
+                                                <option value="2015" @if($data->adayinfo->lisMezTar==2015) selected @endif>2015</option>
+                                                <option value="2016" @if($data->adayinfo->lisMezTar==2016) selected @endif>2016</option>
+                                                <option value="2017" @if($data->adayinfo->lisMezTar==2017) selected @endif>2017</option>
+                                                <option value="2018" @if($data->adayinfo->lisMezTar==2018) selected @endif>2018</option>
+                                                <option value="2019" @if($data->adayinfo->lisMezTar==2019) selected @endif>2019</option>
+                                                <option value="2020" @if($data->adayinfo->lisMezTar==2020) selected @endif>2020</option>
+                                                <option value="2021" @if($data->adayinfo->lisMezTar==2021) selected @endif>2021</option>
+                                                <option value="2022" @if($data->adayinfo->lisMezTar==2022) selected @endif>2022</option>
+                                                <option value="2023" @if($data->adayinfo->lisMezTar==2023) selected @endif>2023</option>
+                                                <option value="2024" @if($data->adayinfo->lisMezTar==2024) selected @endif>2024</option>
+                                                <option value="2025" @if($data->adayinfo->lisMezTar==2025) selected @endif>2025</option>
+                                                <option value="2026" @if($data->adayinfo->lisMezTar==2026) selected @endif>2026</option>
 
                                             </select>
                                         </div>
                                         <div class="form__field">
-                                            <label for="sonOkul" class="mt-4">Lisans Üniversite</label>
-                                            <select name="sonOkul" id="sonOkul" name="lisUni" class="form-control">
+                                            <label for="lisUni" class="mt-4">Lisans Üniversite</label>
+                                            <select name="lisUni" id="lisUni" name="lisUni" class="form-control">
                                                 <option value="">Seçiniz</option>
                                                 @foreach($university as $u)
-                                                    <option value="{{$u->id}}" @if($data->sonOkul==$u->id) selected @endif >{{$u->university_name}}</option>
+                                                    <option value="{{$u->id}}" @if($data->adayinfo->lisUni==$u->id) selected @endif >{{$u->university_name}}</option>
                                                 @endforeach
 
                                             </select>
                                         </div>
                                         <div class="form__field">
                                             <label for="lFak" class="mt-4">Lisans Fakülte/Bölüm</label>
-                                            <input type="text" value="{{$data->lFak}}" class="form-control" name="lFak" id="lFak">
+                                            <input type="text" value="{{$data->adayinfo->lFak}}" class="form-control" name="lFak" id="lFak">
                                         </div>
                                     </div>
                                     <div class="col lg-6">
                                         <label for="yLuni" class="">Yüksek Lisans Üniversite</label>
-                                        <input type="text"  value="{{$data->yLuni}}" class="form-control" name="yLuni" id="yLuni">
+                                        <input type="text"  value="{{$data->adayinfo->yLuni}}" class="form-control" name="yLuni" id="yLuni">
                                         <label for="yLisfak" class="mt-4">Yüksek Lisans Fakülte/Bölüm</label>
-                                        <input type="text" value="{{$data->yLisfak}}" class="form-control" name="yLisfak" id="yLisfak">
+                                        <input type="text" value="{{$data->adayinfo->yLisfak}}" class="form-control" name="yLisfak" id="yLisfak">
                                         <label for="yDokUni" class="mt-4">Doktora Üniversite</label>
-                                        <input type="text"  value="{{$data->yLisfak}}" name="yDokUni" class="form-control" id="yDokUni">
+                                        <input type="text"  value="{{$data->adayinfo->yLisfak}}" name="yDokUni" class="form-control" id="yDokUni">
                                         <label for="yDokBolum" class="mt-4">Doktora Bölüm</label>
-                                        <input type="text" id="yDokBolum" name="yDokBolum"  value="{{$data->yDokBolum}}" class="form-control" >
+                                        <input type="text" id="yDokBolum" name="yDokBolum"  value="{{$data->adayinfo->yDokBolum}}" class="form-control" >
 
 
                                     </div>
@@ -3590,9 +3589,9 @@
                                 <div class="mt-4">
                                     <div class="col lg-6">
                                         <label for="tecrube" >Tecrübe</label>
-                                        <textarea class="form-control" id="tecrube" name="tecrube">{{$data->tecrube}}</textarea>
+                                        <textarea class="form-control" id="tecrube" name="tecrube">{{$data->adayinfo->tecrube}}</textarea>
                                         <label for="staj" class="mt-4">Stajlar</label>
-                                        <textarea class="form-control" id="staj" name="staj">{{$data->staj}}</textarea>
+                                        <textarea class="form-control" id="staj" name="staj">{{$data->adayinfo->staj}}</textarea>
                                     </div>
                                 </div>
 
@@ -3612,73 +3611,72 @@
                                     <div class="col-lg-6">
                                         <label for="ingSev">İngilizce Seviyesi</label>
                                         <select name="ingSev" id="ingSev" class="form-control">
-                                            <option value="1" @if($data->ingSev==1) selected @endif >1</option>
-                                            <option value="2" @if($data->ingSev==2) selected @endif  >2</option>
-                                            <option value="3" @if($data->ingSev==3) selected @endif  >3</option>
-                                            <option value="4" @if($data->ingSev==4) selected @endif  >4</option>
-                                            <option value="5" @if($data->ingSev==5) selected @endif  >5</option>
-                                            <option value="6" @if($data->ingSev==6) selected @endif >6</option>
-                                            <option value="7" @if($data->ingSev==7) selected @endif  >7</option>
-                                            <option value="8" @if($data->ingSev==8) selected @endif  >8</option>
-                                            <option value="9" @if($data->ingSev==9) selected @endif >9</option>
-                                            <option value="10" @if($data->ingSev==10) selected @endif >10</option>
+                                            <option value="1" @if($data->adayinfo->ingSev==1) selected @endif >1</option>
+                                            <option value="2" @if($data->adayinfo->ingSev==2) selected @endif  >2</option>
+                                            <option value="3" @if($data->adayinfo->ingSev==3) selected @endif  >3</option>
+                                            <option value="4" @if($data->adayinfo->ingSev==4) selected @endif  >4</option>
+                                            <option value="5" @if($data->adayinfo->ingSev==5) selected @endif  >5</option>
+                                            <option value="6" @if($data->adayinfo->ingSev==6) selected @endif >6</option>
+                                            <option value="7" @if($data->adayinfo->ingSev==7) selected @endif  >7</option>
+                                            <option value="8" @if($data->adayinfo->ingSev==8) selected @endif  >8</option>
+                                            <option value="9" @if($data->adayinfo->ingSev==9) selected @endif >9</option>
+                                            <option value="10" @if($data->adayinfo->ingSev==10) selected @endif >10</option>
                                             <option value="0" >BELİRLENMEDİ</option>
                                         </select>
                                         <label for="almSev" class="mt-4">Almanca Seviyesi</label>
                                         <select name="almSev" id="almSev" class="form-control">
-                                            <option value="1" @if($data->almSev==1) selected @endif >1</option>
-                                            <option value="2" @if($data->almSev==2) selected @endif  >2</option>
-                                            <option value="3" @if($data->almSev==3) selected @endif  >3</option>
-                                            <option value="4" @if($data->almSev==4) selected @endif  >4</option>
-                                            <option value="5" @if($data->almSev==5) selected @endif  >5</option>
-                                            <option value="6" @if($data->almSev==6) selected @endif >6</option>
-                                            <option value="7" @if($data->almSev==7) selected @endif  >7</option>
-                                            <option value="8" @if($data->almSev==8) selected @endif  >8</option>
-                                            <option value="9" @if($data->almSev==9) selected @endif >9</option>
-                                            <option value="10" @if($data->almSev==10) selected @endif >10</option>
+                                            <option value="1" @if($data->adayinfo->almSev==1) selected @endif >1</option>
+                                            <option value="2" @if($data->adayinfo->almSev==2) selected @endif  >2</option>
+                                            <option value="3" @if($data->adayinfo->almSev==3) selected @endif  >3</option>
+                                            <option value="4" @if($data->adayinfo->almSev==4) selected @endif  >4</option>
+                                            <option value="5" @if($data->adayinfo->almSev==5) selected @endif  >5</option>
+                                            <option value="6" @if($data->adayinfo->almSev==6) selected @endif >6</option>
+                                            <option value="7" @if($data->adayinfo->almSev==7) selected @endif  >7</option>
+                                            <option value="8" @if($data->adayinfo->almSev==8) selected @endif  >8</option>
+                                            <option value="9" @if($data->adayinfo->almSev==9) selected @endif >9</option>
+                                            <option value="10" @if($data->adayinfo->almSev==10) selected @endif >10</option>
                                             <option value="" >BELİRLENMEDİ</option>
                                         </select>
                                         <label for="frSev" class="mt-4">Fransızca Seviyesi</label>
                                         <select name="frSev" id="frSev" class="form-control">
-                                            <option value="1" @if($data->frSev==1) selected @endif >1</option>
-                                            <option value="2" @if($data->frSev==2) selected @endif  >2</option>
-                                            <option value="3" @if($data->frSev==3) selected @endif  >3</option>
-                                            <option value="4" @if($data->frSev==4) selected @endif  >4</option>
-                                            <option value="5" @if($data->frSev==5) selected @endif  >5</option>
-                                            <option value="6" @if($data->frSev==6) selected @endif >6</option>
-                                            <option value="7" @if($data->frSev==7) selected @endif  >7</option>
-                                            <option value="8" @if($data->frSev==8) selected @endif  >8</option>
-                                            <option value="9" @if($data->frSev==9) selected @endif >9</option>
-                                            <option value="10" @if($data->frSev==10) selected @endif >10</option>
+                                            <option value="1" @if($data->adayinfo->frSev==1) selected @endif >1</option>
+                                            <option value="2" @if($data->adayinfo->frSev==2) selected @endif  >2</option>
+                                            <option value="3" @if($data->adayinfo->frSev==3) selected @endif  >3</option>
+                                            <option value="4" @if($data->adayinfo->frSev==4) selected @endif  >4</option>
+                                            <option value="5" @if($data->adayinfo->frSev==5) selected @endif  >5</option>
+                                            <option value="6" @if($data->adayinfo->frSev==6) selected @endif >6</option>
+                                            <option value="7" @if($data->adayinfo->frSev==7) selected @endif  >7</option>
+                                            <option value="8" @if($data->adayinfo->frSev==8) selected @endif  >8</option>
+                                            <option value="9" @if($data->adayinfo->frSev==9) selected @endif >9</option>
+                                            <option value="10" @if($data->adayinfo->frSev==10) selected @endif >10</option>
                                             <option value="" >BELİRLENMEDİ</option>
                                         </select>
                                         <label for="isSev" class="mt-4">İspanyolca Seviyesi</label>
                                         <select name="isSev" id="isSev" class="form-control">
-                                            <option value="1" @if($data->isSev==1) selected @endif >1</option>
-                                            <option value="2" @if($data->isSev==2) selected @endif  >2</option>
-                                            <option value="3" @if($data->isSev==3) selected @endif  >3</option>
-                                            <option value="4" @if($data->isSev==4) selected @endif  >4</option>
-                                            <option value="5" @if($data->isSev==5) selected @endif  >5</option>
-                                            <option value="6" @if($data->isSev==6) selected @endif >6</option>
-                                            <option value="7" @if($data->isSev==7) selected @endif  >7</option>
-                                            <option value="8" @if($data->isSev==8) selected @endif  >8</option>
-                                            <option value="9" @if($data->isSev==9) selected @endif >9</option>
-                                            <option value="10" @if($data->isSev==10) selected @endif >10</option>
+                                            <option value="1" @if($data->adayinfo->isSev==1) selected @endif >1</option>
+                                            <option value="2" @if($data->adayinfo->isSev==2) selected @endif  >2</option>
+                                            <option value="3" @if($data->adayinfo->isSev==3) selected @endif  >3</option>
+                                            <option value="4" @if($data->adayinfo->isSev==4) selected @endif  >4</option>
+                                            <option value="5" @if($data->adayinfo->isSev==5) selected @endif  >5</option>
+                                            <option value="6" @if($data->adayinfo->isSev==6) selected @endif >6</option>
+                                            <option value="7" @if($data->adayinfo->isSev==7) selected @endif  >7</option>
+                                            <option value="9" @if($data->adayinfo->isSev==9) selected @endif >9</option>
+                                            <option value="10" @if($data->adayinfo->isSev==10) selected @endif >10</option>
                                             <option value="" >BELİRLENMEDİ</option>
                                         </select>
                                         <label for="ofisArac" class="mt-4">Ofis Araçları/Yazılımlar</label>
-                                        <textarea class="form-control" id="ofisArac" name="ofisArac">{{$data->ofisArac}}</textarea>
+                                        <textarea class="form-control" id="ofisArac" name="ofisArac">{{$data->adayinfo->ofisArac}}</textarea>
 
                                     </div>
                                     <div class="col-lg-6 mt-3">
                                         <label for="kurs" >Katıldığınız Kurs/Seminer</label>
-                                        <textarea class="form-control" id="kurs" name="kurs">{{$data->kurs}}</textarea>
+                                        <textarea class="form-control" id="kurs" name="kurs">{{$data->adayinfo->kurs}}</textarea>
                                         <label for="dernek"  class="mt-4">Üyesi bulunduğunuz Dernek / Kulüp / Oda adları</label>
-                                        <textarea class="form-control" id="dernek" name="dernek">{{$data->dernek}}</textarea>
+                                        <textarea class="form-control" id="dernek" name="dernek">{{$data->adayinfo->dernek}}</textarea>
                                         <label for="uzmanlik"  class="mt-4">Uzmanlık alanlarınız</label>
-                                        <textarea class="form-control" id="uzmanlik" name="uzmanlik">{{$data->uzmanlik}}</textarea>
+                                        <textarea class="form-control" id="uzmanlik" name="uzmanlik">{{$data->adayinfo->uzmanlik}}</textarea>
                                         <label for="notlar"  class="mt-4">Eklemek İstediğiniz Notlarınız (varsa) yazınız</label>
-                                        <textarea class="form-control" id="notlar" name="notlar">{{$data->notlar}}</textarea>
+                                        <textarea class="form-control" id="notlar" name="notlar">{{$data->adayinfo->notlar}}</textarea>
                                     </div>
                                 </div>
 
@@ -3698,18 +3696,18 @@
                             <section id="progress-form__panel-8" style="margin-top: -50px;" role="tabpanel" aria-labelledby="progress-form__tab-8" tabindex="0" hidden>
                                 <div class="mt-4">
                                     <label for="ref1"  class="">1.Referans <span style="color:red;">( Adı,Soyadı,Görevi,Telefonu )</span></label>
-                                    <textarea class="form-control" id="ref1" name="ref1">{{$data->ref1}}</textarea>
+                                    <textarea class="form-control" id="ref1" name="ref1">{{$data->adayinfo->ref1}}</textarea>
                                     <label for="ref2"  class="mt-4">2.Referans <span style="color:red;">( Adı,Soyadı,Görevi,Telefonu )</span></label>
-                                    <textarea class="form-control" id="ref2" name="ref2">{{$data->ref2}}</textarea>
+                                    <textarea class="form-control" id="ref2" name="ref2">{{$data->adayinfo->ref2}}</textarea>
                                     <label for="ref3"  class="mt-4">3.Referans <span style="color:red;">( Adı,Soyadı,Görevi,Telefonu )</span></label>
-                                    <textarea class="form-control" id="ref3" name="ref3">{{$data->ref3}}</textarea>
+                                    <textarea class="form-control" id="ref3" name="ref3">{{$data->adayinfo->ref3}}</textarea>
                                     <label  class="mt-4"><b>Yasal Hatırlatma</b><p>Eğitim Kurumlarımızda kayıtlı olan ticari iletişim araçlarınıza, ürün ve faaliyetlerimiz ile sınırlı olmak kaydıyla, tanıtım amaçlı ilan ve reklam yanında ticari elektronik ileti gönderilecek olup, elektronik ticari ileti almak istemediğiniz takdirde, aşağıdaki seçenekte seçiminizi yapınız.</p></label>
                                     <div class="row">
-                                        <div class="col-lg-12"> <input type="radio" name="smsonay" value="1" @if($data->smsonay==1) checked @endif id="sms1"><span style="font-size: 14px;">SMS ve E-POSTA ALMAK İSTİYORUM</span></div>
+                                        <div class="col-lg-12"> <input type="radio" name="smsonay" value="1" @if($data->adayinfo->smsonay==1) checked @endif id="sms1"><span style="font-size: 14px;">SMS ve E-POSTA ALMAK İSTİYORUM</span></div>
 
                                     </div>
                                     <div class="row">
-                                        <div class="col-lg-12"> <input type="radio" name="smsonay" value="0" @if($data->smsonay==0) checked @endif id="sms2" ><span style="font-size: 14px;">SMS ve E-POSTA ALMAK İSTEMİYORUM</span></div>
+                                        <div class="col-lg-12"> <input type="radio" name="smsonay" value="0" @if($data->adayinfo->smsonay==0) checked @endif id="sms2" ><span style="font-size: 14px;">SMS ve E-POSTA ALMAK İSTEMİYORUM</span></div>
 
                                     </div>
 

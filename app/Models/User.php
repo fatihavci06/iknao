@@ -44,5 +44,11 @@ class User extends Authenticatable
     public function bransInfo(){
         return  $this->hasOne(Brans::class, 'id', 'brans_id');
     }
+    public function adayinfo(){
+        return  $this->hasOne(adayprofil::class, 'user_id', 'id');
+    }
+    public function ogrenciinfo(){
+        return  $this->hasOne(ogrenci::class, 'user_id', 'id');
+    }
 
 }

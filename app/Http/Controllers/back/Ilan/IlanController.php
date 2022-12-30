@@ -7,6 +7,7 @@ use App\Models\Brans;
 use App\Models\Campus;
 use App\Models\Ilan;
 use App\Models\IlanUser;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -115,31 +116,34 @@ class IlanController extends Controller
 
 
         if ($request->ajax()) {
-            $data = IlanUser::with('userInfo')->whereHas('userInfo', function ($query) {
-                return $query->where('rol', '=', 0);
-            })->where('ilan_id',0)->orderByDesc('created_at')->get();
+            $data=IlanUser::join('users','users.id','ilan_users.user_id')
+                ->join('adayprofils','adayprofils.user_id','ilan_users.user_id')
+                ->join('brans','brans.id','adayprofils.brans_id')
+                ->where('ilan_users.ilan_id',0)
+                ->select(['ilan_users.*','brans.*','users.*'])
+                ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('ad', function($data){
 
-                    $ad = $data->userInfo->firstname;
+                    $ad = $data->firstname;
                         return $ad;
                 })
                 ->addColumn('soyad', function($data){
 
-                    $ad = $data->userInfo->lastname;
+                    $ad = $data->lastname;
                     return $ad;
 
                 })
                 ->addColumn('tc', function($data){
 
-                    $ad = $data->userInfo->tc;
+                    $ad = $data->tc;
                     return $ad;
 
                 })
                 ->addColumn('brans', function($data){
 
-                    $ad = $data->userInfo->bransInfo->brans_name;
+                    $ad = $data->brans_name;
                     return $ad;
 
                 })
@@ -161,41 +165,43 @@ class IlanController extends Controller
         //
 
 
-
+      //     $data=User::join('adayprofils','adayprofils.user_id','users.id')->join('brans','adayprofils.brans_id','brans.id')->where('users.id',$id)->first();
 
 
         if ($request->ajax()) {
-            $data = IlanUser::with('userInfo')->whereHas('userInfo', function ($query) {
-                return $query->where('rol', '=', 0);
-            })->orderByDesc('created_at')->get();
+            $data=IlanUser::join('adayprofils','adayprofils.user_id','ilan_users.user_id')
+                ->join('brans','brans.id','adayprofils.brans_id')
+                ->join('users','users.id','adayprofils.user_id')
+                ->select(['users.*','brans.brans_name'])
+                ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('ad', function($data){
 
-                    $ad = $data->userInfo->firstname;
+                    $ad = $data->firstname;
                     return $ad;
                 })
                 ->addColumn('soyad', function($data){
 
-                    $ad = $data->userInfo->lastname;
+                    $ad = $data->lastname;
                     return $ad;
 
                 })
                 ->addColumn('tc', function($data){
 
-                    $ad = $data->userInfo->tc;
+                    $ad = $data->tc;
                     return $ad;
 
                 })
                 ->addColumn('brans', function($data){
 
-                    $ad = $data->userInfo->bransInfo->brans_name;
+                    $ad = $data->brans_name;
                     return $ad;
 
                 })
                 ->addColumn('gor', function($data){
 
-                    $btn = '<a href="'.route('back.adaydetay',$data->user_id).'" class="edit btn btn-primary btn-sm">Detaylı İncele</a>';
+                    $btn = '<a href="'.route('back.adaydetay',$data->id).'" class="edit btn btn-primary btn-sm">Detaylı İncele</a>';
 
                     return $btn;
                 })
@@ -209,38 +215,43 @@ class IlanController extends Controller
     public function basvurular($id,Request $request)
     {
 
+
         if ($request->ajax()) {
-            $data = IlanUser::with('userInfo')->whereHas('userInfo', function ($query) {
-                return $query->where('rol', '=', 0);
-            })->where('ilan_id',$id)->orderByDesc('created_at')->get();
+            $data=IlanUser::join('adayprofils','adayprofils.user_id','ilan_users.user_id')
+                ->join('ilans','ilans.id','ilan_users.ilan_id')
+                ->join('users','users.id','adayprofils.user_id')
+                ->join('brans','brans.id','adayprofils.brans_id')
+                ->select(['users.*','ilans.*','users.id as userid','brans.*'])
+                ->where('ilan_users.ilan_id',$id)
+                ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('ad', function($data){
 
-                    $ad = $data->userInfo->firstname;
+                    $ad = $data->firstname;
                     return $ad;
                 })
                 ->addColumn('soyad', function($data){
 
-                    $ad = $data->userInfo->lastname;
+                    $ad = $data->lastname;
                     return $ad;
 
                 })
                 ->addColumn('tc', function($data){
 
-                    $ad = $data->userInfo->tc;
+                    $ad = $data->tc;
                     return $ad;
 
                 })
                 ->addColumn('brans', function($data){
 
-                    $ad = $data->userInfo->bransInfo->brans_name;
+                    $ad = $data->brans_name;
                     return $ad;
 
                 })
                 ->addColumn('gor', function($data){
 
-                    $btn = '<a href="'.route('back.adaydetay',$data->user_id).'" class="edit btn btn-primary btn-sm">Detaylı İncele</a>';
+                    $btn = '<a href="'.route('back.adaydetay',$data->userid).'" class="edit btn btn-primary btn-sm">Detaylı İncele</a>';
 
                     return $btn;
                 })

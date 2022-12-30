@@ -104,14 +104,14 @@
 
                             </ul>
                             <a class="nav-link dropdown-indicator" href="#calisan" role="button" data-bs-toggle="collapse" aria-expanded="false" aria-controls="events">
-                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Çalışanlar</span>
+                                <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="fas fa-calendar-day"></span></span><span class="nav-link-text ps-1">Personel</span>
                                 </div>
                             </a>
                             <ul class="nav collapse" id="calisan">
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{route('calisan.liste')}}">
-                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Aday Listesi</span>
+                                        <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Personel Listesi</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->
@@ -505,7 +505,10 @@
                     </li>
                     <li class="nav-item dropdown"><a class="nav-link pe-0 ps-2" id="navbarDropdownUser" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="avatar avatar-xl">
-                                <img class="rounded-circle" src="{{Storage::url(Auth::guard('yonetim')->user()->avatar)}}" alt="" />
+                                @php
+                                $avatar=\App\Http\Controllers\back\AdayController::avatarcek();
+                                @endphp
+                                <img class="rounded-circle" src="{{Storage::url($avatar)}}" alt="" />
 
                             </div>
                         </a>

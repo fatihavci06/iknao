@@ -3555,11 +3555,11 @@
                                             </select>
                                         </div>
                                         <div class="form__field">
-                                            <label for="sonOkul" class="mt-4">Lisans Üniversite</label>
-                                            <select name="sonOkul" id="sonOkul" name="lisUni" class="form-control">
+                                            <label for="lisUni" class="mt-4">Lisans Üniversite</label>
+                                            <select name="lisUni" id="lisUni" name="lisUni" class="form-control">
                                                 <option value="">Seçiniz</option>
                                                 @foreach($university as $u)
-                                                    <option value="{{$u->id}}" @auth @if(Auth::user()->sonOkul==$u->id) selected @endif @endauth>{{$u->university_name}}</option>
+                                                    <option value="{{$u->id}}" @auth @if(Auth::user()->lisUni==$u->id) selected @endif @endauth>{{$u->university_name}}</option>
                                                 @endforeach
 
                                             </select>

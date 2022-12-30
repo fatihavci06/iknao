@@ -15,7 +15,7 @@
                     <hr>
                     <div class="row mt-2"><div class="col 6">Üçüncü tercih : {{$data->uctercih}} </div><div class="col 6"> Adres : {{$data->adres}}</div></div>
                     <hr>
-                    <div class="row mt-2"><div class="col 6">Eposta : {{$data->eposta}} </div><div class="col 6"> Cinsiyet : {{$data->cinsiyet}}</div></div>
+                    <div class="row mt-2"><div class="col 6">Eposta : {{$data->email}} </div><div class="col 6"> Cinsiyet : {{$data->cinsiyet}}</div></div>
                     <hr>
                     <div class="row mt-2"><div class="col 6">Doğum Tarihi : {{$data->dtarihi}} </div><div class="col 6"> Doğum Yeri : {{$data->dyeri}}</div></div>
                     <hr>
