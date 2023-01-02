@@ -56,8 +56,9 @@ class UserController extends Controller
                 })
                 ->addColumn('gor', function($data){
 
-                    $btn = '<a href="'.route('back.adaydetay',$data->userid).'" class="edit btn btn-primary btn-sm">Aday CV</a>';
+                    $btn = '<a href="'.route('back.adaydetay',$data->userid).'" class="edit btn btn-primary btn-sm">CV</a>';
                     $btn.= '<a href="'.route('aday.mulakatgir',$data->userid).'" class="edit btn btn-warning btn-sm" style="margin-left:5px;">Mülakat Gir</a>';
+                    $btn.= '<a href="'.route('aday.mulakatlar',$data->userid).'" class="edit btn btn-success btn-sm" style="margin-left:5px;">Mülakatlar</a>';
                     return $btn;
                 })
                 ->rawColumns(['ad','soyad','tc','brans','gor'])
@@ -108,15 +109,38 @@ class UserController extends Controller
         }
         return view('back.calisan.calisan_liste');
     }
+    public function mulakatlarliste($id,Request $request)
+    {
+
+        // ikmulakat::join('adayprofils','adayprofils.user_id','ikmulakats.user_id')->get();
+
+         $data=ikmulakat::join('adayprofils','adayprofils.user_id','ikmulakats.user_id')
+            ->join('users','users.id','ikmulakats.user_id')
+           ->where('ikmulakats.user_id',$id)
+           ->select(['adayprofils.*','users.*','ikmulakats.*','ikmulakats.id as mid'])
+            ->get();
+         if($data->count()==0){
+             abort(404);
+
+         }
+        return view('back.aday.mulakat_liste',['data'=>$data]);
+    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function mulakatdetay($id)
     {
         //
+
+          $aday=ikmulakat::where('ikmulakats.id',$id)
+            ->join('users','users.id','ikmulakats.user_id')
+            ->select(['ikmulakats.*','users.*','ikmulakats.id as ikid'])
+            ->firstOrFail();
+        $campus=Campus::all();
+        return view('back.aday.mulakat_formu_edit',['aday'=>$aday,'campus'=>$campus]);
     }
 
     /**
@@ -125,9 +149,30 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function mulakatupdate(Request $request,$id)
     {
         //
+        $request->validate([
+            'kampus'=>'required',
+            'mulakat_tur'=>'required',
+            'description'=>'required',
+            'puan'=>'required',
+            'tarih'=>'required',
+            'belge' => 'max:15000',
+        ]);
+        $data=ikmulakat::findOrFail($id);
+        $data->user_id=$request->user_id;
+        $data->kampus=$request->kampus;
+        $data->mulakat_tur=$request->mulakat_tur;
+        $data->aciklama=$request->description;
+        $data->puan=$request->puan;
+        $data->tarih=$request->tarih;
+        if(!empty($request->file('belge'))){
+            $data->belge=Storage::putFile('mulakat', $request->file('belge'));  //storage burda
+
+        }
+        $data->save();
+        return redirect()->back()->with(['success'=>'Rapor güncellendi']);
     }
 
     /**
@@ -178,7 +223,15 @@ class UserController extends Controller
 
 
     }
-
+    public function mulakatbelge(Request $request, $id)
+    {
+        //
+        $aday=ikmulakat::findOrFail($id);
+        if($aday->belge==''){
+            return redirect()->back()->with(['status'=>'cv bulunamadı']);
+        }
+        return Storage::download($aday->belge);
+    }
     /**
      * Update the specified resource in storage.
      *
@@ -186,6 +239,7 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
         //

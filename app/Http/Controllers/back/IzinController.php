@@ -43,14 +43,12 @@ class IzinController extends Controller
             'izin_tur'=>'required',
             'user_id'=>'required',
             'baslangic_tarih'=>'required',
-            'bitis_tarih'=>'required',
+            'bitis_tarih'=>'required|date|after_or_equal:baslangic_tarih',
             'belge' => 'max:15000',
 
 
         ]);
-        if($request->baslangic_tarih>$request->bitis_tarih){
-            return redirect()->back()->with(['danger'=>'Başlangıç tarihi bitiş tarihinden büyük olamaz!!']);
-        }
+       
         $varmi=0;
         $varmi=DB::table('izin_taleplers')->where([
             ['baslangic_tarih', '<', $request->baslangic_tarih],

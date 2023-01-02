@@ -26,6 +26,7 @@ Route::post('/sifremi-unuttum','App\Http\Controllers\front\IndexController@sifre
 Route::post('/flogin','App\Http\Controllers\front\IndexController@login')->name('front.login');
 Route::get('/flogout','App\Http\Controllers\front\IndexController@logout')->name('front.logout');
 Route::get('/ilan','App\Http\Controllers\front\IndexController@ilan')->name('front.ilan');
+Route::get('/indirilan/{id}','App\Http\Controllers\front\IndexController@indirilan')->name('front.indirilan');
 Route::get('/ara','App\Http\Controllers\front\IndexController@ara')->name('front.ara');
 Route::get('/ilan-detay/{id}','App\Http\Controllers\front\IndexController@ilan_detay')->name('front.ilan_detay');
 
@@ -56,7 +57,11 @@ Route::group(['prefix' => 'yonetim'], function() {
 
             Route::get('/liste/','App\Http\Controllers\back\UserController@index')->name('aday.liste');
             Route::get('/mulakatgir/{id}','App\Http\Controllers\back\UserController@mulakat')->name('aday.mulakatgir');
+            Route::get('/mulakatlar/{id}','App\Http\Controllers\back\UserController@mulakatlarliste')->name('aday.mulakatlar');
+            Route::get('/mulakatbelge/{id}','App\Http\Controllers\back\UserController@mulakatbelge')->name('aday.mulakatbelgeindir');
+            Route::get('/mulakat_detay/{id}','App\Http\Controllers\back\UserController@mulakatdetay')->name('aday.mulakatdetay');
             Route::post('/mulakatgonder/{id}','App\Http\Controllers\back\UserController@mulakatpost')->name('mulakat.raporgonder');
+            Route::post('/mulakatupdate/{id}','App\Http\Controllers\back\UserController@mulakatupdate')->name('mulakat.raporupdate');
         });
         Route::group(['prefix' => 'calisan'], function() {
 

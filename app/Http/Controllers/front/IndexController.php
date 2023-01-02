@@ -454,8 +454,14 @@ class IndexController extends Controller
         return view('front.ilan_ara',['ilan'=>$ara,'kacadet'=>$kacadet]);
 
     }
-    public function destroy($id)
+    public function indirilan($id)
     {
         //
+
+        $data=Ilan::findOrFail($id);
+        if($data->belge==''){
+            return redirect()->back()->with(['status'=>'bulunamadı']);
+        }
+        return Storage::download($data->belge);
     }
 }

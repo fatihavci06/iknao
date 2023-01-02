@@ -125,7 +125,7 @@
                                 <div class="col-6">
                                     <div class="mb-3">
                                         <label class="form-label" for="tarih"> Tarih</label>
-                                        <input type="datetime-local" class="form-control" id="tarih" value="{{old('tarih')}}" name="tarih">
+                                        <input type="datetime-local" class="form-control" id="tarih" value="{{old('tarih',date('Y-m-d H:i:s'))}}" name="tarih">
                                     </div>
                                 </div>
 

@@ -100,13 +100,14 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="baslangic_tarih">Başlangıç Tarihi</label>
-                                    <input type="datetime-local" class="form-control" id="baslangic_tarih" value="{{old('baslangic_tarih')}}" name="baslangic_tarih">
+                                    <input type="datetime-local" class="form-control" id="baslangic_tarih" value="{{old('baslangic_tarih',date('Y-m-d H:i:s'))}}" name="baslangic_tarih">
                                 </div>
                             </div>
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="bitis_tarih">Bitiş Tarihi</label>
-                                    <input type="datetime-local" id="bitis_tarih" class="form-control" name="bitis_tarih" value="{{old('bitis_tarih')}}">
+
+                                    <input type="datetime-local" id="bitis_tarih" class="form-control" name="bitis_tarih" value="{{old('bitis_tarih',date('Y-m-d H:i:s'))}}">
                                 </div>
                             </div>
                         </div>

@@ -9,6 +9,7 @@ use App\Models\Ilan;
 use App\Models\IlanUser;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
 class IlanController extends Controller
@@ -57,17 +58,20 @@ class IlanController extends Controller
         if($varmi==0){
             Brans::create(['brans_name'=>$request->ilan_name]);
         }
-        Ilan::create([
-           'ilan_name'=>$request->ilan_name,
-            'kampus'=>$request->kampus,
-            'durum'=>$request->durum,
-            'istur'=>$request->istur,
-            'konum'=>$request->konum,
-            'endDate'=>$request->endDate,
-            'description'=>$request->description
 
+        $data=new Ilan;
+        $data->ilan_name=$request->ilan_name;
+        $data->kampus=$request->kampus;
+        $data->durum=$request->durum;
+        $data->istur=$request->istur;
+        $data->konum=$request->konum;
+        $data->endDate=$request->endDate;
+        $data->description=$request->description;
+        if(!empty($request->file('belge'))){
+            $data->belge=Storage::putFile('ilan', $request->file('belge'));  //storage burda
 
-        ]);
+        }
+        $data->save();
         return redirect()->back()->with(['success'=>'İlan Başarıyla yayınlanmıştır']);
 
     }
@@ -299,15 +303,20 @@ class IlanController extends Controller
         if($varmi==0){
             Brans::create(['brans_name'=>$request->ilan_name]);
         }
-        $ilan=Ilan::findOrFail($id);
-        $ilan->ilan_name=$request->ilan_name;
-        $ilan->konum=$request->konum;
-        $ilan->kampus=$request->kampus;
-        $ilan->istur=$request->istur;
-        $ilan->durum=$request->durum;
-        $ilan->endDate=$request->endDate;
-        $ilan->description=$request->description;
-        $ilan->save();
+        $data=Ilan::findOrFail($id);
+        
+        $data->ilan_name=$request->ilan_name;
+        $data->kampus=$request->kampus;
+        $data->durum=$request->durum;
+        $data->istur=$request->istur;
+        $data->konum=$request->konum;
+        $data->endDate=$request->endDate;
+        $data->description=$request->description;
+        if(!empty($request->file('belge'))){
+            $data->belge=Storage::putFile('ilan', $request->file('belge'));  //storage burda
+
+        }
+        $data->save();
 
         return redirect()->back()->with(['success'=>'İlan Başarıyla yayınlanmıştır']);
     }

@@ -41,7 +41,7 @@
                                 </ul>
                             </div>
                     @endif
-                    <form action="{{route('ilan.update',['id'=>$ilan->id])}}" method="post">
+                    <form action="{{route('ilan.update',['id'=>$ilan->id])}}" method="post" enctype="multipart/form-data">
                         @csrf
                     <div class="container">
                         <div class="row">
@@ -98,6 +98,14 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-12">
+                                <label class="form-label" for="belge">Varsa Belge Giriniz</label>
+                                <div class="min-vh-30">
+                                    <input type="file" name="belge" id="belge" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
                             <div class="col-12">
                                 <label class="form-label" for="description">Açıklama</label>
                                 <div class="min-vh-30">

@@ -62,7 +62,7 @@
                             <div class="col-6">
                                 <div class="mb-3">
                                     <label class="form-label" for="user_id"><b>Tc Kimlik Nu.</b>  </label>
-                                    <p>{{$data->userinfo->firstname}} {{$data->userinfo->tc}} </p>
+                                    <p> {{$data->userinfo->tc}} </p>
                                 </div>
                             </div>
                         </div>
@@ -107,7 +107,7 @@
                             <div class="col-12">
                                 <label class="form-label" for="description"><b>Açıklama</b></label>
                                 <div class="min-vh-30">
-                                    <p>{{$data->aciklama}}</p>
+                                    <p>{!! $data->aciklama !!}</p>
                                 </div>
                             </div>
                         </div>

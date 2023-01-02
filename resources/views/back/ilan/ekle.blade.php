@@ -42,7 +42,7 @@
                                 </ul>
                             </div>
                     @endif
-                    <form action="{{route('ilan.eklepost')}}" method="post">
+                    <form action="{{route('ilan.eklepost')}}" method="post" enctype="multipart/form-data">
                         @csrf
                     <div class="container">
                         <div class="row">
@@ -57,8 +57,8 @@
                                     <label class="form-label" for="istur">İş Türü </label>
                                     <select class="form-select" name="istur" id="istur"  required>
                                         <option value="" >Seçiniz</option>
-                                        <option value="Yarı Zamanlı"  >Yarı Zamanlı</option>
-                                        <option value="Tam Zamanlı"  >Tam Zamanlı</option>
+                                        <option value="Yarı Zamanlı"  @if(old('istur')=='Yarı Zamanlı') selected @endif >Yarı Zamanlı</option>
+                                        <option value="Tam Zamanlı" @if(old('istur')=='Tam Zamanlı') selected @endif >Tam Zamanlı</option>
 
                                     </select>
                                 </div>
@@ -80,14 +80,14 @@
 
                             <div class="col-4">
                                 <label class="form-label" for="konum">Konum</label>
-                               <input class="form-control" type="text" id="konum" name="konum" required>
+                               <input class="form-control" type="text" id="konum" name="konum" value="{{old('konum')}}" required>
                             </div>
                             <div class="col-4">
                                 <label class="form-label" for="kampus">Kampüs</label>
                                 <select class="form-select" name="kampus" aria-label="Default select example" required>
                                     <option value="" >Seçiniz</option>
                                     @foreach($kampusler as $k)
-                                        <option @if(old('konum')==$k->campus_name) selected @endif value="{{$k->campus_name}}">{{$k->campus_name}}</option>
+                                        <option @if(old('kampus')==$k->campus_name) selected @endif value="{{$k->campus_name}}">{{$k->campus_name}}</option>
                                     @endforeach
 
                                 </select>
@@ -100,6 +100,14 @@
                             </div>
                         </div>
                         <div class="row">
+                            <div class="col-12">
+                                <label class="form-label" for="belge">Varsa Belge Giriniz</label>
+                                <div class="min-vh-30">
+                                    <input type="file" name="belge" id="belge" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
                             <div class="col-12">
                                 <label class="form-label" for="description">Açıklama</label>
                                 <div class="min-vh-30">

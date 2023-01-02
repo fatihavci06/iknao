@@ -90,7 +90,7 @@
                 <div class="row mb-5">
                     <div class="col-lg-12">
                     <a href="{{route('front.yenibasvuru',['brans'=>$ilandetay->ilan_name,'id'=>$ilandetay->id])}}" style="background-color: #000f3d!important;" class="btn btn-success"> Başvur</a>
-
+                        <a href="{{route('front.indirilan',['id'=>$ilandetay->id])}}" style="background-color: #000f3d!important;" class="btn btn-success"> Belgeyi indir</a>
                     </div>
                 </div>
 
