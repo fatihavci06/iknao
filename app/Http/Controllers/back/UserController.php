@@ -99,8 +99,10 @@ class UserController extends Controller
                 })
                 ->addColumn('gor', function($data){
 
-                    $btn = '<a href="'.route('back.adaydetay',$data->userid).'" class="edit btn btn-primary btn-sm">Aday CV</a>';
-                    $btn.= '<a href="'.route('aday.mulakatgir',$data->userid).'" class="edit btn btn-warning btn-sm" style="margin-left:5px;">Mülakat Gir</a>';
+                    $btn = '<a href="'.route('back.adaydetay',$data->userid).'" class="edit btn btn-primary btn-sm">CV</a>';
+
+                    $btn.= '<a href="'.route('performans.index',$data->userid).'" class="edit btn btn-success btn-sm" style="margin-left:5px;">Performans Gir</a>';
+                    $btn.= '<a href="'.route('performans.raporlar',$data->userid).'" class="edit btn btn-warning btn-sm" style="margin-left:5px;">Perf. Rapor</a>';
                     return $btn;
                 })
                 ->rawColumns(['ad','soyad','tc','brans','gor'])

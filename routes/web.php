@@ -82,6 +82,15 @@ Route::group(['prefix' => 'yonetim'], function() {
             Route::get('/izin-belge-indir/{id}','App\Http\Controllers\back\IzinController@amirbelgeindir')->name('izin.amirbelgeindir');
             Route::post('/izin-amir-onay/{id}','App\Http\Controllers\back\IzinController@amironay')->name('izin.amironay');
         });
+        Route::group(['prefix' => 'performans'], function() {
+
+            Route::get('/gir/{id}','App\Http\Controllers\back\ikperformansController@index')->name('performans.index');
+            Route::get('/duzenle/{id}','App\Http\Controllers\back\ikperformansController@edit')->name('performans.edit');
+            Route::post('gir','App\Http\Controllers\back\ikperformansController@store')->name('performans.girpost');
+            Route::get('raporlar/{id}','App\Http\Controllers\back\ikperformansController@raporlar')->name('performans.raporlar');
+            Route::post('raporlar/{id}','App\Http\Controllers\back\ikperformansController@update')->name('performans.raporlarupdate');
+        });
+        Route::get('raporlarsil/{id}','App\Http\Controllers\back\ikperformansController@destroy')->name('performans.sil');
         Route::get('/aday-detay/{id}','App\Http\Controllers\back\AdayController@adaydetay')->name('back.adaydetay');
     });
 });
