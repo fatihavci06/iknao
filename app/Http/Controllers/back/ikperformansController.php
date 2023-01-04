@@ -19,7 +19,7 @@ class ikperformansController extends Controller
     public function index($id)
     {
         //
-        $data=User::where('id',$id)->first();
+        $data=User::where('id',$id)->firstOrFail();
         return view('back.calisan.performans_gir',['data'=>$data]);
 
 
@@ -119,6 +119,9 @@ class ikperformansController extends Controller
     {
         //
         $data=ikperformans::join('users','ikperformans.user_id','users.id')->where('ikperformans.user_id',$id)->select(['ikperformans.id as pid','ikperformans.mulakat_tur','users.firstname','users.lastname'])->get();
+        if($data->count()==0){
+            abort(404);
+        }
         return view('back.calisan.performans_rapor',['data'=>$data]);
     }
 
@@ -131,7 +134,7 @@ class ikperformansController extends Controller
     public function edit($id)
     {
         //
-         $data=ikperformans::join('users','ikperformans.user_id','users.id')->where('ikperformans.id',$id)->select(['ikperformans.id as pid','ikperformans.*','users.*'])->first();
+         $data=ikperformans::join('users','ikperformans.user_id','users.id')->where('ikperformans.id',$id)->select(['ikperformans.id as pid','ikperformans.*','users.*'])->firstOrFail();
         return view('back.calisan.performans_edit',['data'=>$data]);
     }
 

@@ -99,10 +99,12 @@ class UserController extends Controller
                 })
                 ->addColumn('gor', function($data){
 
-                    $btn = '<a href="'.route('back.adaydetay',$data->userid).'" class="edit btn btn-primary btn-sm">CV</a>';
+                    $btn = '<a href="'.route('back.adaydetay',$data->userid).'" style="margin-left:5px;margin-top:5px;" class="edit btn btn-primary btn-sm">CV</a><br/>';
 
-                    $btn.= '<a href="'.route('performans.index',$data->userid).'" class="edit btn btn-success btn-sm" style="margin-left:5px;">Performans Gir</a>';
-                    $btn.= '<a href="'.route('performans.raporlar',$data->userid).'" class="edit btn btn-warning btn-sm" style="margin-left:5px;">Perf. Rapor</a>';
+                    $btn.= '<a href="'.route('performans.index',$data->userid).'" class="edit btn btn-success btn-sm" style="margin-left:5px;margin-top:5px;">Performans Gir</a>';
+                    $btn.= '<a href="'.route('performans.raporlar',$data->userid).'" class="edit btn btn-success btn-sm" style="margin-left:5px;margin-top:5px;">Perf. Rapor</a>';
+                    $btn.= '<a href="'.route('gozlem.index',$data->userid).'" class="edit btn btn-warning btn-sm" style="margin-left:5px;margin-top:5px;">Gözlem Gir</a>';
+                    $btn.= '<a href="'.route('gozlem.raporlar',$data->userid).'" class="edit btn btn-warning btn-sm" style="margin-left:5px;margin-top:5px;">Gözlem Rpr.</a>';
                     return $btn;
                 })
                 ->rawColumns(['ad','soyad','tc','brans','gor'])

@@ -16,7 +16,7 @@
                 container.classList.add('container-fluid');
             }
         </script>
-        <nav class="navbar navbar-light navbar-vertical navbar-expand-xl">
+        <nav class="navbar navbar-light navbar-vertical navbar-expand-xl" style="margin-left:-50px;">
             <script>
                 var navbarStyle = localStorage.getItem("navbarStyle");
                 if (navbarStyle && navbarStyle !== 'transparent') {
@@ -29,7 +29,7 @@
                     <button class="btn navbar-toggler-humburger-icon navbar-vertical-toggle" data-bs-toggle="tooltip" data-bs-placement="left" title="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
 
                 </div><a class="navbar-brand" href="{{route('back.index')}}">
-                    <div class="d-flex align-items-center py-3"><img class="me-2" src="{{asset('tema/public/')}}/assets/img/logos/kurum_logo_kucuk.png" alt="" width="150px" />
+                    <div class="d-flex align-items-center py-3"><img class="me-2" src="{{asset('tema/public/')}}/assets/img/logos/kurum_logo_kucuk.png" alt="" width="150px" style="margin-left:-20px" />
                     </div>
                 </a>
             </div>
@@ -57,28 +57,28 @@
                                 </div>
                             </a>
                             <ul class="nav collapse" id="events">
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('ilan.ekle')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">İlan Ekle</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('ilan.liste')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">İlan Listesi</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('ilan.onbasvuruliste')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">İlansız Başvurular</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('ilan.tumbasvuruliste')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Tüm Başvurular</span>
                                         </div>
@@ -93,7 +93,7 @@
                             </a>
                             <ul class="nav collapse" id="aday">
 
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('aday.liste')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Aday Listesi</span>
                                         </div>
@@ -109,7 +109,7 @@
                             </a>
                             <ul class="nav collapse" id="calisan">
 
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('calisan.liste')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Personel Listesi</span>
                                         </div>
@@ -125,35 +125,35 @@
                             </a>
                             <ul class="nav collapse" id="izin">
 
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('izin.talep')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">İzin Talep Et</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('izin.taleplerim')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">İzin Taleplerim</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('izin.amirbekleyenizinler')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Bekleyen Talepler</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('izin.amironaylananizinler')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Onayladığım  Talepler</span>
                                         </div>
                                     </a>
                                     <!-- more inner pages-->
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" style="width: 170px;">
                                     <a class="nav-link" href="{{route('izin.amirreddedilenizinler')}}">
                                         <div class="d-flex align-items-center"><span class="nav-link-text ps-1">Reddedittiğim Talepler</span>
                                         </div>

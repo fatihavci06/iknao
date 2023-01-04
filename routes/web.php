@@ -90,6 +90,15 @@ Route::group(['prefix' => 'yonetim'], function() {
             Route::get('raporlar/{id}','App\Http\Controllers\back\ikperformansController@raporlar')->name('performans.raporlar');
             Route::post('raporlar/{id}','App\Http\Controllers\back\ikperformansController@update')->name('performans.raporlarupdate');
         });
+        Route::group(['prefix' => 'gozlem'], function() {
+
+            Route::get('/gir/{id}','App\Http\Controllers\back\ikgozlemController@index')->name('gozlem.index');
+            Route::get('/duzenle/{id}','App\Http\Controllers\back\ikgozlemController@edit')->name('gozlem.edit');
+            Route::post('gir','App\Http\Controllers\back\ikgozlemController@store')->name('gozlem.girpost');
+            Route::get('raporlar/{id}','App\Http\Controllers\back\ikgozlemController@raporlar')->name('gozlem.raporlar');
+            Route::post('raporlar/{id}','App\Http\Controllers\back\ikgozlemController@update')->name('gozlem.raporlarupdate');
+            Route::get('sil/{id}','App\Http\Controllers\back\ikgozlemController@destroy')->name('gozlem.sil');
+        });
         Route::get('raporlarsil/{id}','App\Http\Controllers\back\ikperformansController@destroy')->name('performans.sil');
         Route::get('/aday-detay/{id}','App\Http\Controllers\back\AdayController@adaydetay')->name('back.adaydetay');
     });
